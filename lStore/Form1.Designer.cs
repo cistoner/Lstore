@@ -1,6 +1,6 @@
 ﻿namespace lStore
 {
-    partial class Form1
+    partial class lStore
     {
         /// <summary>
         /// Required designer variable.
@@ -30,13 +30,15 @@
         {
             this.SuspendLayout();
             // 
-            // Form1
+            // lStore
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(734, 358);
-            this.Name = "Form1";
-            this.Text = "LAN data store";
+            this.ClientSize = new System.Drawing.Size(984, 524);
+            this.MinimumSize = new System.Drawing.Size(500, 281);
+            this.Name = "lStore";
+            this.Text = "lStore: LAN Sharing simplified !";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
 
         }
