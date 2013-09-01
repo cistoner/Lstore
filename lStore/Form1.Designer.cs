@@ -32,17 +32,22 @@
             this.profilepic = new System.Windows.Forms.PictureBox();
             this.uname = new System.Windows.Forms.Label();
             this.nname = new System.Windows.Forms.Label();
-            this.countFileShared = new System.Windows.Forms.Label();
-            this.rating = new System.Windows.Forms.Label();
+            this.countFileSharedLabel = new System.Windows.Forms.Label();
+            this.ratingLabel = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fILEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nEWToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.oPENToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.eXITToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eDITToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vIEWToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sAVEDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hELPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.nEWToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.oPENToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.eXITToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.codeLocationLabel = new System.Windows.Forms.Label();
+            this.linkChangeImage = new System.Windows.Forms.LinkLabel();
+            this.codeLocation = new System.Windows.Forms.Label();
+            this.rating = new System.Windows.Forms.Label();
+            this.countFilesShared = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.profilepic)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -50,18 +55,19 @@
             // profilepic
             // 
             this.profilepic.Image = ((System.Drawing.Image)(resources.GetObject("profilepic.Image")));
-            this.profilepic.Location = new System.Drawing.Point(12, 48);
+            this.profilepic.Location = new System.Drawing.Point(12, 43);
+            this.profilepic.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.profilepic.Name = "profilepic";
             this.profilepic.Size = new System.Drawing.Size(103, 123);
             this.profilepic.TabIndex = 0;
             this.profilepic.TabStop = false;
-            this.profilepic.Click += new System.EventHandler(this.profilepic_Click);
             // 
             // uname
             // 
             this.uname.AutoSize = true;
             this.uname.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uname.Location = new System.Drawing.Point(132, 61);
+            this.uname.Location = new System.Drawing.Point(130, 55);
+            this.uname.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.uname.Name = "uname";
             this.uname.Size = new System.Drawing.Size(108, 16);
             this.uname.TabIndex = 1;
@@ -71,31 +77,34 @@
             // 
             this.nname.AutoSize = true;
             this.nname.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nname.Location = new System.Drawing.Point(132, 86);
+            this.nname.Location = new System.Drawing.Point(130, 75);
+            this.nname.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.nname.Name = "nname";
             this.nname.Size = new System.Drawing.Size(148, 16);
             this.nname.TabIndex = 2;
             this.nname.Text = "Network name: ";
             // 
-            // countFileShared
+            // countFileSharedLabel
             // 
-            this.countFileShared.AutoSize = true;
-            this.countFileShared.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.countFileShared.Location = new System.Drawing.Point(132, 111);
-            this.countFileShared.Name = "countFileShared";
-            this.countFileShared.Size = new System.Drawing.Size(148, 16);
-            this.countFileShared.TabIndex = 3;
-            this.countFileShared.Text = "Files shared: ";
+            this.countFileSharedLabel.AutoSize = true;
+            this.countFileSharedLabel.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.countFileSharedLabel.Location = new System.Drawing.Point(130, 95);
+            this.countFileSharedLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.countFileSharedLabel.Name = "countFileSharedLabel";
+            this.countFileSharedLabel.Size = new System.Drawing.Size(148, 16);
+            this.countFileSharedLabel.TabIndex = 3;
+            this.countFileSharedLabel.Text = "Files shared: ";
             // 
-            // rating
+            // ratingLabel
             // 
-            this.rating.AutoSize = true;
-            this.rating.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rating.Location = new System.Drawing.Point(132, 136);
-            this.rating.Name = "rating";
-            this.rating.Size = new System.Drawing.Size(88, 16);
-            this.rating.TabIndex = 4;
-            this.rating.Text = "Rating: ";
+            this.ratingLabel.AutoSize = true;
+            this.ratingLabel.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ratingLabel.Location = new System.Drawing.Point(130, 116);
+            this.ratingLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.ratingLabel.Name = "ratingLabel";
+            this.ratingLabel.Size = new System.Drawing.Size(88, 16);
+            this.ratingLabel.TabIndex = 4;
+            this.ratingLabel.Text = "Rating: ";
             // 
             // menuStrip1
             // 
@@ -107,6 +116,7 @@
             this.hELPToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(6, 1, 0, 1);
             this.menuStrip1.Size = new System.Drawing.Size(984, 24);
             this.menuStrip1.TabIndex = 5;
             this.menuStrip1.Text = "menuStrip1";
@@ -118,64 +128,129 @@
             this.oPENToolStripMenuItem,
             this.eXITToolStripMenuItem});
             this.fILEToolStripMenuItem.Name = "fILEToolStripMenuItem";
-            this.fILEToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
+            this.fILEToolStripMenuItem.Size = new System.Drawing.Size(40, 22);
             this.fILEToolStripMenuItem.Text = "FILE";
-            // 
-            // eDITToolStripMenuItem
-            // 
-            this.eDITToolStripMenuItem.Name = "eDITToolStripMenuItem";
-            this.eDITToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
-            this.eDITToolStripMenuItem.Text = "EDIT";
-            // 
-            // vIEWToolStripMenuItem
-            // 
-            this.vIEWToolStripMenuItem.Name = "vIEWToolStripMenuItem";
-            this.vIEWToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
-            this.vIEWToolStripMenuItem.Text = "VIEW";
-            // 
-            // sAVEDToolStripMenuItem
-            // 
-            this.sAVEDToolStripMenuItem.Name = "sAVEDToolStripMenuItem";
-            this.sAVEDToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
-            this.sAVEDToolStripMenuItem.Text = "SAVED";
-            // 
-            // hELPToolStripMenuItem
-            // 
-            this.hELPToolStripMenuItem.Name = "hELPToolStripMenuItem";
-            this.hELPToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
-            this.hELPToolStripMenuItem.Text = "HELP";
             // 
             // nEWToolStripMenuItem
             // 
             this.nEWToolStripMenuItem.Name = "nEWToolStripMenuItem";
-            this.nEWToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.nEWToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.nEWToolStripMenuItem.Text = "NEW";
             // 
             // oPENToolStripMenuItem
             // 
             this.oPENToolStripMenuItem.Name = "oPENToolStripMenuItem";
-            this.oPENToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.oPENToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.oPENToolStripMenuItem.Text = "OPEN";
             // 
             // eXITToolStripMenuItem
             // 
             this.eXITToolStripMenuItem.Name = "eXITToolStripMenuItem";
-            this.eXITToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.eXITToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.eXITToolStripMenuItem.Text = "EXIT";
+            // 
+            // eDITToolStripMenuItem
+            // 
+            this.eDITToolStripMenuItem.Name = "eDITToolStripMenuItem";
+            this.eDITToolStripMenuItem.Size = new System.Drawing.Size(43, 22);
+            this.eDITToolStripMenuItem.Text = "EDIT";
+            // 
+            // vIEWToolStripMenuItem
+            // 
+            this.vIEWToolStripMenuItem.Name = "vIEWToolStripMenuItem";
+            this.vIEWToolStripMenuItem.Size = new System.Drawing.Size(46, 22);
+            this.vIEWToolStripMenuItem.Text = "VIEW";
+            // 
+            // sAVEDToolStripMenuItem
+            // 
+            this.sAVEDToolStripMenuItem.Name = "sAVEDToolStripMenuItem";
+            this.sAVEDToolStripMenuItem.Size = new System.Drawing.Size(54, 22);
+            this.sAVEDToolStripMenuItem.Text = "SAVED";
+            // 
+            // hELPToolStripMenuItem
+            // 
+            this.hELPToolStripMenuItem.Name = "hELPToolStripMenuItem";
+            this.hELPToolStripMenuItem.Size = new System.Drawing.Size(47, 22);
+            this.hELPToolStripMenuItem.Text = "HELP";
+            // 
+            // codeLocationLabel
+            // 
+            this.codeLocationLabel.AutoSize = true;
+            this.codeLocationLabel.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.codeLocationLabel.Location = new System.Drawing.Point(128, 134);
+            this.codeLocationLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.codeLocationLabel.Name = "codeLocationLabel";
+            this.codeLocationLabel.Size = new System.Drawing.Size(148, 16);
+            this.codeLocationLabel.TabIndex = 6;
+            this.codeLocationLabel.Text = "Location code:";
+            // 
+            // linkChangeImage
+            // 
+            this.linkChangeImage.AutoSize = true;
+            this.linkChangeImage.Location = new System.Drawing.Point(23, 170);
+            this.linkChangeImage.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.linkChangeImage.Name = "linkChangeImage";
+            this.linkChangeImage.Size = new System.Drawing.Size(74, 13);
+            this.linkChangeImage.TabIndex = 7;
+            this.linkChangeImage.TabStop = true;
+            this.linkChangeImage.Text = "change image";
+            this.linkChangeImage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkChangeImage_LinkClicked);
+            // 
+            // codeLocation
+            // 
+            this.codeLocation.AutoSize = true;
+            this.codeLocation.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.codeLocation.ForeColor = System.Drawing.Color.OrangeRed;
+            this.codeLocation.Location = new System.Drawing.Point(272, 134);
+            this.codeLocation.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.codeLocation.Name = "codeLocation";
+            this.codeLocation.Size = new System.Drawing.Size(108, 16);
+            this.codeLocation.TabIndex = 8;
+            this.codeLocation.Text = "loading...";
+            // 
+            // rating
+            // 
+            this.rating.AutoSize = true;
+            this.rating.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rating.ForeColor = System.Drawing.Color.OrangeRed;
+            this.rating.Location = new System.Drawing.Point(206, 116);
+            this.rating.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.rating.Name = "rating";
+            this.rating.Size = new System.Drawing.Size(108, 16);
+            this.rating.TabIndex = 9;
+            this.rating.Text = "loading...";
+            // 
+            // countFilesShared
+            // 
+            this.countFilesShared.AutoSize = true;
+            this.countFilesShared.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.countFilesShared.ForeColor = System.Drawing.Color.OrangeRed;
+            this.countFilesShared.Location = new System.Drawing.Point(263, 95);
+            this.countFilesShared.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.countFilesShared.Name = "countFilesShared";
+            this.countFilesShared.Size = new System.Drawing.Size(108, 16);
+            this.countFilesShared.TabIndex = 10;
+            this.countFilesShared.Text = "loading...";
             // 
             // lStore
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 524);
+            this.Controls.Add(this.countFilesShared);
             this.Controls.Add(this.rating);
-            this.Controls.Add(this.countFileShared);
+            this.Controls.Add(this.codeLocation);
+            this.Controls.Add(this.linkChangeImage);
+            this.Controls.Add(this.codeLocationLabel);
+            this.Controls.Add(this.ratingLabel);
+            this.Controls.Add(this.countFileSharedLabel);
             this.Controls.Add(this.nname);
             this.Controls.Add(this.uname);
             this.Controls.Add(this.profilepic);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(500, 281);
+            this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.MinimumSize = new System.Drawing.Size(500, 282);
             this.Name = "lStore";
             this.Text = "lStore: LAN Sharing simplified !";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -192,8 +267,8 @@
         private System.Windows.Forms.PictureBox profilepic;
         private System.Windows.Forms.Label uname;
         private System.Windows.Forms.Label nname;
-        private System.Windows.Forms.Label countFileShared;
-        private System.Windows.Forms.Label rating;
+        private System.Windows.Forms.Label countFileSharedLabel;
+        private System.Windows.Forms.Label ratingLabel;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fILEToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nEWToolStripMenuItem;
@@ -203,6 +278,11 @@
         private System.Windows.Forms.ToolStripMenuItem vIEWToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sAVEDToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hELPToolStripMenuItem;
+        private System.Windows.Forms.Label codeLocationLabel;
+        private System.Windows.Forms.LinkLabel linkChangeImage;
+        private System.Windows.Forms.Label codeLocation;
+        private System.Windows.Forms.Label rating;
+        private System.Windows.Forms.Label countFilesShared;
     }
 }
 

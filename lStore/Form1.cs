@@ -116,17 +116,19 @@ namespace lStore
         {
             return NetworkInterface.GetIsNetworkAvailable();
         }
-        /*
-         * this function will be called when the user clicks on the profilepic
-         * it should lead to a function that allows to change the profile picture
-         * need to learn about this
-         * parameters: null
-         * return type: void
-         * thread: main thread
-         */ 
-       private void profilepic_Click(object sender, EventArgs e)
-        {
+       
+       /*
+        * program to change profile image
+        * this function will be called when the user clicks on the profilepic
+        * it should lead to a function that allows to change the profile picture
+        * need to learn about this
+        * parameters: null
+        * return type: void
+        * thread: main thread
+        */
+       private void linkChangeImage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+       {
 
-        }
+       }
     }
 }
