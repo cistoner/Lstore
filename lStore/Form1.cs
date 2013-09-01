@@ -37,25 +37,39 @@ namespace lStore
                 MessageBox.Show(" Dear user, this is the first time you are using this app!\n We will now register you to our server so that you can use the app without any flaws. \nThanks for downloading this software!!");
                 //save data to save.ini in lStore folder
                 //create cache folder
+                getSystemDetails(); //this get us the required details
+                //Thread th = new Thread(saveXML);
+                //th.Start();
+                saveXML();
+                //update xml to server
             }
             else 
             {
                 //this means this is not the first time
                 //task -> get required details
-                getSystemDetails(); //this get us the required details
-                //try to do ne
+                //update and match xml from server and take required actions
             }
+            //tier two task is to :
+            /*
+             * 1: scan in alternate thread
+             * 2: match the xml details against that in server, another thread 
+             * 3: check the db against last scan date/time and scan if it exceeds limit time -> upload to server
+             * 
+             */
+              //task here is to load username,network name, files shared and rating to UI
+            uname.Text = "Username: " +userName;
+            nname.Text = @"Network name: \\" +localName;
             
         }
         public void saveXML()
         {
             primaryFolder = @"C:\Users\" + userName + @"\Documents\lStore";
-            string xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
-            xml += "<data>";
-            xml += "<username>" +userName +"</username>";
-            xml += "<localname>" +localName +"</localname>";
-            xml += "</data";
-            File.WriteAllText(primaryFolder + @"\saved.xml",xml);
+            string xml  = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +Environment.NewLine;
+            xml += "<data>" + Environment.NewLine;
+            xml += "<username>" + userName + "</username>" + Environment.NewLine;
+            xml += "<localname>" + localName + "</localname>" + Environment.NewLine;
+            xml += "</data>";
+            File.WriteAllText(primaryFolder + @"\saved.xml", xml);
         }
         /*
          * this function get details about the system from system an saves it to the variables
@@ -80,7 +94,7 @@ namespace lStore
             {
                 if (File.Exists(primaryFolder + @"\saved.xml"))
                 {
-                    return true;
+                    return false;
                 }
                 else 
                 {
@@ -93,7 +107,7 @@ namespace lStore
                 System.Threading.Thread.Sleep(100);         //code shall sleep for 100 ms
                 File.Create(primaryFolder + @"\saved.xml"); 
             }
-            return false;
+            return true;
         }
         /* 
          * returns true or false corresponding to working internet connection
@@ -101,6 +115,18 @@ namespace lStore
         public bool isInternetConnected()
         {
             return NetworkInterface.GetIsNetworkAvailable();
+        }
+        /*
+         * this function will be called when the user clicks on the profilepic
+         * it should lead to a function that allows to change the profile picture
+         * need to learn about this
+         * parameters: null
+         * return type: void
+         * thread: main thread
+         */ 
+       private void profilepic_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
