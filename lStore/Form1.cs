@@ -13,6 +13,7 @@ using System.Net.NetworkInformation;
 using System.IO;
 using System.Xml;
 using System.Threading;
+
 //=========================================namespaces till here==============
 namespace lStore
 {
@@ -21,10 +22,12 @@ namespace lStore
         //=====variables here===================
         public string userName = Environment.UserName, localName;
         public string primaryFolder;
+
         public lStore()
         {
             InitializeComponent();
             localName = System.Environment.MachineName;
+            if (!isInternetConnected()) { internetState.Text = "No internet connection";}
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -79,11 +82,21 @@ namespace lStore
             //get unique id
             
         }
+        /* this function checks for each required folders if they exist or not and create the required folder 
+         * according to need
+         */
+        public void repairFolders()
+        {
+            string mainFolder = @"C:\Users\" + userName + @"\Documents\lStore";
+            if (!Directory.Exists(mainFolder)) { Directory.CreateDirectory(mainFolder); }
+            string tmpFolder = mainFolder + @"\tmp";
+            if (!Directory.Exists(tmpFolder)) { Directory.CreateDirectory(tmpFolder); }
+        }
         /*
          * this function checks if this is first time user is using this app
          * parameters: null
          * return type: bool
-         */ 
+         */
         public bool isFirstTime()
         { 
             /*
@@ -128,7 +141,34 @@ namespace lStore
         */
        private void linkChangeImage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
        {
-
+           var FD = new System.Windows.Forms.OpenFileDialog();
+           if (FD.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+           {
+               string fileToOpen = FD.FileName;
+               string[] splitname = fileToOpen.Split('.');
+               string extension = splitname[(splitname.Length - 1)].ToLower();
+               string profileImageDirec = @"C:\Users\" + userName + @"\Documents\lStore\tmp\user." + extension;
+               if (extension == "jpg" || extension == "png" || extension == "bmp" || extension == "jpeg")
+               {
+                   //System.IO.FileInfo File = new System.IO.FileInfo(FD.FileName);
+                   //System.IO.StreamReader reader = new System.IO.StreamReader(fileToOpen);
+                   if (File.Exists(profileImageDirec)) File.Delete(profileImageDirec);
+                   try
+                   {
+                       File.Copy(fileToOpen, profileImageDirec);
+                   }
+                   catch (DirectoryNotFoundException ex)
+                   {
+                       repairFolders();
+                       File.Copy(fileToOpen, profileImageDirec);
+                   }
+                   catch (Exception ex) { MessageBox.Show(ex.Message);  }
+               }
+               else
+               {
+                   MessageBox.Show("Invalid file format! file should be \"jpg\", \"jpeg\", \"png\" or \"bmp\" ");
+               }
+           }
        }
     }
 }

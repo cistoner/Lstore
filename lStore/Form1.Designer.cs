@@ -48,6 +48,7 @@
             this.codeLocation = new System.Windows.Forms.Label();
             this.rating = new System.Windows.Forms.Label();
             this.countFilesShared = new System.Windows.Forms.Label();
+            this.internetState = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.profilepic)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -232,11 +233,22 @@
             this.countFilesShared.TabIndex = 10;
             this.countFilesShared.Text = "loading...";
             // 
+            // internetState
+            // 
+            this.internetState.AutoSize = true;
+            this.internetState.BackColor = System.Drawing.Color.Transparent;
+            this.internetState.ForeColor = System.Drawing.Color.Red;
+            this.internetState.Location = new System.Drawing.Point(865, 4);
+            this.internetState.Name = "internetState";
+            this.internetState.Size = new System.Drawing.Size(0, 13);
+            this.internetState.TabIndex = 11;
+            // 
             // lStore
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 524);
+            this.Controls.Add(this.internetState);
             this.Controls.Add(this.countFilesShared);
             this.Controls.Add(this.rating);
             this.Controls.Add(this.codeLocation);
@@ -283,6 +295,7 @@
         private System.Windows.Forms.Label codeLocation;
         private System.Windows.Forms.Label rating;
         private System.Windows.Forms.Label countFilesShared;
+        private System.Windows.Forms.Label internetState;
     }
 }
 
