@@ -162,7 +162,19 @@ namespace lStore
                        repairFolders();
                        File.Copy(fileToOpen, profileImageDirec);
                    }
-                   catch (Exception ex) { MessageBox.Show(ex.Message);  }
+                   catch (Exception ex)
+                   {
+                       MessageBox.Show(ex.Message); 
+                        //more actions need to be added to counter a situation like this
+                   }
+                   //====task is to resize image in  tmp folder now=====
+                   /*
+                    * process: resize img in tmp -> delete user.xt in lstore@/ and 
+                    * move lstore/tmp/user.xt to lstore/user.xt
+                    * task done
+                    * a loader till this task is finished
+                    */ 
+                   //after this reload the image pane inmain UI
                }
                else
                {
