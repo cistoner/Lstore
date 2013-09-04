@@ -22,12 +22,13 @@ namespace lStore
         //=====variables here===================
         public string userName = Environment.UserName, localName;
         public string primaryFolder;
-
+        public string ip, baseaddr;
         public lStore()
         {
             InitializeComponent();
             localName = System.Environment.MachineName;
-            if (!isInternetConnected()) { internetState.Text = "No internet connection";}
+            if (!isInternetConnected()) { internetState.Text = "No internet connection"; }
+            else { internetState.Text = "Connected to internet"; }
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -80,7 +81,7 @@ namespace lStore
         public void getSystemDetails()
         { 
             //get unique id
-            
+            //need of this function need to be thought off again
         }
         /* this function checks for each required folders if they exist or not and create the required folder 
          * according to need
@@ -91,6 +92,19 @@ namespace lStore
             if (!Directory.Exists(mainFolder)) { Directory.CreateDirectory(mainFolder); }
             string tmpFolder = mainFolder + @"\tmp";
             if (!Directory.Exists(tmpFolder)) { Directory.CreateDirectory(tmpFolder); }
+        }
+        /*
+         a function to check if al required files exist and create necessory one when needed
+         */
+        public void repairFiles()
+        {
+            primaryFolder = @"C:\Users\" + userName + @"\Documents\lStore";
+            if (!File.Exists(primaryFolder + @"\saved.xml"))
+            {
+                saveXML();
+            }
+            if (!File.Exists(primaryFolder + @"\usage.log")){File.Create(primaryFolder + @"\usage.log");}
+            if (!File.Exists(primaryFolder + @"\search.log")){File.Create(primaryFolder + @"\search.log");}
         }
         /*
          * this function checks if this is first time user is using this app
@@ -181,6 +195,32 @@ namespace lStore
                    MessageBox.Show("Invalid file format! file should be \"jpg\", \"jpeg\", \"png\" or \"bmp\" ");
                }
            }
+       }
+        /* this function is responsible to initiate search */
+       private void submitSearch_Click(object sender, EventArgs e)
+       {
+           string key = search.Text;
+           if (key == "  Search here..." || key.Length == 0)
+           {
+               tmpLog.Text = "Enter Something first!";
+               search.Focus();
+           }
+           else
+           {    
+               /*
+                case when something logical has been attempted
+                */
+               tmpLog.Text = "Searching for \" " + key + " \"...";
+               //save this search to log
+               writeToSearchLogs(key);
+               
+           }
+       }
+       public void writeToSearchLogs(string log)
+       {
+           primaryFolder = @"C:\Users\" + userName + @"\Documents\lStore";
+           DateTime now = DateTime.Now;
+           File.AppendAllText(primaryFolder +@"\search.log", log +"||" +now + Environment.NewLine);
        }
     }
 }

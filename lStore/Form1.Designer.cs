@@ -49,6 +49,11 @@
             this.rating = new System.Windows.Forms.Label();
             this.countFilesShared = new System.Windows.Forms.Label();
             this.internetState = new System.Windows.Forms.Label();
+            this.search = new System.Windows.Forms.TextBox();
+            this.submitSearch = new System.Windows.Forms.Button();
+            this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
+            this.rectangleShape1 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
+            this.tmpLog = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.profilepic)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -243,11 +248,63 @@
             this.internetState.Size = new System.Drawing.Size(0, 13);
             this.internetState.TabIndex = 11;
             // 
+            // search
+            // 
+            this.search.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.search.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.search.Location = new System.Drawing.Point(491, 65);
+            this.search.MaximumSize = new System.Drawing.Size(500, 58);
+            this.search.Name = "search";
+            this.search.Size = new System.Drawing.Size(368, 26);
+            this.search.TabIndex = 12;
+            this.search.Text = "  Search here...";
+            // 
+            // submitSearch
+            // 
+            this.submitSearch.Location = new System.Drawing.Point(866, 64);
+            this.submitSearch.Name = "submitSearch";
+            this.submitSearch.Size = new System.Drawing.Size(87, 28);
+            this.submitSearch.TabIndex = 13;
+            this.submitSearch.Text = "Search now! ";
+            this.submitSearch.UseVisualStyleBackColor = true;
+            this.submitSearch.Click += new System.EventHandler(this.submitSearch_Click);
+            // 
+            // shapeContainer1
+            // 
+            this.shapeContainer1.Location = new System.Drawing.Point(0, 0);
+            this.shapeContainer1.Margin = new System.Windows.Forms.Padding(0);
+            this.shapeContainer1.Name = "shapeContainer1";
+            this.shapeContainer1.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
+            this.rectangleShape1});
+            this.shapeContainer1.Size = new System.Drawing.Size(984, 524);
+            this.shapeContainer1.TabIndex = 14;
+            this.shapeContainer1.TabStop = false;
+            // 
+            // rectangleShape1
+            // 
+            this.rectangleShape1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.rectangleShape1.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque;
+            this.rectangleShape1.BorderColor = System.Drawing.Color.Transparent;
+            this.rectangleShape1.Location = new System.Drawing.Point(467, 41);
+            this.rectangleShape1.Name = "rectangleShape1";
+            this.rectangleShape1.Size = new System.Drawing.Size(499, 104);
+            // 
+            // tmpLog
+            // 
+            this.tmpLog.AutoSize = true;
+            this.tmpLog.Location = new System.Drawing.Point(494, 95);
+            this.tmpLog.Name = "tmpLog";
+            this.tmpLog.Size = new System.Drawing.Size(0, 13);
+            this.tmpLog.TabIndex = 15;
+            // 
             // lStore
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 524);
+            this.Controls.Add(this.tmpLog);
+            this.Controls.Add(this.submitSearch);
+            this.Controls.Add(this.search);
             this.Controls.Add(this.internetState);
             this.Controls.Add(this.countFilesShared);
             this.Controls.Add(this.rating);
@@ -260,6 +317,8 @@
             this.Controls.Add(this.uname);
             this.Controls.Add(this.profilepic);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.shapeContainer1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.MinimumSize = new System.Drawing.Size(500, 282);
@@ -296,6 +355,11 @@
         private System.Windows.Forms.Label rating;
         private System.Windows.Forms.Label countFilesShared;
         private System.Windows.Forms.Label internetState;
+        private System.Windows.Forms.TextBox search;
+        private System.Windows.Forms.Button submitSearch;
+        private Microsoft.VisualBasic.PowerPacks.ShapeContainer shapeContainer1;
+        private Microsoft.VisualBasic.PowerPacks.RectangleShape rectangleShape1;
+        private System.Windows.Forms.Label tmpLog;
     }
 }
 
