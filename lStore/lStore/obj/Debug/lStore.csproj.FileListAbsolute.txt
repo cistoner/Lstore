@@ -1,0 +1,9 @@
+c:\users\minhaz\documents\visual studio 2012\Projects\lStore\lStore\bin\Debug\lStore.exe.config
+c:\users\minhaz\documents\visual studio 2012\Projects\lStore\lStore\bin\Debug\lStore.exe
+c:\users\minhaz\documents\visual studio 2012\Projects\lStore\lStore\bin\Debug\lStore.pdb
+c:\users\minhaz\documents\visual studio 2012\Projects\lStore\lStore\obj\Debug\lStore.csprojResolveAssemblyReference.cache
+c:\users\minhaz\documents\visual studio 2012\Projects\lStore\lStore\obj\Debug\lStore.Properties.Resources.resources
+c:\users\minhaz\documents\visual studio 2012\Projects\lStore\lStore\obj\Debug\lStore.csproj.GenerateResource.Cache
+c:\users\minhaz\documents\visual studio 2012\Projects\lStore\lStore\obj\Debug\lStore.exe
+c:\users\minhaz\documents\visual studio 2012\Projects\lStore\lStore\obj\Debug\lStore.pdb
+c:\users\minhaz\documents\visual studio 2012\Projects\lStore\lStore\obj\Debug\lStore.lStore.resources
