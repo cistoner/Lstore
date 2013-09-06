@@ -43,6 +43,8 @@
             this.vIEWToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sAVEDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hELPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tOOLSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.codeLocationLabel = new System.Windows.Forms.Label();
             this.linkChangeImage = new System.Windows.Forms.LinkLabel();
             this.codeLocation = new System.Windows.Forms.Label();
@@ -54,8 +56,7 @@
             this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
             this.rectangleShape1 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
             this.tmpLog = new System.Windows.Forms.Label();
-            this.tOOLSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.testlog = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.profilepic)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -182,6 +183,20 @@
             this.hELPToolStripMenuItem.Size = new System.Drawing.Size(47, 22);
             this.hELPToolStripMenuItem.Text = "HELP";
             // 
+            // tOOLSToolStripMenuItem
+            // 
+            this.tOOLSToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.optionsToolStripMenuItem});
+            this.tOOLSToolStripMenuItem.Name = "tOOLSToolStripMenuItem";
+            this.tOOLSToolStripMenuItem.Size = new System.Drawing.Size(56, 22);
+            this.tOOLSToolStripMenuItem.Text = "TOOLS";
+            // 
+            // optionsToolStripMenuItem
+            // 
+            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
+            this.optionsToolStripMenuItem.Text = "options";
+            // 
             // codeLocationLabel
             // 
             this.codeLocationLabel.AutoSize = true;
@@ -300,25 +315,20 @@
             this.tmpLog.Size = new System.Drawing.Size(0, 13);
             this.tmpLog.TabIndex = 15;
             // 
-            // tOOLSToolStripMenuItem
+            // testlog
             // 
-            this.tOOLSToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.optionsToolStripMenuItem});
-            this.tOOLSToolStripMenuItem.Name = "tOOLSToolStripMenuItem";
-            this.tOOLSToolStripMenuItem.Size = new System.Drawing.Size(56, 22);
-            this.tOOLSToolStripMenuItem.Text = "TOOLS";
-            // 
-            // optionsToolStripMenuItem
-            // 
-            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.optionsToolStripMenuItem.Text = "options";
+            this.testlog.Location = new System.Drawing.Point(16, 415);
+            this.testlog.Name = "testlog";
+            this.testlog.Size = new System.Drawing.Size(364, 97);
+            this.testlog.TabIndex = 16;
+            this.testlog.Text = "";
             // 
             // lStore
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 524);
+            this.Controls.Add(this.testlog);
             this.Controls.Add(this.tmpLog);
             this.Controls.Add(this.submitSearch);
             this.Controls.Add(this.search);
@@ -379,6 +389,7 @@
         private System.Windows.Forms.Label tmpLog;
         private System.Windows.Forms.ToolStripMenuItem tOOLSToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
+        private System.Windows.Forms.RichTextBox testlog;
     }
 }
 

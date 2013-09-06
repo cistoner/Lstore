@@ -22,7 +22,7 @@ namespace lStore
         //=====variables here===================
         public string userName = Environment.UserName, localName;
         public string primaryFolder;
-        public string ip, baseaddr;
+        public string ip, baseaddr, gatewayIPv4, gatewayIPv6;
         public lStore()
         {
             InitializeComponent();
@@ -30,6 +30,17 @@ namespace lStore
             if (!isInternetConnected()) { internetState.Text = "No internet connection"; }
             else { internetState.Text = "Connected to internet"; }
             saveUsage();    //stores the usage date and time to file
+            getGatewayDetails();    //this get gateway details from system
+            try
+            {
+                baseaddr = getBaseAddress(gatewayIPv4);
+            }
+            catch (NullReferenceException ex)
+            {
+                throwNonRecoverableError(ex.Message);
+                Environment.Exit(0);    //this has to be gradually changed to something more reliable
+            }
+            getIpAddress();            
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -113,6 +124,54 @@ namespace lStore
             if (!File.Exists(primaryFolder + @"\usage.log")){File.Create(primaryFolder + @"\usage.log");}
             if (!File.Exists(primaryFolder + @"\search.log")) { File.Create(primaryFolder + @"\search.log"); }
             if (!File.Exists(primaryFolder + @"\exceptions.log")) { File.Create(primaryFolder + @"\exceptions.log"); }
+        }
+        /* 
+         * a function to get the gateway address in IPv6 and IPv4 form
+         */ 
+        public void getGatewayDetails()
+        {
+            int count = 0;
+            foreach (NetworkInterface f in NetworkInterface.GetAllNetworkInterfaces())
+            {
+                if (f.OperationalStatus == OperationalStatus.Up)
+                {
+                    foreach (GatewayIPAddressInformation d in f.GetIPProperties().GatewayAddresses)
+                    {
+                        if (count == 0) { gatewayIPv6 = d.Address.ToString(); count++; }
+                        else { gatewayIPv4 = d.Address.ToString(); }
+                    }
+                }
+            }
+        }
+        /*
+         * a function to get base address out of default parameter ip
+         * @param: string ip: any ip address
+         */ 
+        public string getBaseAddress(string ip)
+        {
+            string[] parts = ip.Split('.');
+            return parts[0] + '.' + parts[1] + '.' + parts[2]; 
+        }
+        /*
+         * function to get ip address of the system
+         */
+        public void getIpAddress()
+        {
+            if (baseaddr.Length < 6)
+            {
+                //we assume this base address has not been already taken
+                getGatewayDetails();
+                baseaddr = getBaseAddress(gatewayIPv4);
+            }
+            string hostName = Dns.GetHostName();
+            IPHostEntry myself = Dns.GetHostByName(hostName);
+            foreach (IPAddress address in myself.AddressList)
+            {
+                if (getBaseAddress(address.ToString()) == baseaddr)
+                {
+                    ip = address.ToString();
+                }
+            }
         }
         /*
          * this function checks if this is first time user is using this app
