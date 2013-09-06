@@ -54,6 +54,8 @@
             this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
             this.rectangleShape1 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
             this.tmpLog = new System.Windows.Forms.Label();
+            this.tOOLSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.profilepic)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -119,7 +121,8 @@
             this.eDITToolStripMenuItem,
             this.vIEWToolStripMenuItem,
             this.sAVEDToolStripMenuItem,
-            this.hELPToolStripMenuItem});
+            this.hELPToolStripMenuItem,
+            this.tOOLSToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(6, 1, 0, 1);
@@ -297,6 +300,20 @@
             this.tmpLog.Size = new System.Drawing.Size(0, 13);
             this.tmpLog.TabIndex = 15;
             // 
+            // tOOLSToolStripMenuItem
+            // 
+            this.tOOLSToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.optionsToolStripMenuItem});
+            this.tOOLSToolStripMenuItem.Name = "tOOLSToolStripMenuItem";
+            this.tOOLSToolStripMenuItem.Size = new System.Drawing.Size(56, 22);
+            this.tOOLSToolStripMenuItem.Text = "TOOLS";
+            // 
+            // optionsToolStripMenuItem
+            // 
+            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.optionsToolStripMenuItem.Text = "options";
+            // 
             // lStore
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -360,6 +377,8 @@
         private Microsoft.VisualBasic.PowerPacks.ShapeContainer shapeContainer1;
         private Microsoft.VisualBasic.PowerPacks.RectangleShape rectangleShape1;
         private System.Windows.Forms.Label tmpLog;
+        private System.Windows.Forms.ToolStripMenuItem tOOLSToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
     }
 }
 

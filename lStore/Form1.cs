@@ -29,6 +29,7 @@ namespace lStore
             localName = System.Environment.MachineName;
             if (!isInternetConnected()) { internetState.Text = "No internet connection"; }
             else { internetState.Text = "Connected to internet"; }
+            saveUsage();    //stores the usage date and time to file
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -85,6 +86,9 @@ namespace lStore
         }
         /* this function checks for each required folders if they exist or not and create the required folder 
          * according to need
+         * params:no
+         * dir: C:\Users\<userName>\Documents\lStore
+         * folders: ...lStore\, ...lStore\tmp
          */
         public void repairFolders()
         {
@@ -95,6 +99,9 @@ namespace lStore
         }
         /*
          a function to check if al required files exist and create necessory one when needed
+         * params: no
+         * files: saved.xml, usage.log, search: log,exceptions.log
+         * dir: C:\Users\<userName>\Documents\lStore
          */
         public void repairFiles()
         {
@@ -104,7 +111,8 @@ namespace lStore
                 saveXML();
             }
             if (!File.Exists(primaryFolder + @"\usage.log")){File.Create(primaryFolder + @"\usage.log");}
-            if (!File.Exists(primaryFolder + @"\search.log")){File.Create(primaryFolder + @"\search.log");}
+            if (!File.Exists(primaryFolder + @"\search.log")) { File.Create(primaryFolder + @"\search.log"); }
+            if (!File.Exists(primaryFolder + @"\exceptions.log")) { File.Create(primaryFolder + @"\exceptions.log"); }
         }
         /*
          * this function checks if this is first time user is using this app
@@ -216,11 +224,90 @@ namespace lStore
                
            }
        }
+       /*
+        * this function saves each search to a search log with date and time
+        * filename: search.log
+        * dir: C:\Users\<userName>\Documents\lStore
+        * @param: string log: ie the search key
+        */
        public void writeToSearchLogs(string log)
        {
-           primaryFolder = @"C:\Users\" + userName + @"\Documents\lStore";
-           DateTime now = DateTime.Now;
-           File.AppendAllText(primaryFolder +@"\search.log", log +"||" +now + Environment.NewLine);
+           try
+           {
+               primaryFolder = @"C:\Users\" + userName + @"\Documents\lStore";
+               DateTime now = DateTime.Now;
+               File.AppendAllText(primaryFolder + @"\search.log", log + "||" + now + Environment.NewLine);
+           }
+           catch (DirectoryNotFoundException ex)
+           {
+               repairFolders();
+               writeToSearchLogs(log);
+               saveException(ex.Message);
+           }
+           catch (Exception ex)
+           {
+               throwNonRecoverableError(ex.Message);
+           }
+       }
+       /*
+        * this function saves each time this application is opened to a log file 
+        * filename: usage.log
+        * dir: C:\Users\<userName>\Documents\lStore
+        * no params
+        */
+       public void saveUsage()
+       {
+           try
+           {
+               primaryFolder = @"C:\Users\" + userName + @"\Documents\lStore";
+               DateTime now = DateTime.Now;
+               File.AppendAllText(primaryFolder + @"\usage.log", now + Environment.NewLine);
+           }
+           catch (DirectoryNotFoundException ex)
+           {
+               repairFolders();
+               saveUsage();         //exception handeling
+               saveException(ex.Message);
+           }
+           catch (Exception ex)
+           {
+               throwNonRecoverableError(ex.Message);
+           }
+       }
+       /*
+        * a function to save exception to a log file!!
+        * params: string ex: the exception message
+        * filename: exceptions.log
+        * dir: C:\Users\<userName>\Documents\lStore
+        */
+       public void saveException(string ex)
+       {
+           try
+           {
+               primaryFolder = @"C:\Users\" + userName + @"\Documents\lStore";
+               DateTime now = DateTime.Now;
+               File.AppendAllText(primaryFolder + @"\exceptions.log", ex + "||" + now + Environment.NewLine);
+           }
+           catch (DirectoryNotFoundException exep)
+           {
+               repairFolders();
+               saveException(ex);
+               saveException(exep.Message);
+           }
+           catch (Exception exep)
+           {
+               MessageBox.Show("Some error occured: " + exep.Message);
+           }
+       }
+        /*
+         * a function to handle non defined exceptions to be added later into account
+         * save the exception into log and display the messageBox
+         * @param: string err: ie the error message
+         */
+       public void throwNonRecoverableError(string err)
+       {
+           saveException(err);
+           MessageBox.Show("Some error occured: " +err);
        }
     }
 }
