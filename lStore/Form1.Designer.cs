@@ -57,6 +57,8 @@
             this.rectangleShape1 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
             this.tmpLog = new System.Windows.Forms.Label();
             this.testlog = new System.Windows.Forms.RichTextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.rectangleShape2 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
             ((System.ComponentModel.ISupportInitialize)(this.profilepic)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -76,7 +78,7 @@
             this.uname.AutoSize = true;
             this.uname.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.uname.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uname.Location = new System.Drawing.Point(11, 150);
+            this.uname.Location = new System.Drawing.Point(11, 166);
             this.uname.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.uname.Name = "uname";
             this.uname.Size = new System.Drawing.Size(108, 16);
@@ -213,7 +215,7 @@
             // linkChangeImage
             // 
             this.linkChangeImage.AutoSize = true;
-            this.linkChangeImage.Location = new System.Drawing.Point(23, 170);
+            this.linkChangeImage.Location = new System.Drawing.Point(22, 182);
             this.linkChangeImage.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.linkChangeImage.Name = "linkChangeImage";
             this.linkChangeImage.Size = new System.Drawing.Size(74, 13);
@@ -295,6 +297,7 @@
             this.shapeContainer1.Margin = new System.Windows.Forms.Padding(0);
             this.shapeContainer1.Name = "shapeContainer1";
             this.shapeContainer1.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
+            this.rectangleShape2,
             this.rectangleShape1});
             this.shapeContainer1.Size = new System.Drawing.Size(984, 524);
             this.shapeContainer1.TabIndex = 14;
@@ -325,11 +328,30 @@
             this.testlog.TabIndex = 16;
             this.testlog.Text = "";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(405, 485);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 17;
+            this.button1.Text = "open";
+            this.button1.UseVisualStyleBackColor = true;
+           // 
+            // rectangleShape2
+            // 
+            this.rectangleShape2.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.rectangleShape2.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque;
+            this.rectangleShape2.BorderColor = System.Drawing.Color.Transparent;
+            this.rectangleShape2.Location = new System.Drawing.Point(12, 166);
+            this.rectangleShape2.Name = "rectangleShape2";
+            this.rectangleShape2.Size = new System.Drawing.Size(103, 16);
+            // 
             // lStore
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 524);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.testlog);
             this.Controls.Add(this.tmpLog);
             this.Controls.Add(this.submitSearch);
@@ -392,6 +414,8 @@
         private System.Windows.Forms.ToolStripMenuItem tOOLSToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.RichTextBox testlog;
+        private System.Windows.Forms.Button button1;
+        private Microsoft.VisualBasic.PowerPacks.RectangleShape rectangleShape2;
     }
 }
 
