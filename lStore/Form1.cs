@@ -13,7 +13,6 @@ using System.Net.NetworkInformation;
 using System.IO;
 using System.Xml;
 using System.Threading;
-
 //=========================================namespaces till here==============
 namespace lStore
 {
@@ -23,6 +22,7 @@ namespace lStore
         public string userName = Environment.UserName, localName;
         public string primaryFolder;
         public string ip, baseaddr, gatewayIPv4, gatewayIPv6;
+        public string randomFileName;   //a random file name for a file which stores temporary dat about the xml
         public lStore()
         {
             InitializeComponent();
@@ -40,7 +40,8 @@ namespace lStore
                 throwNonRecoverableError(ex.Message);
                 Environment.Exit(0);    //this has to be gradually changed to something more reliable
             }
-            getIpAddress();            
+            getIpAddress();
+            testlog.Text = "IP: " +ip +"\n gateway: " +gatewayIPv4 +" \ngatewaw ipv6: " +gatewayIPv6;
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -84,8 +85,30 @@ namespace lStore
             xml += "<data>" + Environment.NewLine;
             xml += "<username>" + userName + "</username>" + Environment.NewLine;
             xml += "<localname>" + localName + "</localname>" + Environment.NewLine;
-            xml += "</data>";
-            File.WriteAllText(primaryFolder + @"\saved.xml", xml);
+            try
+            {
+                File.WriteAllText(primaryFolder + @"\savedfile.xml", xml);
+            }
+            catch (Exception ex)
+            {
+                saveException(ex.Message);
+                MessageBox.Show("We are unable to save details to saved file! Program exits here! " +ex.Message);
+                this.Close();
+            }
+        }
+        
+        /*
+         * this function generates a random 8 digit string and returns to you
+         */
+        string returnRandom()
+        {
+            string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            Random random = new Random();
+            string result = new string(
+                Enumerable.Repeat(chars, 8)
+                          .Select(s => s[random.Next(s.Length)])
+                          .ToArray());
+            return result;
         }
         /*
          * this function get details about the system from system an saves it to the variables
@@ -117,7 +140,7 @@ namespace lStore
         public void repairFiles()
         {
             primaryFolder = @"C:\Users\" + userName + @"\Documents\lStore";
-            if (!File.Exists(primaryFolder + @"\saved.xml"))
+            if (!File.Exists(primaryFolder + @"\savedfile.xml"))
             {
                 saveXML();
             }
@@ -139,6 +162,7 @@ namespace lStore
                     {
                         if (count == 0) { gatewayIPv6 = d.Address.ToString(); count++; }
                         else { gatewayIPv4 = d.Address.ToString(); }
+                        //alternate method needed
                     }
                 }
             }
@@ -186,20 +210,14 @@ namespace lStore
             primaryFolder = @"C:\Users\" +userName +@"\Documents\lStore";
             if (Directory.Exists(primaryFolder))
             {
-                if (File.Exists(primaryFolder + @"\saved.xml"))
+                if (File.Exists(primaryFolder + @"\savedfile.xml"))
                 {
                     return false;
-                }
-                else 
-                {
-                    File.Create(primaryFolder + @"\saved.xml");
                 }
             }
             else {
                 Directory.CreateDirectory(primaryFolder);
                 //now the directory is created
-                System.Threading.Thread.Sleep(100);         //code shall sleep for 100 ms
-                File.Create(primaryFolder + @"\saved.xml"); 
             }
             return true;
         }
