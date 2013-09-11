@@ -54,11 +54,9 @@
             this.search = new System.Windows.Forms.TextBox();
             this.submitSearch = new System.Windows.Forms.Button();
             this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
+            this.rectangleShape2 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
             this.rectangleShape1 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
             this.tmpLog = new System.Windows.Forms.Label();
-            this.testlog = new System.Windows.Forms.RichTextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.rectangleShape2 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
             ((System.ComponentModel.ISupportInitialize)(this.profilepic)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -303,6 +301,15 @@
             this.shapeContainer1.TabIndex = 14;
             this.shapeContainer1.TabStop = false;
             // 
+            // rectangleShape2
+            // 
+            this.rectangleShape2.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.rectangleShape2.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque;
+            this.rectangleShape2.BorderColor = System.Drawing.Color.Transparent;
+            this.rectangleShape2.Location = new System.Drawing.Point(12, 166);
+            this.rectangleShape2.Name = "rectangleShape2";
+            this.rectangleShape2.Size = new System.Drawing.Size(103, 16);
+            // 
             // rectangleShape1
             // 
             this.rectangleShape1.BackColor = System.Drawing.SystemColors.ControlLight;
@@ -320,39 +327,11 @@
             this.tmpLog.Size = new System.Drawing.Size(0, 13);
             this.tmpLog.TabIndex = 15;
             // 
-            // testlog
-            // 
-            this.testlog.Location = new System.Drawing.Point(16, 415);
-            this.testlog.Name = "testlog";
-            this.testlog.Size = new System.Drawing.Size(364, 97);
-            this.testlog.TabIndex = 16;
-            this.testlog.Text = "";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(405, 485);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 17;
-            this.button1.Text = "open";
-            this.button1.UseVisualStyleBackColor = true;
-           // 
-            // rectangleShape2
-            // 
-            this.rectangleShape2.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.rectangleShape2.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque;
-            this.rectangleShape2.BorderColor = System.Drawing.Color.Transparent;
-            this.rectangleShape2.Location = new System.Drawing.Point(12, 166);
-            this.rectangleShape2.Name = "rectangleShape2";
-            this.rectangleShape2.Size = new System.Drawing.Size(103, 16);
-            // 
             // lStore
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 524);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.testlog);
             this.Controls.Add(this.tmpLog);
             this.Controls.Add(this.submitSearch);
             this.Controls.Add(this.search);
@@ -413,8 +392,6 @@
         private System.Windows.Forms.Label tmpLog;
         private System.Windows.Forms.ToolStripMenuItem tOOLSToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
-        private System.Windows.Forms.RichTextBox testlog;
-        private System.Windows.Forms.Button button1;
         private Microsoft.VisualBasic.PowerPacks.RectangleShape rectangleShape2;
     }
 }

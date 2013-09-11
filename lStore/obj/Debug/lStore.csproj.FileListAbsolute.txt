@@ -7,4 +7,3 @@ c:\users\minhaz\documents\visual studio 2012\Projects\lStore\lStore\obj\Debug\lS
 c:\users\minhaz\documents\visual studio 2012\Projects\lStore\lStore\obj\Debug\lStore.exe
 c:\users\minhaz\documents\visual studio 2012\Projects\lStore\lStore\obj\Debug\lStore.pdb
 c:\users\minhaz\documents\visual studio 2012\Projects\lStore\lStore\obj\Debug\lStore.lStore.resources
-C:\Users\minhaz\Documents\Visual Studio 2012\Projects\lStore\lStore\obj\Debug\lStore.test.resources
