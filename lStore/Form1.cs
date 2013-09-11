@@ -30,6 +30,7 @@ namespace lStore
             if (!isInternetConnected()) { internetState.Text = "No internet connection"; }
             else { internetState.Text = "Connected to internet"; }
             saveUsage();    //stores the usage date and time to file
+            /*
             getGatewayDetails();    //this get gateway details from system
             try
             {
@@ -42,6 +43,7 @@ namespace lStore
             }
             getIpAddress();
             testlog.Text = "IP: " +ip +"\n gateway: " +gatewayIPv4 +" \ngatewaw ipv6: " +gatewayIPv6;
+             */
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -74,8 +76,8 @@ namespace lStore
              * 
              */
               //task here is to load username,network name, files shared and rating to UI
-            uname.Text = "Username: " +userName;
-            nname.Text = @"Network name: \\" +localName;
+            uname.Text = "" +userName;
+            nname.Text = @"\\" +localName;
             
         }
         public void saveXML()
