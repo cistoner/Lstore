@@ -62,6 +62,7 @@
             this.countOnline = new System.Windows.Forms.Label();
             this.onlineUsers = new System.Windows.Forms.ListBox();
             this.filterUser = new System.Windows.Forms.TextBox();
+            this.bottombar_label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.profilepic)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -69,7 +70,7 @@
             // profilepic
             // 
             this.profilepic.Image = ((System.Drawing.Image)(resources.GetObject("profilepic.Image")));
-            this.profilepic.Location = new System.Drawing.Point(14, 32);
+            this.profilepic.Location = new System.Drawing.Point(16, 27);
             this.profilepic.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.profilepic.Name = "profilepic";
             this.profilepic.Size = new System.Drawing.Size(103, 123);
@@ -81,7 +82,7 @@
             this.uname.AutoSize = true;
             this.uname.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.uname.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uname.Location = new System.Drawing.Point(13, 156);
+            this.uname.Location = new System.Drawing.Point(16, 150);
             this.uname.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.uname.Name = "uname";
             this.uname.Size = new System.Drawing.Size(108, 16);
@@ -93,7 +94,7 @@
             this.nname.AutoSize = true;
             this.nname.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.nname.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nname.Location = new System.Drawing.Point(121, 32);
+            this.nname.Location = new System.Drawing.Point(123, 27);
             this.nname.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.nname.Name = "nname";
             this.nname.Size = new System.Drawing.Size(148, 16);
@@ -104,7 +105,7 @@
             // 
             this.countFileSharedLabel.AutoSize = true;
             this.countFileSharedLabel.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.countFileSharedLabel.Location = new System.Drawing.Point(121, 92);
+            this.countFileSharedLabel.Location = new System.Drawing.Point(123, 87);
             this.countFileSharedLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.countFileSharedLabel.Name = "countFileSharedLabel";
             this.countFileSharedLabel.Size = new System.Drawing.Size(148, 16);
@@ -115,7 +116,7 @@
             // 
             this.ratingLabel.AutoSize = true;
             this.ratingLabel.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ratingLabel.Location = new System.Drawing.Point(121, 54);
+            this.ratingLabel.Location = new System.Drawing.Point(123, 49);
             this.ratingLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.ratingLabel.Name = "ratingLabel";
             this.ratingLabel.Size = new System.Drawing.Size(88, 16);
@@ -208,7 +209,7 @@
             // 
             this.codeLocationLabel.AutoSize = true;
             this.codeLocationLabel.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.codeLocationLabel.Location = new System.Drawing.Point(121, 73);
+            this.codeLocationLabel.Location = new System.Drawing.Point(123, 68);
             this.codeLocationLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.codeLocationLabel.Name = "codeLocationLabel";
             this.codeLocationLabel.Size = new System.Drawing.Size(148, 16);
@@ -218,7 +219,7 @@
             // linkChangeImage
             // 
             this.linkChangeImage.AutoSize = true;
-            this.linkChangeImage.Location = new System.Drawing.Point(24, 171);
+            this.linkChangeImage.Location = new System.Drawing.Point(26, 166);
             this.linkChangeImage.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.linkChangeImage.Name = "linkChangeImage";
             this.linkChangeImage.Size = new System.Drawing.Size(74, 13);
@@ -232,7 +233,7 @@
             this.codeLocation.AutoSize = true;
             this.codeLocation.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.codeLocation.ForeColor = System.Drawing.Color.OrangeRed;
-            this.codeLocation.Location = new System.Drawing.Point(255, 73);
+            this.codeLocation.Location = new System.Drawing.Point(257, 68);
             this.codeLocation.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.codeLocation.Name = "codeLocation";
             this.codeLocation.Size = new System.Drawing.Size(108, 16);
@@ -244,7 +245,7 @@
             this.rating.AutoSize = true;
             this.rating.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rating.ForeColor = System.Drawing.Color.OrangeRed;
-            this.rating.Location = new System.Drawing.Point(200, 53);
+            this.rating.Location = new System.Drawing.Point(202, 48);
             this.rating.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.rating.Name = "rating";
             this.rating.Size = new System.Drawing.Size(108, 16);
@@ -256,7 +257,7 @@
             this.countFilesShared.AutoSize = true;
             this.countFilesShared.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.countFilesShared.ForeColor = System.Drawing.Color.OrangeRed;
-            this.countFilesShared.Location = new System.Drawing.Point(255, 92);
+            this.countFilesShared.Location = new System.Drawing.Point(257, 87);
             this.countFilesShared.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.countFilesShared.Name = "countFilesShared";
             this.countFilesShared.Size = new System.Drawing.Size(108, 16);
@@ -310,7 +311,7 @@
             // 
             // rectangleShape3
             // 
-            this.rectangleShape3.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.rectangleShape3.BackColor = System.Drawing.SystemColors.ControlLight;
             this.rectangleShape3.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque;
             this.rectangleShape3.BorderColor = System.Drawing.Color.Transparent;
             this.rectangleShape3.Location = new System.Drawing.Point(0, 617);
@@ -322,7 +323,7 @@
             this.rectangleShape2.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.rectangleShape2.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque;
             this.rectangleShape2.BorderColor = System.Drawing.Color.Transparent;
-            this.rectangleShape2.Location = new System.Drawing.Point(14, 155);
+            this.rectangleShape2.Location = new System.Drawing.Point(16, 150);
             this.rectangleShape2.Name = "rectangleShape2";
             this.rectangleShape2.Size = new System.Drawing.Size(103, 16);
             // 
@@ -379,12 +380,23 @@
             this.filterUser.TabIndex = 19;
             this.filterUser.Text = "search....";
             this.filterUser.Click += new System.EventHandler(this.filterUser_Click);
+            this.filterUser.TextChanged += new System.EventHandler(this.filterUser_TextChanged);
+            // 
+            // bottombar_label1
+            // 
+            this.bottombar_label1.AutoSize = true;
+            this.bottombar_label1.Location = new System.Drawing.Point(13, 621);
+            this.bottombar_label1.Name = "bottombar_label1";
+            this.bottombar_label1.Size = new System.Drawing.Size(91, 13);
+            this.bottombar_label1.TabIndex = 20;
+            this.bottombar_label1.Text = "bottom bar label 1";
             // 
             // lStore
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 637);
+            this.Controls.Add(this.bottombar_label1);
             this.Controls.Add(this.filterUser);
             this.Controls.Add(this.onlineUsers);
             this.Controls.Add(this.countOnline);
@@ -456,6 +468,7 @@
         private System.Windows.Forms.ListBox onlineUsers;
         private System.Windows.Forms.TextBox filterUser;
         private Microsoft.VisualBasic.PowerPacks.RectangleShape rectangleShape3;
+        private System.Windows.Forms.Label bottombar_label1;
     }
 }
 

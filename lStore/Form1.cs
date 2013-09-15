@@ -13,6 +13,7 @@ using System.Net.NetworkInformation;
 using System.IO;
 using System.Xml;
 using System.Threading;
+using System.Collections;
 //=========================================namespaces till here==============
 namespace lStore
 {
@@ -23,6 +24,8 @@ namespace lStore
         public string primaryFolder;
         public string ip, baseaddr, gatewayIPv4, gatewayIPv6;
         public string randomFileName;   //a random file name for a file which stores temporary dat about the xml
+        public ArrayList onlineUser = new ArrayList();
+        public int onlineUsercount = 0;
         public lStore()
         {
             InitializeComponent();
@@ -78,6 +81,30 @@ namespace lStore
               //task here is to load username,network name, files shared and rating to UI
             uname.Text = "" +userName;
             nname.Text = @"\\" +localName;
+            /*
+             * code now to populate list with online users and then trigger a function to recheck online users
+             */
+            bottombar_label1.Text = "Refreshing online users";
+            try
+            {
+                string[] tmp = File.ReadAllLines(primaryFolder + @"\tmp\online.data");
+                onlineUsercount = tmp.Length;
+                countOnline.Text = "( " + onlineUsercount +" )";
+                for (int i = 0; i < onlineUsercount; i++) 
+                { 
+                    onlineUser.Add(tmp[i]);
+                    onlineUsers.Items.Add(tmp[i]);
+                }
+                //code to populate this to the list view
+                
+
+            }
+            catch (Exception ex)
+            {
+                saveException(ex.Message);
+                //additional functions needed here
+            }
+            //code to trigger new lan user scan and it should be done every 5 mins
             
         }
         public void saveXML()
@@ -149,6 +176,7 @@ namespace lStore
             if (!File.Exists(primaryFolder + @"\usage.log")){File.Create(primaryFolder + @"\usage.log");}
             if (!File.Exists(primaryFolder + @"\search.log")) { File.Create(primaryFolder + @"\search.log"); }
             if (!File.Exists(primaryFolder + @"\exceptions.log")) { File.Create(primaryFolder + @"\exceptions.log"); }
+            if (!File.Exists(primaryFolder + @"\tmp\online.data")) { File.Create(primaryFolder + @"\tmp\online.data"); }
         }
         /* 
          * a function to get the gateway address in IPv6 and IPv4 form
@@ -398,6 +426,29 @@ namespace lStore
        private void filterUser_Click(object sender, EventArgs e)
        {
            filterUser.Select();
+       }
+        /*
+         * when ever user write some data to user filter this code refreshes the list
+         */ 
+       private void filterUser_TextChanged(object sender, EventArgs e)
+       {
+           onlineUsers.Items.Clear();
+           string searchkey = filterUser.Text.ToLower();
+           if (searchkey.Length == 0 || searchkey == "search....") 
+           {
+               foreach (string name in onlineUser)
+               {
+                   onlineUsers.Items.Add(name);
+               }
+           }
+           
+           foreach(string name in onlineUser)
+           {
+               if (name.ToLower().IndexOf(searchkey) != -1)
+               {
+                   onlineUsers.Items.Add(name);
+               }
+           }
        }
 
        
