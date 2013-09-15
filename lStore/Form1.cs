@@ -30,8 +30,15 @@ namespace lStore
         {
             InitializeComponent();
             localName = System.Environment.MachineName;
-            if (!isInternetConnected()) { internetState.Text = "No internet connection"; }
-            else { internetState.Text = "Connected to internet"; }
+            if (!isInternetConnected()) 
+            { 
+                internetState.Text = "No internet connection";
+                internetState.ForeColor = System.Drawing.Color.Red;
+            }
+            else { 
+                internetState.Text = "Connected to internet";
+                internetState.ForeColor = System.Drawing.Color.Green;
+                  }
             saveUsage();    //stores the usage date and time to file
             /*
             getGatewayDetails();    //this get gateway details from system
