@@ -41,7 +41,6 @@
             this.eXITToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eDITToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vIEWToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sAVEDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hELPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tOOLSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,6 +62,18 @@
             this.onlineUsers = new System.Windows.Forms.ListBox();
             this.filterUser = new System.Windows.Forms.TextBox();
             this.bottombar_label1 = new System.Windows.Forms.Label();
+            this.sOCIALToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cHATToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bROADCASTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.groupChatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.offlineHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.onlineHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutUsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rESETToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.profilepic)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -129,9 +140,9 @@
             this.fILEToolStripMenuItem,
             this.eDITToolStripMenuItem,
             this.vIEWToolStripMenuItem,
-            this.sAVEDToolStripMenuItem,
             this.hELPToolStripMenuItem,
-            this.tOOLSToolStripMenuItem});
+            this.tOOLSToolStripMenuItem,
+            this.sOCIALToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(6, 1, 0, 1);
@@ -144,6 +155,7 @@
             this.fILEToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.nEWToolStripMenuItem,
             this.oPENToolStripMenuItem,
+            this.rESETToolStripMenuItem,
             this.eXITToolStripMenuItem});
             this.fILEToolStripMenuItem.Name = "fILEToolStripMenuItem";
             this.fILEToolStripMenuItem.Size = new System.Drawing.Size(40, 22);
@@ -169,6 +181,10 @@
             // 
             // eDITToolStripMenuItem
             // 
+            this.eDITToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cutToolStripMenuItem,
+            this.copyToolStripMenuItem,
+            this.pasteToolStripMenuItem});
             this.eDITToolStripMenuItem.Name = "eDITToolStripMenuItem";
             this.eDITToolStripMenuItem.Size = new System.Drawing.Size(43, 22);
             this.eDITToolStripMenuItem.Text = "EDIT";
@@ -179,14 +195,12 @@
             this.vIEWToolStripMenuItem.Size = new System.Drawing.Size(46, 22);
             this.vIEWToolStripMenuItem.Text = "VIEW";
             // 
-            // sAVEDToolStripMenuItem
-            // 
-            this.sAVEDToolStripMenuItem.Name = "sAVEDToolStripMenuItem";
-            this.sAVEDToolStripMenuItem.Size = new System.Drawing.Size(54, 22);
-            this.sAVEDToolStripMenuItem.Text = "SAVED";
-            // 
             // hELPToolStripMenuItem
             // 
+            this.hELPToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.offlineHelpToolStripMenuItem,
+            this.onlineHelpToolStripMenuItem,
+            this.aboutUsToolStripMenuItem});
             this.hELPToolStripMenuItem.Name = "hELPToolStripMenuItem";
             this.hELPToolStripMenuItem.Size = new System.Drawing.Size(47, 22);
             this.hELPToolStripMenuItem.Text = "HELP";
@@ -194,7 +208,8 @@
             // tOOLSToolStripMenuItem
             // 
             this.tOOLSToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.optionsToolStripMenuItem});
+            this.optionsToolStripMenuItem,
+            this.checkUpdatesToolStripMenuItem});
             this.tOOLSToolStripMenuItem.Name = "tOOLSToolStripMenuItem";
             this.tOOLSToolStripMenuItem.Size = new System.Drawing.Size(56, 22);
             this.tOOLSToolStripMenuItem.Text = "TOOLS";
@@ -202,8 +217,8 @@
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
-            this.optionsToolStripMenuItem.Text = "options";
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.optionsToolStripMenuItem.Text = "Options";
             // 
             // codeLocationLabel
             // 
@@ -391,6 +406,82 @@
             this.bottombar_label1.TabIndex = 20;
             this.bottombar_label1.Text = "bottom bar label 1";
             // 
+            // sOCIALToolStripMenuItem
+            // 
+            this.sOCIALToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cHATToolStripMenuItem,
+            this.groupChatToolStripMenuItem,
+            this.bROADCASTToolStripMenuItem});
+            this.sOCIALToolStripMenuItem.Name = "sOCIALToolStripMenuItem";
+            this.sOCIALToolStripMenuItem.Size = new System.Drawing.Size(59, 22);
+            this.sOCIALToolStripMenuItem.Text = "SOCIAL";
+            // 
+            // cHATToolStripMenuItem
+            // 
+            this.cHATToolStripMenuItem.Name = "cHATToolStripMenuItem";
+            this.cHATToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cHATToolStripMenuItem.Text = "Chat";
+            // 
+            // bROADCASTToolStripMenuItem
+            // 
+            this.bROADCASTToolStripMenuItem.Name = "bROADCASTToolStripMenuItem";
+            this.bROADCASTToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.bROADCASTToolStripMenuItem.Text = "Broadcast";
+            // 
+            // groupChatToolStripMenuItem
+            // 
+            this.groupChatToolStripMenuItem.Name = "groupChatToolStripMenuItem";
+            this.groupChatToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.groupChatToolStripMenuItem.Text = "Group Chat";
+            // 
+            // checkUpdatesToolStripMenuItem
+            // 
+            this.checkUpdatesToolStripMenuItem.Name = "checkUpdatesToolStripMenuItem";
+            this.checkUpdatesToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.checkUpdatesToolStripMenuItem.Text = "Check Updates";
+            // 
+            // offlineHelpToolStripMenuItem
+            // 
+            this.offlineHelpToolStripMenuItem.Name = "offlineHelpToolStripMenuItem";
+            this.offlineHelpToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.offlineHelpToolStripMenuItem.Text = "Offline Help";
+            // 
+            // onlineHelpToolStripMenuItem
+            // 
+            this.onlineHelpToolStripMenuItem.Name = "onlineHelpToolStripMenuItem";
+            this.onlineHelpToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.onlineHelpToolStripMenuItem.Text = "Online Help";
+            // 
+            // aboutUsToolStripMenuItem
+            // 
+            this.aboutUsToolStripMenuItem.Name = "aboutUsToolStripMenuItem";
+            this.aboutUsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutUsToolStripMenuItem.Text = "About Us";
+            // 
+            // cutToolStripMenuItem
+            // 
+            this.cutToolStripMenuItem.Name = "cutToolStripMenuItem";
+            this.cutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cutToolStripMenuItem.Text = "Cut";
+            // 
+            // copyToolStripMenuItem
+            // 
+            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.copyToolStripMenuItem.Text = "Copy ";
+            // 
+            // pasteToolStripMenuItem
+            // 
+            this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
+            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.pasteToolStripMenuItem.Text = "Paste";
+            // 
+            // rESETToolStripMenuItem
+            // 
+            this.rESETToolStripMenuItem.Name = "rESETToolStripMenuItem";
+            this.rESETToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.rESETToolStripMenuItem.Text = "RESET";
+            // 
             // lStore
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -447,7 +538,6 @@
         private System.Windows.Forms.ToolStripMenuItem eXITToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem eDITToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem vIEWToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem sAVEDToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hELPToolStripMenuItem;
         private System.Windows.Forms.Label codeLocationLabel;
         private System.Windows.Forms.LinkLabel linkChangeImage;
@@ -469,6 +559,18 @@
         private System.Windows.Forms.TextBox filterUser;
         private Microsoft.VisualBasic.PowerPacks.RectangleShape rectangleShape3;
         private System.Windows.Forms.Label bottombar_label1;
+        private System.Windows.Forms.ToolStripMenuItem rESETToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pasteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem offlineHelpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem onlineHelpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutUsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem checkUpdatesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sOCIALToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cHATToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem groupChatToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bROADCASTToolStripMenuItem;
     }
 }
 
