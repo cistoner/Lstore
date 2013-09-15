@@ -381,10 +381,12 @@
             // 
             // onlineUsers
             // 
+            this.onlineUsers.Font = new System.Drawing.Font("Maiandra GD", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.onlineUsers.FormattingEnabled = true;
+            this.onlineUsers.ItemHeight = 15;
             this.onlineUsers.Location = new System.Drawing.Point(16, 249);
             this.onlineUsers.Name = "onlineUsers";
-            this.onlineUsers.Size = new System.Drawing.Size(158, 342);
+            this.onlineUsers.Size = new System.Drawing.Size(158, 334);
             this.onlineUsers.TabIndex = 18;
             // 
             // filterUser

@@ -30,6 +30,7 @@ namespace lStore
         {
             InitializeComponent();
             localName = System.Environment.MachineName;
+            primaryFolder = @"C:\Users\" + userName + @"\Documents\lStore";
             if (!isInternetConnected()) 
             { 
                 internetState.Text = "No internet connection";
@@ -88,6 +89,7 @@ namespace lStore
               //task here is to load username,network name, files shared and rating to UI
             uname.Text = "" +userName;
             nname.Text = @"\\" +localName;
+            rating.Text = returnRating();
             /*
              * code now to populate list with online users and then trigger a function to recheck online users
              */
@@ -116,11 +118,12 @@ namespace lStore
         }
         public void saveXML()
         {
-            primaryFolder = @"C:\Users\" + userName + @"\Documents\lStore";
+            //primaryFolder = @"C:\Users\" + userName + @"\Documents\lStore";
             string xml  = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +Environment.NewLine;
             xml += "<data>" + Environment.NewLine;
             xml += "<username>" + userName + "</username>" + Environment.NewLine;
             xml += "<localname>" + localName + "</localname>" + Environment.NewLine;
+            xml += "<rating>0</localname>" + Environment.NewLine;
             try
             {
                 File.WriteAllText(primaryFolder + @"\savedfile.xml", xml);
@@ -132,7 +135,35 @@ namespace lStore
                 this.Close();
             }
         }
-        
+        /*a function to read xml file and retrieve the rating from it
+         * and save rating = 0 and return rating in case rating does not exists
+         */
+        public string returnRating()
+        {
+            string xmlData;
+            try
+            {
+                xmlData = File.ReadAllText(primaryFolder + @"\savedfile.xml");
+            }
+            catch (FileLoadException ex)
+            {
+                saveException(ex.Message);
+                repairFiles();
+                xmlData = File.ReadAllText(primaryFolder + @"\savedfile.xml");
+            }
+            using (XmlReader reader = XmlReader.Create(new StringReader(xmlData + "</data>")))
+            {
+                    reader.ReadToFollowing("rating");
+                    reader.MoveToFirstAttribute();
+                    string data = reader.Value;
+                    if (data.Length == 0)
+                    {
+                        saveXML();
+                        return "0.0";
+                    }
+                    return data;
+            }
+        }
         /*
          * this function generates a random 8 digit string and returns to you
          */
@@ -175,7 +206,7 @@ namespace lStore
          */
         public void repairFiles()
         {
-            primaryFolder = @"C:\Users\" + userName + @"\Documents\lStore";
+            
             if (!File.Exists(primaryFolder + @"\savedfile.xml"))
             {
                 saveXML();
