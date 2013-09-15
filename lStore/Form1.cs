@@ -387,7 +387,21 @@ namespace lStore
        {
            saveException(err);
            MessageBox.Show("Some error occured: " +err);
+       } 
+       private void search_TextChanged(object sender, EventArgs e)
+       {
+           /*
+            codes to be implemented here to make a UI like google ajax call 
+            * search suggestions
+            */
        }
+       private void filterUser_Click(object sender, EventArgs e)
+       {
+           filterUser.Select();
+       }
+
+       
+
 
        
     }

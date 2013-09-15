@@ -54,9 +54,14 @@
             this.search = new System.Windows.Forms.TextBox();
             this.submitSearch = new System.Windows.Forms.Button();
             this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
+            this.rectangleShape3 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
             this.rectangleShape2 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
             this.rectangleShape1 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
             this.tmpLog = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.countOnline = new System.Windows.Forms.Label();
+            this.onlineUsers = new System.Windows.Forms.ListBox();
+            this.filterUser = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.profilepic)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -64,7 +69,7 @@
             // profilepic
             // 
             this.profilepic.Image = ((System.Drawing.Image)(resources.GetObject("profilepic.Image")));
-            this.profilepic.Location = new System.Drawing.Point(12, 43);
+            this.profilepic.Location = new System.Drawing.Point(14, 32);
             this.profilepic.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.profilepic.Name = "profilepic";
             this.profilepic.Size = new System.Drawing.Size(103, 123);
@@ -76,7 +81,7 @@
             this.uname.AutoSize = true;
             this.uname.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.uname.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uname.Location = new System.Drawing.Point(11, 166);
+            this.uname.Location = new System.Drawing.Point(13, 156);
             this.uname.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.uname.Name = "uname";
             this.uname.Size = new System.Drawing.Size(108, 16);
@@ -88,7 +93,7 @@
             this.nname.AutoSize = true;
             this.nname.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.nname.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nname.Location = new System.Drawing.Point(119, 43);
+            this.nname.Location = new System.Drawing.Point(121, 32);
             this.nname.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.nname.Name = "nname";
             this.nname.Size = new System.Drawing.Size(148, 16);
@@ -99,7 +104,7 @@
             // 
             this.countFileSharedLabel.AutoSize = true;
             this.countFileSharedLabel.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.countFileSharedLabel.Location = new System.Drawing.Point(119, 103);
+            this.countFileSharedLabel.Location = new System.Drawing.Point(121, 92);
             this.countFileSharedLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.countFileSharedLabel.Name = "countFileSharedLabel";
             this.countFileSharedLabel.Size = new System.Drawing.Size(148, 16);
@@ -110,7 +115,7 @@
             // 
             this.ratingLabel.AutoSize = true;
             this.ratingLabel.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ratingLabel.Location = new System.Drawing.Point(119, 65);
+            this.ratingLabel.Location = new System.Drawing.Point(121, 54);
             this.ratingLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.ratingLabel.Name = "ratingLabel";
             this.ratingLabel.Size = new System.Drawing.Size(88, 16);
@@ -129,7 +134,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(6, 1, 0, 1);
-            this.menuStrip1.Size = new System.Drawing.Size(984, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1184, 24);
             this.menuStrip1.TabIndex = 5;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -203,7 +208,7 @@
             // 
             this.codeLocationLabel.AutoSize = true;
             this.codeLocationLabel.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.codeLocationLabel.Location = new System.Drawing.Point(119, 84);
+            this.codeLocationLabel.Location = new System.Drawing.Point(121, 73);
             this.codeLocationLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.codeLocationLabel.Name = "codeLocationLabel";
             this.codeLocationLabel.Size = new System.Drawing.Size(148, 16);
@@ -213,7 +218,7 @@
             // linkChangeImage
             // 
             this.linkChangeImage.AutoSize = true;
-            this.linkChangeImage.Location = new System.Drawing.Point(22, 182);
+            this.linkChangeImage.Location = new System.Drawing.Point(24, 171);
             this.linkChangeImage.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.linkChangeImage.Name = "linkChangeImage";
             this.linkChangeImage.Size = new System.Drawing.Size(74, 13);
@@ -227,7 +232,7 @@
             this.codeLocation.AutoSize = true;
             this.codeLocation.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.codeLocation.ForeColor = System.Drawing.Color.OrangeRed;
-            this.codeLocation.Location = new System.Drawing.Point(253, 84);
+            this.codeLocation.Location = new System.Drawing.Point(255, 73);
             this.codeLocation.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.codeLocation.Name = "codeLocation";
             this.codeLocation.Size = new System.Drawing.Size(108, 16);
@@ -239,7 +244,7 @@
             this.rating.AutoSize = true;
             this.rating.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rating.ForeColor = System.Drawing.Color.OrangeRed;
-            this.rating.Location = new System.Drawing.Point(198, 64);
+            this.rating.Location = new System.Drawing.Point(200, 53);
             this.rating.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.rating.Name = "rating";
             this.rating.Size = new System.Drawing.Size(108, 16);
@@ -251,7 +256,7 @@
             this.countFilesShared.AutoSize = true;
             this.countFilesShared.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.countFilesShared.ForeColor = System.Drawing.Color.OrangeRed;
-            this.countFilesShared.Location = new System.Drawing.Point(253, 103);
+            this.countFilesShared.Location = new System.Drawing.Point(255, 92);
             this.countFilesShared.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.countFilesShared.Name = "countFilesShared";
             this.countFilesShared.Size = new System.Drawing.Size(108, 16);
@@ -263,7 +268,7 @@
             this.internetState.AutoSize = true;
             this.internetState.BackColor = System.Drawing.Color.Transparent;
             this.internetState.ForeColor = System.Drawing.Color.Red;
-            this.internetState.Location = new System.Drawing.Point(865, 4);
+            this.internetState.Location = new System.Drawing.Point(1073, 6);
             this.internetState.Name = "internetState";
             this.internetState.Size = new System.Drawing.Size(0, 13);
             this.internetState.TabIndex = 11;
@@ -272,18 +277,19 @@
             // 
             this.search.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.search.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.search.Location = new System.Drawing.Point(491, 65);
+            this.search.Location = new System.Drawing.Point(602, 66);
             this.search.MaximumSize = new System.Drawing.Size(500, 58);
             this.search.Name = "search";
-            this.search.Size = new System.Drawing.Size(368, 26);
+            this.search.Size = new System.Drawing.Size(435, 26);
             this.search.TabIndex = 12;
             this.search.Text = "  Search here...";
+            this.search.TextChanged += new System.EventHandler(this.search_TextChanged);
             // 
             // submitSearch
             // 
-            this.submitSearch.Location = new System.Drawing.Point(866, 64);
+            this.submitSearch.Location = new System.Drawing.Point(1043, 65);
             this.submitSearch.Name = "submitSearch";
-            this.submitSearch.Size = new System.Drawing.Size(87, 28);
+            this.submitSearch.Size = new System.Drawing.Size(102, 28);
             this.submitSearch.TabIndex = 13;
             this.submitSearch.Text = "Search now! ";
             this.submitSearch.UseVisualStyleBackColor = true;
@@ -295,18 +301,28 @@
             this.shapeContainer1.Margin = new System.Windows.Forms.Padding(0);
             this.shapeContainer1.Name = "shapeContainer1";
             this.shapeContainer1.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
+            this.rectangleShape3,
             this.rectangleShape2,
             this.rectangleShape1});
-            this.shapeContainer1.Size = new System.Drawing.Size(984, 524);
+            this.shapeContainer1.Size = new System.Drawing.Size(1184, 637);
             this.shapeContainer1.TabIndex = 14;
             this.shapeContainer1.TabStop = false;
+            // 
+            // rectangleShape3
+            // 
+            this.rectangleShape3.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.rectangleShape3.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque;
+            this.rectangleShape3.BorderColor = System.Drawing.Color.Transparent;
+            this.rectangleShape3.Location = new System.Drawing.Point(0, 617);
+            this.rectangleShape3.Name = "rectangleShape3";
+            this.rectangleShape3.Size = new System.Drawing.Size(2000, 20);
             // 
             // rectangleShape2
             // 
             this.rectangleShape2.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.rectangleShape2.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque;
             this.rectangleShape2.BorderColor = System.Drawing.Color.Transparent;
-            this.rectangleShape2.Location = new System.Drawing.Point(12, 166);
+            this.rectangleShape2.Location = new System.Drawing.Point(14, 155);
             this.rectangleShape2.Name = "rectangleShape2";
             this.rectangleShape2.Size = new System.Drawing.Size(103, 16);
             // 
@@ -315,9 +331,9 @@
             this.rectangleShape1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.rectangleShape1.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque;
             this.rectangleShape1.BorderColor = System.Drawing.Color.Transparent;
-            this.rectangleShape1.Location = new System.Drawing.Point(467, 41);
+            this.rectangleShape1.Location = new System.Drawing.Point(586, 41);
             this.rectangleShape1.Name = "rectangleShape1";
-            this.rectangleShape1.Size = new System.Drawing.Size(499, 104);
+            this.rectangleShape1.Size = new System.Drawing.Size(579, 104);
             // 
             // tmpLog
             // 
@@ -327,11 +343,52 @@
             this.tmpLog.Size = new System.Drawing.Size(0, 13);
             this.tmpLog.TabIndex = 15;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Modern No. 20", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(13, 206);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(94, 17);
+            this.label1.TabIndex = 16;
+            this.label1.Text = "Online now ";
+            // 
+            // countOnline
+            // 
+            this.countOnline.AutoSize = true;
+            this.countOnline.Font = new System.Drawing.Font("Minion Pro", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.countOnline.Location = new System.Drawing.Point(101, 204);
+            this.countOnline.Name = "countOnline";
+            this.countOnline.Size = new System.Drawing.Size(42, 21);
+            this.countOnline.TabIndex = 17;
+            this.countOnline.Text = "( 12 )";
+            // 
+            // onlineUsers
+            // 
+            this.onlineUsers.FormattingEnabled = true;
+            this.onlineUsers.Location = new System.Drawing.Point(16, 249);
+            this.onlineUsers.Name = "onlineUsers";
+            this.onlineUsers.Size = new System.Drawing.Size(158, 342);
+            this.onlineUsers.TabIndex = 18;
+            // 
+            // filterUser
+            // 
+            this.filterUser.Location = new System.Drawing.Point(16, 229);
+            this.filterUser.Name = "filterUser";
+            this.filterUser.Size = new System.Drawing.Size(158, 20);
+            this.filterUser.TabIndex = 19;
+            this.filterUser.Text = "search....";
+            this.filterUser.Click += new System.EventHandler(this.filterUser_Click);
+            // 
             // lStore
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(984, 524);
+            this.ClientSize = new System.Drawing.Size(1184, 637);
+            this.Controls.Add(this.filterUser);
+            this.Controls.Add(this.onlineUsers);
+            this.Controls.Add(this.countOnline);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.tmpLog);
             this.Controls.Add(this.submitSearch);
             this.Controls.Add(this.search);
@@ -351,7 +408,8 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.MinimumSize = new System.Drawing.Size(500, 282);
+            this.MaximumSize = new System.Drawing.Size(1200, 676);
+            this.MinimumSize = new System.Drawing.Size(700, 395);
             this.Name = "lStore";
             this.Text = "lStore: LAN Sharing simplified !";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -393,6 +451,11 @@
         private System.Windows.Forms.ToolStripMenuItem tOOLSToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private Microsoft.VisualBasic.PowerPacks.RectangleShape rectangleShape2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label countOnline;
+        private System.Windows.Forms.ListBox onlineUsers;
+        private System.Windows.Forms.TextBox filterUser;
+        private Microsoft.VisualBasic.PowerPacks.RectangleShape rectangleShape3;
     }
 }
 
