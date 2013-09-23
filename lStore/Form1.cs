@@ -14,6 +14,7 @@ using System.IO;
 using System.Xml;
 using System.Threading;
 using System.Collections;
+using System.Web;
 //=========================================namespaces till here==============
 namespace lStore
 {
@@ -24,8 +25,10 @@ namespace lStore
         public string primaryFolder;
         public string ip, baseaddr, gatewayIPv4, gatewayIPv6;
         public string randomFileName;   //a random file name for a file which stores temporary dat about the xml
-        public ArrayList onlineUser = new ArrayList();
-        public int onlineUsercount = 0;
+        public ArrayList onlineUser = new ArrayList();      //for stroring name of online user's name to be populated from db
+        public ArrayList onlineUserIp = new ArrayList();
+        public ArrayList tmpArrayList = new ArrayList();    //for storing tmp online user's while loading the online user's list
+        public int onlineUsercount = 0, tmpOnlineUserCount = 0, loadercount = 0;
         public lStore()
         {
             InitializeComponent();
@@ -41,8 +44,8 @@ namespace lStore
                 internetState.ForeColor = System.Drawing.Color.Green;
                   }
             saveUsage();    //stores the usage date and time to file
-            /*
-            getGatewayDetails();    //this get gateway details from system
+            //getGatewayDetails();    //this get gateway details from system
+            gatewayIPv4 = "192.168.100.1";
             try
             {
                 baseaddr = getBaseAddress(gatewayIPv4);
@@ -52,9 +55,7 @@ namespace lStore
                 throwNonRecoverableError(ex.Message);
                 Environment.Exit(0);    //this has to be gradually changed to something more reliable
             }
-            getIpAddress();
-            testlog.Text = "IP: " +ip +"\n gateway: " +gatewayIPv4 +" \ngatewaw ipv6: " +gatewayIPv6;
-             */
+            getIpAddress(); 
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -90,30 +91,51 @@ namespace lStore
             uname.Text = "" +userName;
             nname.Text = @"\\" +localName;
             rating.Text = returnRating();
+            codeLocation.Text = returnLocation();
+            countFilesShared.Text = returnCountFileShared();
             /*
              * code now to populate list with online users and then trigger a function to recheck online users
              */
-            bottombar_label1.Text = "Refreshing online users";
+            populateUserList();
+            Thread th = new Thread(gatherOnlineUser);
+            th.Start();
+            
+
+        }
+        /* this function calls the member of another class in another thread 
+         * so that it can retireve list of online users on LAN
+         */ 
+        public void gatherOnlineUser() {
+            users userObj = new users(baseaddr,primaryFolder);
+
+        }
+        /*
+         * this function retrieve the user list from file and and populate it to list
+         */
+        public void populateUserList()
+        {
+            /* need to add code to get IP from file as well */
+            onlineUser.Clear();
+            onlineUsers.Items.Clear();
+            /*
+             * cross thread operations result in exception so you need to check weather an invoke is required prior to you using 
+             * this */
             try
             {
                 string[] tmp = File.ReadAllLines(primaryFolder + @"\tmp\online.data");
                 onlineUsercount = tmp.Length;
-                countOnline.Text = "( " + onlineUsercount +" )";
-                for (int i = 0; i < onlineUsercount; i++) 
-                { 
+                countOnline.Text = "( " + onlineUsercount + " )";
+                for (int i = 0; i < onlineUsercount; i++)
+                {
                     onlineUser.Add(tmp[i]);
                     onlineUsers.Items.Add(tmp[i]);
                 }
                 //code to populate this to the list view
-                
-
             }
             catch (Exception ex)
             {
                 saveException(ex.Message);
-                //additional functions needed here
             }
-            //code to trigger new lan user scan and it should be done every 5 mins
             
         }
         public void saveXML()
@@ -123,7 +145,7 @@ namespace lStore
             xml += "<data>" + Environment.NewLine;
             xml += "<username>" + userName + "</username>" + Environment.NewLine;
             xml += "<localname>" + localName + "</localname>" + Environment.NewLine;
-            xml += "<rating>0</localname>" + Environment.NewLine;
+            xml += "<rating>0.0</rating>" + Environment.NewLine;
             try
             {
                 File.WriteAllText(primaryFolder + @"\savedfile.xml", xml);
@@ -135,8 +157,10 @@ namespace lStore
                 this.Close();
             }
         }
-        /*a function to read xml file and retrieve the rating from it
+        /* 
+         * a function to read xml file and retrieve the rating from it
          * and save rating = 0 and return rating in case rating does not exists
+         * xml parsing is not working
          */
         public string returnRating()
         {
@@ -158,10 +182,80 @@ namespace lStore
                     string data = reader.Value;
                     if (data.Length == 0)
                     {
-                        saveXML();
+                        //saveXML();
+                        /* 
+                         * need to find an alternative
+                         */ 
                         return "0.0";
                     }
                     return data;
+            }
+        }
+        /* 
+         * a fucntion to read location code from xml file and return it 
+         * incase of missing data request server for the same 
+         * and save data to xml
+         * alternative: request xml data from adjoining system-> connected to same LAN
+         */
+        public string returnLocation()
+        {
+            string xmlData;
+            try
+            {
+                xmlData = File.ReadAllText(primaryFolder + @"\savedfile.xml");
+            }
+            catch (FileLoadException ex)
+            {
+                saveException(ex.Message);
+                repairFiles();
+                xmlData = File.ReadAllText(primaryFolder + @"\savedfile.xml");
+            }
+            using (XmlReader reader = XmlReader.Create(new StringReader(xmlData + "</data>")))
+            {
+                reader.ReadToFollowing("location");
+                reader.MoveToFirstAttribute();
+                string data = reader.Value;
+                if (data.Length == 0)
+                {
+                    /*
+                     * function to send default gateway address to server and retrieve the location code
+                     * and then function to save this data to xml
+                     */ 
+                    return "loading..";
+                }
+                return data;
+            }
+        }
+        /*
+         * a function to return the no of files shared by user from XML
+         * if not available in XML call the function that tracks the no of shared files
+         */
+        public string returnCountFileShared()
+        {
+            string xmlData;
+            try
+            {
+                xmlData = File.ReadAllText(primaryFolder + @"\savedfile.xml");
+            }
+            catch (FileLoadException ex)
+            {
+                saveException(ex.Message);
+                repairFiles();
+                xmlData = File.ReadAllText(primaryFolder + @"\savedfile.xml");
+            }
+            using (XmlReader reader = XmlReader.Create(new StringReader(xmlData + "</data>")))
+            {
+                reader.ReadToFollowing("filescount");
+                reader.MoveToFirstAttribute();
+                string data = reader.Value;
+                if (data.Length == 0)
+                {
+                    /*
+                     *function call to calculate no of files shared by user 
+                     */
+                    return "scanning..";
+                }
+                return data;
             }
         }
         /*
@@ -463,7 +557,7 @@ namespace lStore
        }
        private void filterUser_Click(object sender, EventArgs e)
        {
-           filterUser.Select();
+           filterUser.Focus();
        }
         /*
          * when ever user write some data to user filter this code refreshes the list
@@ -489,9 +583,7 @@ namespace lStore
            }
        }
 
-       
+      
 
-
-       
     }
 }

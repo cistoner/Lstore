@@ -38,12 +38,24 @@
             this.fILEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nEWToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.oPENToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rESETToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eXITToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eDITToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vIEWToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hELPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.offlineHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.onlineHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutUsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tOOLSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sOCIALToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cHATToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.groupChatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bROADCASTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.codeLocationLabel = new System.Windows.Forms.Label();
             this.linkChangeImage = new System.Windows.Forms.LinkLabel();
             this.codeLocation = new System.Windows.Forms.Label();
@@ -62,18 +74,7 @@
             this.onlineUsers = new System.Windows.Forms.ListBox();
             this.filterUser = new System.Windows.Forms.TextBox();
             this.bottombar_label1 = new System.Windows.Forms.Label();
-            this.sOCIALToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cHATToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.bROADCASTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.groupChatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.checkUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.offlineHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.onlineHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutUsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rESETToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.profilepic)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -164,19 +165,25 @@
             // nEWToolStripMenuItem
             // 
             this.nEWToolStripMenuItem.Name = "nEWToolStripMenuItem";
-            this.nEWToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+            this.nEWToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.nEWToolStripMenuItem.Text = "NEW";
             // 
             // oPENToolStripMenuItem
             // 
             this.oPENToolStripMenuItem.Name = "oPENToolStripMenuItem";
-            this.oPENToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+            this.oPENToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.oPENToolStripMenuItem.Text = "OPEN";
+            // 
+            // rESETToolStripMenuItem
+            // 
+            this.rESETToolStripMenuItem.Name = "rESETToolStripMenuItem";
+            this.rESETToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
+            this.rESETToolStripMenuItem.Text = "RESET";
             // 
             // eXITToolStripMenuItem
             // 
             this.eXITToolStripMenuItem.Name = "eXITToolStripMenuItem";
-            this.eXITToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+            this.eXITToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.eXITToolStripMenuItem.Text = "EXIT";
             // 
             // eDITToolStripMenuItem
@@ -188,6 +195,24 @@
             this.eDITToolStripMenuItem.Name = "eDITToolStripMenuItem";
             this.eDITToolStripMenuItem.Size = new System.Drawing.Size(43, 22);
             this.eDITToolStripMenuItem.Text = "EDIT";
+            // 
+            // cutToolStripMenuItem
+            // 
+            this.cutToolStripMenuItem.Name = "cutToolStripMenuItem";
+            this.cutToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+            this.cutToolStripMenuItem.Text = "Cut";
+            // 
+            // copyToolStripMenuItem
+            // 
+            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+            this.copyToolStripMenuItem.Text = "Copy ";
+            // 
+            // pasteToolStripMenuItem
+            // 
+            this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
+            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+            this.pasteToolStripMenuItem.Text = "Paste";
             // 
             // vIEWToolStripMenuItem
             // 
@@ -205,6 +230,24 @@
             this.hELPToolStripMenuItem.Size = new System.Drawing.Size(47, 22);
             this.hELPToolStripMenuItem.Text = "HELP";
             // 
+            // offlineHelpToolStripMenuItem
+            // 
+            this.offlineHelpToolStripMenuItem.Name = "offlineHelpToolStripMenuItem";
+            this.offlineHelpToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.offlineHelpToolStripMenuItem.Text = "Offline Help";
+            // 
+            // onlineHelpToolStripMenuItem
+            // 
+            this.onlineHelpToolStripMenuItem.Name = "onlineHelpToolStripMenuItem";
+            this.onlineHelpToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.onlineHelpToolStripMenuItem.Text = "Online Help";
+            // 
+            // aboutUsToolStripMenuItem
+            // 
+            this.aboutUsToolStripMenuItem.Name = "aboutUsToolStripMenuItem";
+            this.aboutUsToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.aboutUsToolStripMenuItem.Text = "About Us";
+            // 
             // tOOLSToolStripMenuItem
             // 
             this.tOOLSToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -219,6 +262,40 @@
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.optionsToolStripMenuItem.Text = "Options";
+            // 
+            // checkUpdatesToolStripMenuItem
+            // 
+            this.checkUpdatesToolStripMenuItem.Name = "checkUpdatesToolStripMenuItem";
+            this.checkUpdatesToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.checkUpdatesToolStripMenuItem.Text = "Check Updates";
+            // 
+            // sOCIALToolStripMenuItem
+            // 
+            this.sOCIALToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cHATToolStripMenuItem,
+            this.groupChatToolStripMenuItem,
+            this.bROADCASTToolStripMenuItem});
+            this.sOCIALToolStripMenuItem.Name = "sOCIALToolStripMenuItem";
+            this.sOCIALToolStripMenuItem.Size = new System.Drawing.Size(59, 22);
+            this.sOCIALToolStripMenuItem.Text = "SOCIAL";
+            // 
+            // cHATToolStripMenuItem
+            // 
+            this.cHATToolStripMenuItem.Name = "cHATToolStripMenuItem";
+            this.cHATToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.cHATToolStripMenuItem.Text = "Chat";
+            // 
+            // groupChatToolStripMenuItem
+            // 
+            this.groupChatToolStripMenuItem.Name = "groupChatToolStripMenuItem";
+            this.groupChatToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.groupChatToolStripMenuItem.Text = "Group Chat";
+            // 
+            // bROADCASTToolStripMenuItem
+            // 
+            this.bROADCASTToolStripMenuItem.Name = "bROADCASTToolStripMenuItem";
+            this.bROADCASTToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.bROADCASTToolStripMenuItem.Text = "Broadcast";
             // 
             // codeLocationLabel
             // 
@@ -248,7 +325,7 @@
             this.codeLocation.AutoSize = true;
             this.codeLocation.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.codeLocation.ForeColor = System.Drawing.Color.OrangeRed;
-            this.codeLocation.Location = new System.Drawing.Point(257, 68);
+            this.codeLocation.Location = new System.Drawing.Point(261, 69);
             this.codeLocation.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.codeLocation.Name = "codeLocation";
             this.codeLocation.Size = new System.Drawing.Size(108, 16);
@@ -260,7 +337,7 @@
             this.rating.AutoSize = true;
             this.rating.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rating.ForeColor = System.Drawing.Color.OrangeRed;
-            this.rating.Location = new System.Drawing.Point(202, 48);
+            this.rating.Location = new System.Drawing.Point(192, 51);
             this.rating.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.rating.Name = "rating";
             this.rating.Size = new System.Drawing.Size(108, 16);
@@ -272,7 +349,7 @@
             this.countFilesShared.AutoSize = true;
             this.countFilesShared.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.countFilesShared.ForeColor = System.Drawing.Color.OrangeRed;
-            this.countFilesShared.Location = new System.Drawing.Point(257, 87);
+            this.countFilesShared.Location = new System.Drawing.Point(252, 89);
             this.countFilesShared.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.countFilesShared.Name = "countFilesShared";
             this.countFilesShared.Size = new System.Drawing.Size(108, 16);
@@ -354,7 +431,7 @@
             // tmpLog
             // 
             this.tmpLog.AutoSize = true;
-            this.tmpLog.Location = new System.Drawing.Point(494, 95);
+            this.tmpLog.Location = new System.Drawing.Point(607, 98);
             this.tmpLog.Name = "tmpLog";
             this.tmpLog.Size = new System.Drawing.Size(0, 13);
             this.tmpLog.TabIndex = 15;
@@ -406,89 +483,21 @@
             this.bottombar_label1.Name = "bottombar_label1";
             this.bottombar_label1.Size = new System.Drawing.Size(91, 13);
             this.bottombar_label1.TabIndex = 20;
-            this.bottombar_label1.Text = "bottom bar label 1";
+            this.bottombar_label1.Text = "refreshing user list";
             // 
-            // sOCIALToolStripMenuItem
+            // progressBar1
             // 
-            this.sOCIALToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cHATToolStripMenuItem,
-            this.groupChatToolStripMenuItem,
-            this.bROADCASTToolStripMenuItem});
-            this.sOCIALToolStripMenuItem.Name = "sOCIALToolStripMenuItem";
-            this.sOCIALToolStripMenuItem.Size = new System.Drawing.Size(59, 22);
-            this.sOCIALToolStripMenuItem.Text = "SOCIAL";
-            // 
-            // cHATToolStripMenuItem
-            // 
-            this.cHATToolStripMenuItem.Name = "cHATToolStripMenuItem";
-            this.cHATToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.cHATToolStripMenuItem.Text = "Chat";
-            // 
-            // bROADCASTToolStripMenuItem
-            // 
-            this.bROADCASTToolStripMenuItem.Name = "bROADCASTToolStripMenuItem";
-            this.bROADCASTToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.bROADCASTToolStripMenuItem.Text = "Broadcast";
-            // 
-            // groupChatToolStripMenuItem
-            // 
-            this.groupChatToolStripMenuItem.Name = "groupChatToolStripMenuItem";
-            this.groupChatToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.groupChatToolStripMenuItem.Text = "Group Chat";
-            // 
-            // checkUpdatesToolStripMenuItem
-            // 
-            this.checkUpdatesToolStripMenuItem.Name = "checkUpdatesToolStripMenuItem";
-            this.checkUpdatesToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-            this.checkUpdatesToolStripMenuItem.Text = "Check Updates";
-            // 
-            // offlineHelpToolStripMenuItem
-            // 
-            this.offlineHelpToolStripMenuItem.Name = "offlineHelpToolStripMenuItem";
-            this.offlineHelpToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.offlineHelpToolStripMenuItem.Text = "Offline Help";
-            // 
-            // onlineHelpToolStripMenuItem
-            // 
-            this.onlineHelpToolStripMenuItem.Name = "onlineHelpToolStripMenuItem";
-            this.onlineHelpToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.onlineHelpToolStripMenuItem.Text = "Online Help";
-            // 
-            // aboutUsToolStripMenuItem
-            // 
-            this.aboutUsToolStripMenuItem.Name = "aboutUsToolStripMenuItem";
-            this.aboutUsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.aboutUsToolStripMenuItem.Text = "About Us";
-            // 
-            // cutToolStripMenuItem
-            // 
-            this.cutToolStripMenuItem.Name = "cutToolStripMenuItem";
-            this.cutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.cutToolStripMenuItem.Text = "Cut";
-            // 
-            // copyToolStripMenuItem
-            // 
-            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.copyToolStripMenuItem.Text = "Copy ";
-            // 
-            // pasteToolStripMenuItem
-            // 
-            this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
-            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.pasteToolStripMenuItem.Text = "Paste";
-            // 
-            // rESETToolStripMenuItem
-            // 
-            this.rESETToolStripMenuItem.Name = "rESETToolStripMenuItem";
-            this.rESETToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.rESETToolStripMenuItem.Text = "RESET";
+            this.progressBar1.Location = new System.Drawing.Point(16, 583);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(158, 10);
+            this.progressBar1.TabIndex = 21;
             // 
             // lStore
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 637);
+            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.bottombar_label1);
             this.Controls.Add(this.filterUser);
             this.Controls.Add(this.onlineUsers);
@@ -573,6 +582,7 @@
         private System.Windows.Forms.ToolStripMenuItem cHATToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem groupChatToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bROADCASTToolStripMenuItem;
+        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }
 
