@@ -40,6 +40,7 @@ namespace lStore
                 p.PingCompleted += new PingCompletedEventHandler(p_PingCompleted);
                 p.SendAsync(ip, 100, ip);
             }
+            Thread.Sleep(5000);
         }
         /*
          * a method to recieve the ping()
@@ -63,6 +64,47 @@ namespace lStore
                 }
                 catch (Exception ex){}
             }
+        }
+        /*
+         * a function to return arraylist of name of online user from file
+         */
+        public ArrayList getUsers()
+        {
+            string filename = primaryFolder + @"\tmp\online.data";
+            string[] tmp = File.ReadAllLines(filename);
+            ArrayList returnAL = new ArrayList();
+            for (int i = 0; i < tmp.Length; i++)
+            {
+                string[] arr = tmp[i].Split('*');
+                returnAL.Add(arr[0]);
+            }
+            return returnAL;
+        }
+        /*
+         * a function to return arraylist of ips of online user from file
+         */
+        public ArrayList getUserIp()
+        {
+            string filename = primaryFolder + @"\tmp\online.data";
+            string[] tmp = File.ReadAllLines(filename);
+            ArrayList returnAL = new ArrayList();
+            for (int i = 0; i < tmp.Length; i++)
+            {
+                string[] arr = tmp[i].Split('*');
+                returnAL.Add(arr[1]);
+            }
+            return returnAL;
+        }
+        /* function to explicitly copy contents of
+         * tmp.data to online.data
+         */
+        private void copyOnlineUserFile()
+        { 
+            string destination = primaryFolder + @"\tmp\online.data";
+            string source = primaryFolder + @"\tmp\tmp.data";
+            string data = File.ReadAllText(source);
+            File.WriteAllText(destination,data);
+            return;
         }
 
     }
