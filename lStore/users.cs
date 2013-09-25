@@ -18,6 +18,7 @@ namespace lStore
         private ArrayList onlineUserIp = new ArrayList();
         public int onlineUsercount;
         public string primaryFolder;
+        public static string static_primaryFolder = @"C:\Users\" + Environment.UserName + @"\Documents\lStore";
         public string baseaddr;
         /*
          * a function to check the users available on LAN
@@ -40,7 +41,8 @@ namespace lStore
                 p.PingCompleted += new PingCompletedEventHandler(p_PingCompleted);
                 p.SendAsync(ip, 100, ip);
             }
-            Thread.Sleep(5000);
+            Thread.Sleep(30000);
+            copyOnlineUserFile();   //time set to 5 seconds
         }
         /*
          * a method to recieve the ping()
@@ -68,9 +70,9 @@ namespace lStore
         /*
          * a function to return arraylist of name of online user from file
          */
-        public ArrayList getUsers()
+        public static ArrayList getUsers()
         {
-            string filename = primaryFolder + @"\tmp\online.data";
+            string filename = static_primaryFolder + @"\tmp\online.data";
             string[] tmp = File.ReadAllLines(filename);
             ArrayList returnAL = new ArrayList();
             for (int i = 0; i < tmp.Length; i++)
@@ -83,9 +85,9 @@ namespace lStore
         /*
          * a function to return arraylist of ips of online user from file
          */
-        public ArrayList getUserIp()
+        public static ArrayList getUserIp()
         {
-            string filename = primaryFolder + @"\tmp\online.data";
+            string filename = static_primaryFolder + @"\tmp\online.data";
             string[] tmp = File.ReadAllLines(filename);
             ArrayList returnAL = new ArrayList();
             for (int i = 0; i < tmp.Length; i++)

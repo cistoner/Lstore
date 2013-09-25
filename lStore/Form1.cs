@@ -15,6 +15,7 @@ using System.Xml;
 using System.Threading;
 using System.Collections;
 using System.Web;
+using System.ComponentModel;
 //=========================================namespaces till here==============
 namespace lStore
 {
@@ -26,9 +27,11 @@ namespace lStore
         public string ip, baseaddr, gatewayIPv4, gatewayIPv6;
         public string randomFileName;   //a random file name for a file which stores temporary dat about the xml
         public ArrayList onlineUser = new ArrayList();      //for stroring name of online user's name to be populated from db
-        public ArrayList onlineUserIp = new ArrayList();
-        public ArrayList tmpArrayList = new ArrayList();    //for storing tmp online user's while loading the online user's list
-        public int onlineUsercount = 0, tmpOnlineUserCount = 0, loadercount = 0;
+        public ArrayList onlineUserIp = new ArrayList();    //for stroing IPs of online users
+        delegate void myDelegate(ArrayList u, ArrayList i);
+        public int onlineUsercount = 0;
+        public bool isRefreshing = false;
+        public float maxTime = 40000, steps = 100;
         public lStore()
         {
             InitializeComponent();
@@ -43,6 +46,8 @@ namespace lStore
                 internetState.Text = "Connected to internet";
                 internetState.ForeColor = System.Drawing.Color.Green;
                   }
+            
+            //=======to refresh users==================
             saveUsage();    //stores the usage date and time to file
             //getGatewayDetails();    //this get gateway details from system
             gatewayIPv4 = "192.168.100.1";
@@ -96,47 +101,90 @@ namespace lStore
             /*
              * code now to populate list with online users and then trigger a function to recheck online users
              */
-            populateUserList();
+            populateUserList(users.getUsers(), users.getUserIp());
             Thread th = new Thread(gatherOnlineUser);
             th.Start();
+            //progressBar1.Value = 20;
+            bg1.RunWorkerAsync();
+            //            populateUserList(users.getUsers(), users.getUserIp());
             
 
+        }
+        /*need to create a listner to track a variable change */
+        private void bg1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            
+            BackgroundWorker worker = sender as BackgroundWorker;
+            float count = 10000;
+            while (count <= maxTime)
+            {
+                if ((worker.CancellationPending == true))
+                {
+                    e.Cancel = true;
+                    break;
+                }
+                count += steps;
+               // MessageBox.Show((count.ToString()));
+                //MessageBox.Show((count / maxTime * 100).ToString());
+                Thread.Sleep((int)steps);
+                worker.ReportProgress((int) (count / maxTime * 100 ));
+            }
+        }
+        private void bg1_ProgressChanged_1(object sender, System.ComponentModel.ProgressChangedEventArgs e)
+        {
+            progressBar1.Value = (e.ProgressPercentage);
+            
+        }
+        private void bg1_RunWorkerCompleted_1(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+             
+            if ((e.Cancelled == true))
+            {
+                bottombar_label1.Text = "Refreshing Canceled!";
+            }
+
+            else if (!(e.Error == null))
+            {
+                bottombar_label1.Text = "Could not refresh!";
+            }
+
+            else
+            {
+                bottombar_label1.Text = "User list refreshed!";
+            }
+            populateUserList(users.getUsers(), users.getUserIp());
+            progressBar1.Visible = false;
         }
         /* this function calls the member of another class in another thread 
          * so that it can retireve list of online users on LAN
          */ 
         public void gatherOnlineUser() {
+            isRefreshing = true;
             users userObj = new users(baseaddr,primaryFolder);
-
+            isRefreshing = false;
+            
         }
-        /*
-         * this function retrieve the user list from file and and populate it to list
-         */
-        public void populateUserList()
+        
+        /* overloaded populateUserlist */
+        public void populateUserList(ArrayList user,ArrayList ips)
         {
             /* need to add code to get IP from file as well */
             onlineUser.Clear();
+            onlineUserIp.Clear();
             onlineUsers.Items.Clear();
+            onlineUsercount = 0;
             /*
              * cross thread operations result in exception so you need to check weather an invoke is required prior to you using 
              * this */
-            try
+            foreach(string a in user)
             {
-                string[] tmp = File.ReadAllLines(primaryFolder + @"\tmp\online.data");
-                onlineUsercount = tmp.Length;
-                countOnline.Text = "( " + onlineUsercount + " )";
-                for (int i = 0; i < onlineUsercount; i++)
-                {
-                    onlineUser.Add(tmp[i]);
-                    onlineUsers.Items.Add(tmp[i]);
-                }
-                //code to populate this to the list view
+                onlineUsercount++;
+                onlineUser.Add(a);
+                onlineUsers.Items.Add(a);
             }
-            catch (Exception ex)
-            {
-                saveException(ex.Message);
-            }
-            
+            countOnline.Text = "( " + onlineUsercount + " )";
+            foreach (string a in ips) { onlineUserIp.Add(a); }
+
         }
         public void saveXML()
         {
@@ -582,6 +630,11 @@ namespace lStore
                }
            }
        }
+
+       
+       
+
+       
 
       
 

@@ -75,6 +75,7 @@
             this.filterUser = new System.Windows.Forms.TextBox();
             this.bottombar_label1 = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.bg1 = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.profilepic)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -455,6 +456,7 @@
             this.countOnline.Size = new System.Drawing.Size(42, 21);
             this.countOnline.TabIndex = 17;
             this.countOnline.Text = "( 12 )";
+            this.countOnline.UseMnemonic = false;
             // 
             // onlineUsers
             // 
@@ -491,6 +493,14 @@
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(158, 10);
             this.progressBar1.TabIndex = 21;
+            // 
+            // bg1
+            // 
+            this.bg1.WorkerReportsProgress = true;
+            this.bg1.WorkerSupportsCancellation = true;
+            this.bg1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bg1_DoWork);
+            this.bg1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bg1_ProgressChanged_1);
+            this.bg1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bg1_RunWorkerCompleted_1);
             // 
             // lStore
             // 
@@ -583,6 +593,7 @@
         private System.Windows.Forms.ToolStripMenuItem groupChatToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bROADCASTToolStripMenuItem;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.ComponentModel.BackgroundWorker bg1;
     }
 }
 
