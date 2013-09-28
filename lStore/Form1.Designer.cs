@@ -77,6 +77,7 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.bg1 = new System.ComponentModel.BackgroundWorker();
             this.bgw_internetstate = new System.ComponentModel.BackgroundWorker();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.profilepic)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -509,11 +510,22 @@
             this.bgw_internetstate.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgw_internetstate_DoWork);
             this.bgw_internetstate.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgw_internetstate_RunWorkerCompleted);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(558, 559);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 22;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // lStore
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 637);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.bottombar_label1);
             this.Controls.Add(this.filterUser);
@@ -602,6 +614,7 @@
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.ComponentModel.BackgroundWorker bg1;
         private System.ComponentModel.BackgroundWorker bgw_internetstate;
+        private System.Windows.Forms.Button button1;
     }
 }
 
