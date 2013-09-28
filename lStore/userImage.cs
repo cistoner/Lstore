@@ -44,6 +44,7 @@ namespace lStore
         }
         public void GenerateThumbNail(string sourcefile, string destinationfile)
         {
+            File.Delete(destinationfile);
             System.Drawing.Image image = System.Drawing.Image.FromFile(sourcefile);
             int srcWidth = image.Width;
             int srcHeight = image.Height;
@@ -61,6 +62,7 @@ namespace lStore
             bmp.Save(destinationfile);
             bmp.Dispose();
             image.Dispose();
+            File.Delete(sourcefile);
         }
     }
 }
