@@ -443,7 +443,10 @@ namespace lStore
                string source = imageObj.moveImage(fileToOpen);
                if (source != "-1")
                {
-                   imageObj.GenerateThumbNail(source, @"C:\Users\" + userName + @"\Documents\lStore\user." + imageObj.getExtension(fileToOpen));     
+                   profilepic.Image.Dispose();
+                   string destFile = @"C:\Users\" + userName + @"\Documents\lStore\user." + imageObj.getExtension(fileToOpen);
+                   imageObj.GenerateThumbNail(source,destFile );
+                   profilepic.Image = System.Drawing.Image.FromFile(destFile);
                }
                else MessageBox.Show("Invalid file format! file should be \"jpg\", \"jpeg\", \"png\" or \"bmp\" ");
            }
