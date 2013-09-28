@@ -33,6 +33,7 @@ namespace lStore
         public bool isRefreshing = false;
         public float maxTime = 40000, steps = 100;
         public bool isInternet = false;
+        userImage imageObj = new userImage();
         public lStore()
         {
             InitializeComponent();
@@ -439,43 +440,15 @@ namespace lStore
            if (FD.ShowDialog() == System.Windows.Forms.DialogResult.OK)
            {
                string fileToOpen = FD.FileName;
-               string[] splitname = fileToOpen.Split('.');
-               string extension = splitname[(splitname.Length - 1)].ToLower();
-               string profileImageDirec = @"C:\Users\" + userName + @"\Documents\lStore\tmp\user." + extension;
-               if (extension == "jpg" || extension == "png" || extension == "bmp" || extension == "jpeg")
+               string source = imageObj.moveImage(fileToOpen);
+               if (source != "-1")
                {
-                   //System.IO.FileInfo File = new System.IO.FileInfo(FD.FileName);
-                   //System.IO.StreamReader reader = new System.IO.StreamReader(fileToOpen);
-                   if (File.Exists(profileImageDirec)) File.Delete(profileImageDirec);
-                   try
-                   {
-                       File.Copy(fileToOpen, profileImageDirec);
-                   }
-                   catch (DirectoryNotFoundException ex)
-                   {
-                       repairFolders();
-                       File.Copy(fileToOpen, profileImageDirec);
-                   }
-                   catch (Exception ex)
-                   {
-                       MessageBox.Show(ex.Message); 
-                        //more actions need to be added to counter a situation like this
-                   }
-                   //====task is to resize image in  tmp folder now=====
-                   /*
-                    * process: resize img in tmp -> delete user.xt in lstore@/ and 
-                    * move lstore/tmp/user.xt to lstore/user.xt
-                    * task done
-                    * a loader till this task is finished
-                    */ 
-                   //after this reload the image pane inmain UI
+                   imageObj.GenerateThumbNail(source, @"C:\Users\" + userName + @"\Documents\lStore\user." + imageObj.getExtension(fileToOpen));     
                }
-               else
-               {
-                   MessageBox.Show("Invalid file format! file should be \"jpg\", \"jpeg\", \"png\" or \"bmp\" ");
-               }
+               else MessageBox.Show("Invalid file format! file should be \"jpg\", \"jpeg\", \"png\" or \"bmp\" ");
            }
        }
+        
         /* this function is responsible to initiate search */
        private void submitSearch_Click(object sender, EventArgs e)
        {
