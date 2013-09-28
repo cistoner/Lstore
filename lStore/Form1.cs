@@ -40,6 +40,11 @@ namespace lStore
             localName = System.Environment.MachineName;
             primaryFolder = @"C:\Users\" + userName + @"\Documents\lStore";
             isInternetConnected();  //calls the bgw to check internet connection
+            /* code to set the default profile image if it exists */
+            if (File.Exists(@"C:\Users\" + userName + @"\Documents\lStore\user.jpg"))
+            {
+                profilepic.Image = System.Drawing.Image.FromFile(@"C:\Users\" + userName + @"\Documents\lStore\user.jpg");
+            }
             //=======to refresh users==================
             saveUsage();    //stores the usage date and time to file
             //getGatewayDetails();    //this get gateway details from system
