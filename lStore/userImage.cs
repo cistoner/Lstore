@@ -11,7 +11,11 @@ namespace lStore
     class userImage
     {
         public string userName = Environment.UserName;
-        public int width = 103, height = 123;
+        public int width = 103, height = 123;   //default size of picture box for now
+        /*
+         * code to create a copy of selected image in
+         * lStore temp directory
+         */ 
         public string moveImage(string fileToOpen)
         {
             string[] splitname = fileToOpen.Split('.');
@@ -36,12 +40,22 @@ namespace lStore
             }
             return "-1";
         }
+        /*
+         * function to return extension of a file
+         * @param: filename
+         * return : string extension
+         */ 
         public string getExtension(string filename)
         {
             string[] splitname = filename.Split('.');
             string extension = splitname[(splitname.Length - 1)].ToLower();
             return extension;
         }
+        /*
+         * funtion to generate  thumbnail of any image file
+         * return type: void
+         * @param: source image name and destination image name
+         */ 
         public void GenerateThumbNail(string sourcefile, string destinationfile)
         {
             File.Delete(destinationfile);
