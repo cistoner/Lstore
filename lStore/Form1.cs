@@ -32,21 +32,13 @@ namespace lStore
         public int onlineUsercount = 0;
         public bool isRefreshing = false;
         public float maxTime = 40000, steps = 100;
+        public bool isInternet = false;
         public lStore()
         {
             InitializeComponent();
             localName = System.Environment.MachineName;
             primaryFolder = @"C:\Users\" + userName + @"\Documents\lStore";
-            if (!isInternetConnected()) 
-            { 
-                internetState.Text = "No internet connection";
-                internetState.ForeColor = System.Drawing.Color.Red;
-            }
-            else { 
-                internetState.Text = "Connected to internet";
-                internetState.ForeColor = System.Drawing.Color.Green;
-                  }
-            
+            isInternetConnected();  //calls the bgw to check internet connection
             //=======to refresh users==================
             saveUsage();    //stores the usage date and time to file
             //getGatewayDetails();    //this get gateway details from system
@@ -431,13 +423,6 @@ namespace lStore
             }
             return true;
         }
-        /* 
-         * returns true or false corresponding to working internet connection
-         */ 
-        public bool isInternetConnected()
-        {
-            return NetworkInterface.GetIsNetworkAvailable();
-        }
        
        /*
         * program to change profile image
@@ -628,6 +613,47 @@ namespace lStore
                {
                    onlineUsers.Items.Add(name);
                }
+           }
+       }
+        /* 
+         * a function to initiate the internet check background worker
+         */ 
+       public void isInternetConnected()
+       {
+           internetState.Text = "Checking Internet";
+           internetState.ForeColor = System.Drawing.Color.Blue;
+           bgw_internetstate.RunWorkerAsync();
+       }
+        /* 
+         * a background worker to check state of connected internet
+         * it checks by opeing url: google.co.in
+         * and checks the received error state
+         */ 
+       private void bgw_internetstate_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+       {
+           HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create("http://www.google.co.in/");
+           webRequest.AllowAutoRedirect = false;
+           try
+           {
+               HttpWebResponse response = (HttpWebResponse)webRequest.GetResponse();
+               isInternet = true;
+           }
+           catch (WebException ex) { isInternet =  false; }
+       }
+        /*
+         * this event occours when the internet check bgw finish operation
+         */ 
+       private void bgw_internetstate_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+       {
+           if (isInternet)
+           { 
+               internetState.Text = "Connected to internet";
+               internetState.ForeColor = System.Drawing.Color.Green;
+           }
+           else 
+           {
+               internetState.Text = "No internet connection";
+               internetState.ForeColor = System.Drawing.Color.Red;
            }
        }
 

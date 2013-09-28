@@ -76,6 +76,7 @@
             this.bottombar_label1 = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.bg1 = new System.ComponentModel.BackgroundWorker();
+            this.bgw_internetstate = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.profilepic)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -362,7 +363,7 @@
             this.internetState.AutoSize = true;
             this.internetState.BackColor = System.Drawing.Color.Transparent;
             this.internetState.ForeColor = System.Drawing.Color.Red;
-            this.internetState.Location = new System.Drawing.Point(1073, 6);
+            this.internetState.Location = new System.Drawing.Point(1057, 6);
             this.internetState.Name = "internetState";
             this.internetState.Size = new System.Drawing.Size(0, 13);
             this.internetState.TabIndex = 11;
@@ -502,6 +503,12 @@
             this.bg1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bg1_ProgressChanged_1);
             this.bg1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bg1_RunWorkerCompleted_1);
             // 
+            // bgw_internetstate
+            // 
+            this.bgw_internetstate.WorkerSupportsCancellation = true;
+            this.bgw_internetstate.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgw_internetstate_DoWork);
+            this.bgw_internetstate.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgw_internetstate_RunWorkerCompleted);
+            // 
             // lStore
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -594,6 +601,7 @@
         private System.Windows.Forms.ToolStripMenuItem bROADCASTToolStripMenuItem;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.ComponentModel.BackgroundWorker bg1;
+        private System.ComponentModel.BackgroundWorker bgw_internetstate;
     }
 }
 

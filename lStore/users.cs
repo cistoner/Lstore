@@ -39,7 +39,14 @@ namespace lStore
                 string ip = (string)addr + "." + i.ToString();
                 Ping p = new Ping();
                 p.PingCompleted += new PingCompletedEventHandler(p_PingCompleted);
-                p.SendAsync(ip, 100, ip);
+                try
+                {
+                    p.SendAsync(ip, 100, ip);
+                }
+                catch (PingException ex) 
+                { 
+                    /* take some actions here */
+                }
             }
             Thread.Sleep(30000);
             copyOnlineUserFile();   //time set to 5 seconds
