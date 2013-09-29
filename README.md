@@ -15,5 +15,3 @@ This application will have following features: <br>
     categorise contents automatically or manually<br>
     [ imp ] a very faster search as compared to tools like "LAN SEARCH PRO" !<br>
     
-	
-	
