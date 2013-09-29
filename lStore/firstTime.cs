@@ -36,7 +36,7 @@ namespace lStore
             else 
             {
                 isProxyEnabled = true;
-                proxyLabel.Text = "Attempting connection with proxy";
+                proxyLabel.Text = "PROXY: Enabled";
                 proxyLabel.ForeColor = System.Drawing.Color.Red;
                 if (canConnectTourl())
                 {

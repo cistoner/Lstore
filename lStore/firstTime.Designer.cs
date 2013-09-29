@@ -160,9 +160,9 @@
             this.proxyLabel.Font = new System.Drawing.Font("Lucida Sans Unicode", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.proxyLabel.Location = new System.Drawing.Point(18, 205);
             this.proxyLabel.Name = "proxyLabel";
-            this.proxyLabel.Size = new System.Drawing.Size(305, 20);
+            this.proxyLabel.Size = new System.Drawing.Size(137, 20);
             this.proxyLabel.TabIndex = 8;
-            this.proxyLabel.Text = "Attempting connection without proxy";
+            this.proxyLabel.Text = "PROXY: disabled";
             // 
             // firstTime
             // 
