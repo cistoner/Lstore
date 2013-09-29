@@ -16,7 +16,7 @@ namespace lStore
     public partial class firstTime : Form
     {
         public int step = 1;
-        public string url = "http://www.dce.edu";
+        public string url = "http://www.cistoner.com";
         public bool isFirst = false;
         private bool[] isFileDownloaded = new bool[10];
         public string primaryFolder = @"C:\Users\" + Environment.UserName + @"\Documents\lStore";
@@ -24,13 +24,31 @@ namespace lStore
         {
             InitializeComponent();
             localSyncLabel.Visible = false;
-            stepCount.Text = " 1 of 10 ";
-            for (int i = 0; i < 10; i++)
+            if (canConnectTourl())
             {
-                isFileDownloaded[i] = false;    //for remoiving exceptio
+                stepCount.Text = " 1 of 10 ";
+                for (int i = 0; i < 10; i++)
+                {
+                    isFileDownloaded[i] = false;    //for remoiving exceptio
+                }
+                onlinesync.RunWorkerAsync();
             }
-            onlinesync.RunWorkerAsync();
+            else 
+            {
+                MessageBox.Show("Program cannot connect to server! Try using proxy server.");            
+            }
             
+            
+        }
+        /* 
+         * function to check if program can connect
+         * to required server
+         */ 
+        private bool canConnectTourl()
+        {
+            string data = SendPost(url, "");
+            if ( data.Length != 0 ) return true;
+            return false;
         }
         /* 
          * main working fnction of
@@ -56,7 +74,10 @@ namespace lStore
                 localSyncLabel.Visible = true;
                 localsync.RunWorkerAsync();
             }
-            stepCount.Text = " " +step.ToString() + " of 10 ";
+            if (step <= 10)
+            {
+                stepCount.Text = " " + step.ToString() + " of 10 ";
+            }
         }
         /*
          * background worker to read data line by line from file
