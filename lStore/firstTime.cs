@@ -16,7 +16,7 @@ namespace lStore
     public partial class firstTime : Form
     {
         public int step = 1;
-        public string url = "http://www.cistoner.com/abcd/sync.php";
+        public string url = "http://www.dce.edu";
         public bool isFirst = false;
         private bool[] isFileDownloaded = new bool[10];
         public string primaryFolder = @"C:\Users\" + Environment.UserName + @"\Documents\lStore";
@@ -43,7 +43,7 @@ namespace lStore
                 string tmp = SendPost(url, "step=" + step.ToString());
                 File.WriteAllText(primaryFolder + @"\tmp\data_step_" + step.ToString() +".data", tmp);
                 isFileDownloaded[step - 1] = true;
-                onlinesync.ReportProgress(step * 5);
+                onlinesync.ReportProgress(5);
                 step++;
             }
         }
@@ -78,7 +78,7 @@ namespace lStore
                      * save this content to local db
                      */ 
                 }
-                localsync.ReportProgress(count * 5);
+                localsync.ReportProgress(5);
                 count++;
             }
             
