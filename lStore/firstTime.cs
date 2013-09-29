@@ -67,9 +67,10 @@ namespace lStore
             int count = 1;
             while (count <= 10)
             {
-                while (!File.Exists(primaryFolder + @"\tmp\data_step_" + count.ToString() + ".data") && isFileDownloaded[count-1]) { };
+                while (!File.Exists(primaryFolder + @"\tmp\data_step_" + count.ToString() + ".data") ) { };
                 //this waits till the file has been created
-                
+                while (!isFileDownloaded[count - 1]) { };
+                //this makes code wait till data has been completely saved
                 string[] files = File.ReadAllLines(primaryFolder + @"\tmp\data_step_" + count.ToString() + ".data");
                 for (int i = 0; i < files.Length; i++)
                 { 
