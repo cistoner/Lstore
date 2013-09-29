@@ -17,7 +17,7 @@ namespace lStore
     {
         public int step = 1;
         public string url = "http://www.cistoner.com";
-        public bool isFirst = false;
+        public bool isFirst = false,isProxyEnabled = false;
         private bool[] isFileDownloaded = new bool[10];
         public string primaryFolder = @"C:\Users\" + Environment.UserName + @"\Documents\lStore";
         public firstTime()
@@ -35,7 +35,23 @@ namespace lStore
             }
             else 
             {
-                MessageBox.Show("Program cannot connect to server! Try using proxy server.");            
+                isProxyEnabled = true;
+                proxyLabel.Text = "Attempting connection with proxy";
+                proxyLabel.ForeColor = System.Drawing.Color.Red;
+                if (canConnectTourl())
+                {
+                    stepCount.Text = " 1 of 10 ";
+                    for (int i = 0; i < 10; i++)
+                    {
+                        isFileDownloaded[i] = false;    //for remoiving exceptio
+                    }
+                    onlinesync.RunWorkerAsync();
+                }
+                else
+                {
+                    MessageBox.Show("Program cannot connect to server! Try using proxy server."); 
+                }
+                           
             }
             
             
@@ -130,6 +146,15 @@ namespace lStore
                 byte[] byteArray = Encoding.UTF8.GetBytes(postData);
 
                 HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
+                if (isProxyEnabled)
+                {
+                    /* 
+                     * to enable proxy connection
+                     */ 
+                    WebProxy myproxy = new WebProxy("127.0.0.1", 9666);
+                    myproxy.BypassProxyOnLocal = false;
+                    webRequest.Proxy = myproxy;
+                }
                 webRequest.Method = "POST";
                 webRequest.ContentType = "application/x-www-form-urlencoded";
                 webRequest.ContentLength = byteArray.Length;

@@ -40,6 +40,7 @@
             this.onlinesync = new System.ComponentModel.BackgroundWorker();
             this.localsync = new System.ComponentModel.BackgroundWorker();
             this.localSyncLabel = new System.Windows.Forms.Label();
+            this.proxyLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -152,12 +153,24 @@
             this.localSyncLabel.TabIndex = 7;
             this.localSyncLabel.Text = "loading data to local files";
             // 
+            // proxyLabel
+            // 
+            this.proxyLabel.AutoSize = true;
+            this.proxyLabel.BackColor = System.Drawing.Color.LavenderBlush;
+            this.proxyLabel.Font = new System.Drawing.Font("Lucida Sans Unicode", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.proxyLabel.Location = new System.Drawing.Point(18, 205);
+            this.proxyLabel.Name = "proxyLabel";
+            this.proxyLabel.Size = new System.Drawing.Size(305, 20);
+            this.proxyLabel.TabIndex = 8;
+            this.proxyLabel.Text = "Attempting connection without proxy";
+            // 
             // firstTime
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(947, 439);
+            this.Controls.Add(this.proxyLabel);
             this.Controls.Add(this.localSyncLabel);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -193,5 +206,6 @@
         private System.ComponentModel.BackgroundWorker onlinesync;
         private System.ComponentModel.BackgroundWorker localsync;
         private System.Windows.Forms.Label localSyncLabel;
+        private System.Windows.Forms.Label proxyLabel;
     }
 }
