@@ -49,7 +49,7 @@ namespace lStore
                 }
                 else
                 {
-                    MessageBox.Show("Program cannot connect to server! Try using proxy server."); 
+                    proxyLabel.Text = "Unable to connect"; 
                 }
                            
             }
