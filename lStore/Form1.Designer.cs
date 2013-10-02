@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(lStore));
             this.profilepic = new System.Windows.Forms.PictureBox();
             this.uname = new System.Windows.Forms.Label();
@@ -81,8 +82,14 @@
             this.button2 = new System.Windows.Forms.Button();
             this.selectCategories = new System.Windows.Forms.ComboBox();
             this.bottombar_label2 = new System.Windows.Forms.Label();
+            this.notifICO = new System.Windows.Forms.NotifyIcon(this.components);
+            this.contextMenuNotif = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.sendFeedbackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.profilepic)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            this.contextMenuNotif.SuspendLayout();
             this.SuspendLayout();
             // 
             // profilepic
@@ -564,6 +571,40 @@
             this.bottombar_label2.TabIndex = 26;
             this.bottombar_label2.Text = "User is not available or is not accessible";
             // 
+            // notifICO
+            // 
+            this.notifICO.ContextMenuStrip = this.contextMenuNotif;
+            this.notifICO.Icon = ((System.Drawing.Icon)(resources.GetObject("notifICO.Icon")));
+            this.notifICO.Text = "lStore: LAN Sharing simplified";
+            this.notifICO.Visible = true;
+            // 
+            // contextMenuNotif
+            // 
+            this.contextMenuNotif.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sendFeedbackToolStripMenuItem,
+            this.helpToolStripMenuItem1,
+            this.exitToolStripMenuItem1});
+            this.contextMenuNotif.Name = "contextMenuNotif";
+            this.contextMenuNotif.Size = new System.Drawing.Size(152, 70);
+            // 
+            // sendFeedbackToolStripMenuItem
+            // 
+            this.sendFeedbackToolStripMenuItem.Name = "sendFeedbackToolStripMenuItem";
+            this.sendFeedbackToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.sendFeedbackToolStripMenuItem.Text = "Send feedback";
+            // 
+            // helpToolStripMenuItem1
+            // 
+            this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
+            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(151, 22);
+            this.helpToolStripMenuItem1.Text = "Help";
+            // 
+            // exitToolStripMenuItem1
+            // 
+            this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
+            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(151, 22);
+            this.exitToolStripMenuItem1.Text = "Exit";
+            // 
             // lStore
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -598,7 +639,9 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(1200, 676);
+            this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(700, 395);
             this.Name = "lStore";
             this.Text = "lStore: LAN Sharing simplified !";
@@ -606,6 +649,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.profilepic)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.contextMenuNotif.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -665,6 +709,11 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ComboBox selectCategories;
         private System.Windows.Forms.Label bottombar_label2;
+        private System.Windows.Forms.NotifyIcon notifICO;
+        private System.Windows.Forms.ContextMenuStrip contextMenuNotif;
+        private System.Windows.Forms.ToolStripMenuItem sendFeedbackToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem1;
     }
 }
 
