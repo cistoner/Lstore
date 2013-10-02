@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(lStore));
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
             "test"}, -1, System.Drawing.Color.Empty, System.Drawing.SystemColors.Menu, new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))));
             this.profilepic = new System.Windows.Forms.PictureBox();
             this.uname = new System.Windows.Forms.Label();
@@ -397,6 +397,7 @@
             this.search.Text = "  Search here...";
             this.search.Click += new System.EventHandler(this.search_Click);
             this.search.TextChanged += new System.EventHandler(this.search_TextChanged);
+            this.search.KeyDown += new System.Windows.Forms.KeyEventHandler(this.search_KeyDown);
             // 
             // submitSearch
             // 
@@ -651,11 +652,11 @@
             // 
             this.workspace.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.workspace.ForeColor = System.Drawing.Color.DarkRed;
-            listViewItem2.Checked = true;
-            listViewItem2.IndentCount = 20;
-            listViewItem2.StateImageIndex = 1;
+            listViewItem1.Checked = true;
+            listViewItem1.IndentCount = 20;
+            listViewItem1.StateImageIndex = 1;
             this.workspace.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem2});
+            listViewItem1});
             this.workspace.Location = new System.Drawing.Point(222, 229);
             this.workspace.Name = "workspace";
             this.workspace.Size = new System.Drawing.Size(733, 364);

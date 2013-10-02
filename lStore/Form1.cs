@@ -479,6 +479,13 @@ namespace lStore
         /* this function is responsible to initiate search */
        private void submitSearch_Click(object sender, EventArgs e)
        {
+           performSearch();
+       }
+        /* 
+         * function to perform actual search operation
+         */ 
+       private void performSearch()
+       {
            string key = search.Text;
            if (key == "  Search here..." || key.Length == 0)
            {
@@ -486,19 +493,19 @@ namespace lStore
                search.Focus();
            }
            else
-           {    
+           {
                /*
                 case when something logical has been attempted
                 */
                tmpLog.Text = "Searching for \" " + key + " \"";
                if (selectedCategory != "" && selectedCategory != "All")
                {
-                   tmpLog.Text += " Under category \" " +selectedCategory +" \" ";
+                   tmpLog.Text += " Under category \" " + selectedCategory + " \" ";
                }
                tmpLog.Text += " ....";
                //save this search to log
                writeToSearchLogs(key);
-               
+
            }
        }
        /*
@@ -703,13 +710,32 @@ namespace lStore
            selectedCategory = selectCategories.SelectedItem.ToString();
            /*
             * can add code to re-search on category change
-            */ 
+            */
+           performSearch();
        }
-
+        /* 
+         * this function select complete text of the
+         * input box search
+         * when clicked
+         */ 
        private void search_Click(object sender, EventArgs e)
        {
            search.SelectAll();
        }
+        /*
+         * listner to check enter key was pressed while typing in 
+         * search nput
+         * and call the search function when the event is triggered
+         */ 
+       private void search_KeyDown(object sender, KeyEventArgs e)
+       {
+           if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Return)
+           {
+               performSearch();
+           }
+       }
+
+
 
        
        
