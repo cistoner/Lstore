@@ -87,6 +87,9 @@
             this.sendFeedbackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.sortbySelectBox = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.profilepic)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.contextMenuNotif.SuspendLayout();
@@ -545,6 +548,7 @@
             // 
             // selectCategories
             // 
+            this.selectCategories.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.selectCategories.FormattingEnabled = true;
             this.selectCategories.Items.AddRange(new object[] {
             "All",
@@ -554,11 +558,10 @@
             "Games",
             "Softwares",
             "Codes"});
-            this.selectCategories.Location = new System.Drawing.Point(602, 114);
+            this.selectCategories.Location = new System.Drawing.Point(711, 114);
             this.selectCategories.Name = "selectCategories";
             this.selectCategories.Size = new System.Drawing.Size(121, 21);
             this.selectCategories.TabIndex = 24;
-            this.selectCategories.Text = "  Categories";
             this.selectCategories.SelectedIndexChanged += new System.EventHandler(this.selectCategories_SelectedIndexChanged);
             // 
             // bottombar_label2
@@ -605,13 +608,51 @@
             this.exitToolStripMenuItem1.Size = new System.Drawing.Size(151, 22);
             this.exitToolStripMenuItem1.Text = "Exit";
             // 
+            // sortbySelectBox
+            // 
+            this.sortbySelectBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.sortbySelectBox.FormattingEnabled = true;
+            this.sortbySelectBox.Items.AddRange(new object[] {
+            "User Rating",
+            "Online Rating",
+            "Date modified"});
+            this.sortbySelectBox.Location = new System.Drawing.Point(924, 114);
+            this.sortbySelectBox.Name = "sortbySelectBox";
+            this.sortbySelectBox.Size = new System.Drawing.Size(121, 21);
+            this.sortbySelectBox.TabIndex = 27;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label2.Location = new System.Drawing.Point(606, 116);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(99, 19);
+            this.label2.TabIndex = 28;
+            this.label2.Text = "Categories";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label3.Location = new System.Drawing.Point(847, 116);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(72, 19);
+            this.label3.TabIndex = 29;
+            this.label3.Text = "Sort by";
+            // 
             // lStore
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 637);
-            this.Controls.Add(this.bottombar_label2);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.selectCategories);
+            this.Controls.Add(this.sortbySelectBox);
+            this.Controls.Add(this.bottombar_label2);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.progressBar1);
@@ -714,6 +755,9 @@
         private System.Windows.Forms.ToolStripMenuItem sendFeedbackToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem1;
+        private System.Windows.Forms.ComboBox sortbySelectBox;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
     }
 }
 
