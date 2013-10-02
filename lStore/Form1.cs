@@ -34,6 +34,7 @@ namespace lStore
         public float maxTime = 40000, steps = 100;
         public bool isInternet = false;
         userImage imageObj = new userImage();
+        public string selectedCategory = "";
         public lStore()
         {
             InitializeComponent();
@@ -58,7 +59,8 @@ namespace lStore
                 throwNonRecoverableError(ex.Message);
                 Environment.Exit(0);    //this has to be gradually changed to something more reliable
             }
-            getIpAddress(); 
+            getIpAddress();
+            bottombar_label2.Text = "";
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -182,6 +184,23 @@ namespace lStore
             }
             countOnline.Text = "( " + onlineUsercount + " )";
             foreach (string a in ips) { onlineUserIp.Add(a); }
+
+        }
+        /*
+         * overloaded populateUserlist 
+         * this method is called when change has to be made from 
+         * the existing arraylist
+         */
+        public void populateUserList()
+        {
+            onlineUsers.Items.Clear();
+            onlineUsercount = 0;
+            foreach (string a in onlineUser)
+            {
+                onlineUsercount++;
+                onlineUsers.Items.Add(a);
+            }
+            countOnline.Text = "( " + onlineUsercount + " )";
 
         }
         public void saveXML()
@@ -471,7 +490,12 @@ namespace lStore
                /*
                 case when something logical has been attempted
                 */
-               tmpLog.Text = "Searching for \" " + key + " \"...";
+               tmpLog.Text = "Searching for \" " + key + " \"";
+               if (selectedCategory != "" && selectedCategory != "All")
+               {
+                   tmpLog.Text += " Under category \" " +selectedCategory +" \" ";
+               }
+               tmpLog.Text += " ....";
                //save this search to log
                writeToSearchLogs(key);
                
@@ -648,6 +672,44 @@ namespace lStore
        {
            chat c = new chat();
            c.Show();
+       }
+        /*
+         * this event runs when someone clicks on online user list
+         */ 
+       private void onlineUsers_SelectedIndexChanged(object sender, EventArgs e)
+       {
+           string user =  onlineUsers.SelectedItem.ToString();
+           ArrayList folders = crawler.get_folders(user);
+           if (folders.Count == 0)
+           {
+               onlineUser.Remove(user);
+               populateUserList();  //calling for refreshing the user UI
+               bottombar_label2.Text = "User is not available or not accessible. User removed from list";
+               return;
+           }
+           string data = "";
+           for (int i = 0; i < folders.Count; i++)
+           {
+               if (i==0) 
+               {
+                   if (folders[i].ToString() == "-1")
+                   { MessageBox.Show("you donot have access! or user is not available now"); }
+               }
+               data += ">>" +folders[i];
+           }
+           
+           MessageBox.Show(data);
+
+       }
+        /* 
+         * invoked when select for categories is changed
+         */ 
+       private void selectCategories_SelectedIndexChanged(object sender, EventArgs e)
+       {
+           selectedCategory = selectCategories.SelectedItem.ToString();
+           /*
+            * can add code to re-search on category change
+            */ 
        }
 
        

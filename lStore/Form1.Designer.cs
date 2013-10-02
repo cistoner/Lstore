@@ -79,6 +79,8 @@
             this.bgw_internetstate = new System.ComponentModel.BackgroundWorker();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.selectCategories = new System.Windows.Forms.ComboBox();
+            this.bottombar_label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.profilepic)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -466,10 +468,13 @@
             this.onlineUsers.Font = new System.Drawing.Font("Maiandra GD", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.onlineUsers.FormattingEnabled = true;
             this.onlineUsers.ItemHeight = 15;
+            this.onlineUsers.Items.AddRange(new object[] {
+            "testItem"});
             this.onlineUsers.Location = new System.Drawing.Point(16, 249);
             this.onlineUsers.Name = "onlineUsers";
             this.onlineUsers.Size = new System.Drawing.Size(158, 334);
             this.onlineUsers.TabIndex = 18;
+            this.onlineUsers.SelectedIndexChanged += new System.EventHandler(this.onlineUsers_SelectedIndexChanged);
             // 
             // filterUser
             // 
@@ -531,11 +536,41 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // selectCategories
+            // 
+            this.selectCategories.FormattingEnabled = true;
+            this.selectCategories.Items.AddRange(new object[] {
+            "All",
+            "Documents",
+            "Movies",
+            "Songs",
+            "Games",
+            "Softwares",
+            "Codes"});
+            this.selectCategories.Location = new System.Drawing.Point(602, 114);
+            this.selectCategories.Name = "selectCategories";
+            this.selectCategories.Size = new System.Drawing.Size(121, 21);
+            this.selectCategories.TabIndex = 24;
+            this.selectCategories.Text = "  Categories";
+            this.selectCategories.SelectedIndexChanged += new System.EventHandler(this.selectCategories_SelectedIndexChanged);
+            // 
+            // bottombar_label2
+            // 
+            this.bottombar_label2.AutoSize = true;
+            this.bottombar_label2.ForeColor = System.Drawing.Color.Red;
+            this.bottombar_label2.Location = new System.Drawing.Point(389, 621);
+            this.bottombar_label2.Name = "bottombar_label2";
+            this.bottombar_label2.Size = new System.Drawing.Size(195, 13);
+            this.bottombar_label2.TabIndex = 26;
+            this.bottombar_label2.Text = "User is not available or is not accessible";
+            // 
             // lStore
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 637);
+            this.Controls.Add(this.bottombar_label2);
+            this.Controls.Add(this.selectCategories);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.progressBar1);
@@ -628,6 +663,8 @@
         private System.ComponentModel.BackgroundWorker bgw_internetstate;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ComboBox selectCategories;
+        private System.Windows.Forms.Label bottombar_label2;
     }
 }
 

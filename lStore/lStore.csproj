@@ -55,6 +55,7 @@
     <Compile Include="chat.Designer.cs">
       <DependentUpon>chat.cs</DependentUpon>
     </Compile>
+    <Compile Include="crawler.cs" />
     <Compile Include="firstTime.cs">
       <SubType>Form</SubType>
     </Compile>
