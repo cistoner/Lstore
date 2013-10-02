@@ -680,25 +680,19 @@ namespace lStore
        {
            string user =  onlineUsers.SelectedItem.ToString();
            ArrayList folders = crawler.get_folders(user);
-           if (folders.Count == 0)
+           if (folders.Count == 0 || folders[0].ToString() == "-1" )
            {
                onlineUser.Remove(user);
                populateUserList();  //calling for refreshing the user UI
                bottombar_label2.Text = "User is not available or not accessible. User removed from list";
                return;
            }
-           string data = "";
+           var items = workspace.Items;
+           items.Clear();
            for (int i = 0; i < folders.Count; i++)
            {
-               if (i==0) 
-               {
-                   if (folders[i].ToString() == "-1")
-                   { MessageBox.Show("you donot have access! or user is not available now"); }
-               }
-               data += ">>" +folders[i];
+               items.Add(folders[i].ToString());
            }
-           
-           MessageBox.Show(data);
 
        }
         /* 
@@ -710,6 +704,11 @@ namespace lStore
            /*
             * can add code to re-search on category change
             */ 
+       }
+
+       private void search_Click(object sender, EventArgs e)
+       {
+           search.SelectAll();
        }
 
        

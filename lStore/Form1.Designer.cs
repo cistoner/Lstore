@@ -30,6 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(lStore));
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
+            "test"}, -1, System.Drawing.Color.Empty, System.Drawing.SystemColors.Menu, new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))));
             this.profilepic = new System.Windows.Forms.PictureBox();
             this.uname = new System.Windows.Forms.Label();
             this.nname = new System.Windows.Forms.Label();
@@ -90,6 +92,7 @@
             this.sortbySelectBox = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.workspace = new System.Windows.Forms.ListView();
             ((System.ComponentModel.ISupportInitialize)(this.profilepic)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.contextMenuNotif.SuspendLayout();
@@ -392,6 +395,7 @@
             this.search.Size = new System.Drawing.Size(435, 26);
             this.search.TabIndex = 12;
             this.search.Text = "  Search here...";
+            this.search.Click += new System.EventHandler(this.search_Click);
             this.search.TextChanged += new System.EventHandler(this.search_TextChanged);
             // 
             // submitSearch
@@ -643,11 +647,29 @@
             this.label3.TabIndex = 29;
             this.label3.Text = "Sort by";
             // 
+            // workspace
+            // 
+            this.workspace.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.workspace.ForeColor = System.Drawing.Color.DarkRed;
+            listViewItem2.Checked = true;
+            listViewItem2.IndentCount = 20;
+            listViewItem2.StateImageIndex = 1;
+            this.workspace.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem2});
+            this.workspace.Location = new System.Drawing.Point(222, 229);
+            this.workspace.Name = "workspace";
+            this.workspace.Size = new System.Drawing.Size(733, 364);
+            this.workspace.TabIndex = 30;
+            this.workspace.TileSize = new System.Drawing.Size(710, 50);
+            this.workspace.UseCompatibleStateImageBehavior = false;
+            this.workspace.View = System.Windows.Forms.View.Tile;
+            // 
             // lStore
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 637);
+            this.Controls.Add(this.workspace);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.selectCategories);
@@ -758,6 +780,7 @@
         private System.Windows.Forms.ComboBox sortbySelectBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ListView workspace;
     }
 }
 
