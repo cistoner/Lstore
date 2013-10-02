@@ -35,6 +35,7 @@ namespace lStore
         public bool isInternet = false;
         userImage imageObj = new userImage();
         public string selectedCategory = "";
+        public int selectedSortByVal = -1;   //int val for selected option in sort by select box @ default = 0
         public lStore()
         {
             InitializeComponent();
@@ -502,6 +503,10 @@ namespace lStore
                {
                    tmpLog.Text += " Under category \" " + selectedCategory + " \" ";
                }
+               if(selectedSortByVal!=-1)
+               {
+                   tmpLog.Text += " Sorted by \" " + sortbySelectBox.SelectedItem.ToString() + " \" "; 
+               }
                tmpLog.Text += " ....";
                //save this search to log
                writeToSearchLogs(key);
@@ -733,6 +738,15 @@ namespace lStore
            {
                performSearch();
            }
+       }
+        /* 
+         * triggered when the 
+         * sort by select box is changed
+         */ 
+       private void sortbySelectBox_SelectedIndexChanged(object sender, EventArgs e)
+       {
+           selectedSortByVal = sortbySelectBox.SelectedIndex;
+           performSearch();
        }
 
 

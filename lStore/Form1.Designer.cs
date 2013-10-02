@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(lStore));
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
             "test"}, -1, System.Drawing.Color.Empty, System.Drawing.SystemColors.Menu, new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))));
             this.profilepic = new System.Windows.Forms.PictureBox();
             this.uname = new System.Windows.Forms.Label();
@@ -625,6 +625,7 @@
             this.sortbySelectBox.Name = "sortbySelectBox";
             this.sortbySelectBox.Size = new System.Drawing.Size(121, 21);
             this.sortbySelectBox.TabIndex = 27;
+            this.sortbySelectBox.SelectedIndexChanged += new System.EventHandler(this.sortbySelectBox_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -652,11 +653,11 @@
             // 
             this.workspace.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.workspace.ForeColor = System.Drawing.Color.DarkRed;
-            listViewItem1.Checked = true;
-            listViewItem1.IndentCount = 20;
-            listViewItem1.StateImageIndex = 1;
+            listViewItem2.Checked = true;
+            listViewItem2.IndentCount = 20;
+            listViewItem2.StateImageIndex = 1;
             this.workspace.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1});
+            listViewItem2});
             this.workspace.Location = new System.Drawing.Point(222, 229);
             this.workspace.Name = "workspace";
             this.workspace.Size = new System.Drawing.Size(733, 364);
