@@ -71,6 +71,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="userImage.cs" />
+    <Compile Include="userInfo.cs" />
     <Compile Include="users.cs" />
     <EmbeddedResource Include="chat.resx">
       <DependentUpon>chat.cs</DependentUpon>

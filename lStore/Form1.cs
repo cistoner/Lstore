@@ -22,7 +22,7 @@ namespace lStore
     public partial class lStore : Form
     {
         //=====variables here===================
-        public string userName = Environment.UserName, localName;
+        public string userName = userInfo.username, localName = userInfo.networkname;
         public string primaryFolder;
         public string ip, baseaddr, gatewayIPv4, gatewayIPv6;
         public string randomFileName;   //a random file name for a file which stores temporary dat about the xml
@@ -39,7 +39,7 @@ namespace lStore
         public lStore()
         {
             InitializeComponent();
-            localName = System.Environment.MachineName;
+            userInfo.getAllData();          //so that usrInfo call get all the data from system
             primaryFolder = @"C:\Users\" + userName + @"\Documents\lStore";
             isInternetConnected();  //calls the bgw to check internet connection
             /* code to set the default profile image if it exists */

@@ -170,6 +170,7 @@
             // 
             this.infoSender.WorkerReportsProgress = true;
             this.infoSender.WorkerSupportsCancellation = true;
+            this.infoSender.DoWork += new System.ComponentModel.DoWorkEventHandler(this.infoSender_DoWork);
             // 
             // userListRetriever
             // 

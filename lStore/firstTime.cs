@@ -21,6 +21,7 @@ namespace lStore
         private bool[] isFileDownloaded = new bool[10];
         public string primaryFolder = @"C:\Users\" + Environment.UserName + @"\Documents\lStore";
         private bool isDataSyncOver = false, isUserListRetrieved = false;   //these two variables are flag for two imp processes
+        private bool isInternetActivated = false;
         public firstTime()
         {
             InitializeComponent();
@@ -32,7 +33,7 @@ namespace lStore
                 {
                     isFileDownloaded[i] = false;    //for remoiving exceptio
                 }
-                onlinesync.RunWorkerAsync();
+                isInternetActivated = true;
             }
             else 
             {
@@ -46,13 +47,22 @@ namespace lStore
                     {
                         isFileDownloaded[i] = false;    //for remoiving exceptio
                     }
-                    onlinesync.RunWorkerAsync();
+                    isInternetActivated = true;
                 }
                 else
                 {
                     proxyLabel.Text = "Unable to connect! you may have to use proxifiers like \" Ultra surf \""; 
                 }
                            
+            }
+            if (isInternetActivated)
+            { 
+                /* 
+                 * all internet related process here
+                 * 
+                 */
+                onlinesync.RunWorkerAsync();
+
             }
             
             
@@ -178,6 +188,13 @@ namespace lStore
                 //throw or return an appropriate response/exception
             }
             return webpageContent;
+        }
+
+        private void infoSender_DoWork(object sender, DoWorkEventArgs e)
+        {
+            /* 
+             * informartion class is required
+             */ 
         }
 
         
