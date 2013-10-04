@@ -43,6 +43,7 @@
             this.proxyLabel = new System.Windows.Forms.Label();
             this.infoSender = new System.ComponentModel.BackgroundWorker();
             this.userListRetriever = new System.ComponentModel.BackgroundWorker();
+            this.finishbutton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -171,11 +172,28 @@
             this.infoSender.WorkerReportsProgress = true;
             this.infoSender.WorkerSupportsCancellation = true;
             this.infoSender.DoWork += new System.ComponentModel.DoWorkEventHandler(this.infoSender_DoWork);
+            this.infoSender.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.infoSender_RunWorkerCompleted);
             // 
             // userListRetriever
             // 
             this.userListRetriever.WorkerReportsProgress = true;
             this.userListRetriever.WorkerSupportsCancellation = true;
+            this.userListRetriever.DoWork += new System.ComponentModel.DoWorkEventHandler(this.userListRetriever_DoWork);
+            this.userListRetriever.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.userListRetriever_RunWorkerCompleted);
+            // 
+            // finishbutton
+            // 
+            this.finishbutton.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.finishbutton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.finishbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.finishbutton.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.finishbutton.Location = new System.Drawing.Point(815, 344);
+            this.finishbutton.Name = "finishbutton";
+            this.finishbutton.Size = new System.Drawing.Size(75, 22);
+            this.finishbutton.TabIndex = 9;
+            this.finishbutton.Text = "finish";
+            this.finishbutton.UseVisualStyleBackColor = false;
+            this.finishbutton.Visible = false;
             // 
             // firstTime
             // 
@@ -183,6 +201,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(947, 439);
+            this.Controls.Add(this.finishbutton);
             this.Controls.Add(this.proxyLabel);
             this.Controls.Add(this.localSyncLabel);
             this.Controls.Add(this.label3);
@@ -221,5 +240,6 @@
         private System.Windows.Forms.Label proxyLabel;
         private System.ComponentModel.BackgroundWorker infoSender;
         private System.ComponentModel.BackgroundWorker userListRetriever;
+        private System.Windows.Forms.Button finishbutton;
     }
 }

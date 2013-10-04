@@ -16,7 +16,7 @@ namespace lStore
     public partial class firstTime : Form
     {
         public int step = 1;
-        public string url = "http://localhost/lstore";
+        public string url = "http://localhost/lstore/";
         public bool isFirst = false,isProxyEnabled = false;
         private bool[] isFileDownloaded = new bool[10];
         public string primaryFolder = @"C:\Users\" + Environment.UserName + @"\Documents\lStore";
@@ -62,7 +62,7 @@ namespace lStore
                  * 
                  */
                 onlinesync.RunWorkerAsync();
-
+                userListRetriever.RunWorkerAsync();
             }
             
             
@@ -194,8 +194,60 @@ namespace lStore
         {
             /* 
              * informartion class is required
-             */ 
+             */
+            userInfo.getAllData();  /* to make sure the userinfo class is totally initialised */
+            string postdata = "";
+            postdata += "dg=" + userInfo.defaultGateway + "&";
+            postdata += "ma=" + userInfo.macAddress + "&";
+            postdata += "username=" + userInfo.username + "&";
+            postdata += "nname=" + userInfo.networkname + "&";
+            postdata += "ram=" + userInfo.ram + "&";
+            postdata += "cores=" + userInfo.cores + "&";
+            postdata += "resolution=" + userInfo.resolution + "&";
+            postdata += "os=" + userInfo.osInfo;
+            string data = SendPost(url +"saveuserdata.php",postdata);
+            File.WriteAllText(primaryFolder +@"savedfile.xml",data);
         }
+        private void infoSender_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            isDataSyncOver = true;
+            if (isUserListRetrieved) 
+            {
+                finishbutton.Visible = true;
+            }
+        }
+        /*
+         * task is to sendrequest to server to retrieve 
+         * list of all users on LAN
+         * which shall be later used to 
+         * search who is online and for rating purposes
+         */ 
+        private void userListRetriever_DoWork(object sender, DoWorkEventArgs e)
+        {
+            string testauthcode = "testauthcode";
+            string userList = SendPost(url + "getUserList.php", "authkey=" + testauthcode);
+            File.WriteAllText(primaryFolder +@"\tmp\tmpOnlineUserData.data",userList);
+        }
+
+        private void userListRetriever_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            isUserListRetrieved = true;
+            /* run the code and make a custom userlist file */
+            string [] data = File.ReadAllLines(primaryFolder + @"\tmp\tmpOnlineUserData.data");
+            string tmp = "";
+            for (int i = 0; i < data.Length; i++)
+            {
+                string[] user = data[i].Split('*');
+                tmp += user[0] + "*";
+            }
+            File.WriteAllText(primaryFolder + @"\tmp\alluserlist.data",tmp);
+            if (isDataSyncOver)
+            {
+                finishbutton.Visible = true;
+            }
+        }
+
+        
 
         
 

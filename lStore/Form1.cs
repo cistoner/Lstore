@@ -24,7 +24,7 @@ namespace lStore
         //=====variables here===================
         public string userName = userInfo.username, localName = userInfo.networkname;
         public string primaryFolder;
-        public string ip = userInfo.ipaddress, baseaddr = userInfo.baseaddress, gatewayIPv4 = userInfo.defaultGateway;
+        public string ip = userInfo.ipaddress, baseaddr, gatewayIPv4 ;
         public string randomFileName;   //a random file name for a file which stores temporary dat about the xml
         public ArrayList onlineUser = new ArrayList();      //for stroring name of online user's name to be populated from db
         public ArrayList onlineUserIp = new ArrayList();    //for stroing IPs of online users
@@ -40,6 +40,10 @@ namespace lStore
         {
             InitializeComponent();
             userInfo.getAllData();          //so that usrInfo call get all the data from system
+            /* change value of these two every where and delete this */
+            baseaddr = userInfo.baseaddress;
+            gatewayIPv4 = userInfo.defaultGateway;
+            /* =================================== */
             primaryFolder = @"C:\Users\" + userName + @"\Documents\lStore";
             isInternetConnected();  //calls the bgw to check internet connection
             /* code to set the default profile image if it exists */

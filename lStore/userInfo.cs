@@ -37,7 +37,6 @@ namespace lStore
             osInfo = new Microsoft.VisualBasic.Devices.ComputerInfo().OSFullName.ToString();
             resolution = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Right.ToString() + " X " + System.Windows.Forms.Screen.PrimaryScreen.Bounds.Bottom.ToString();
             macAddress = GetMacAddress().ToString();
-            defaultGateway = GetDefaultGateway();    //to get base address
             baseaddress = getBaseAddress(defaultGateway);    //method to get the baseaddress
             getIpAddress();     //method to get ip address
             
@@ -82,40 +81,8 @@ namespace lStore
                 }
             }
         }
-        /* 
-         * a function to get the gateway address in IPv6 and IPv4 form
-         */
-        public static void getGatewayDetails()
-        {
-            int count = 0;
-            string dg = null;
-            foreach (NetworkInterface f in NetworkInterface.GetAllNetworkInterfaces())
-            {
-                if (f.OperationalStatus == OperationalStatus.Up)
-                {
-                    foreach (GatewayIPAddressInformation d in f.GetIPProperties().GatewayAddresses)
-                    {
-                        if (count != 0)
-                        {
-                            dg = d.Address.ToString();
-                        }
-                        else count++;
-                        //alternate method needed
-                    }
-                }
-                if(dg.Length != 0)defaultGateway = dg;
-            }
-        }
-        public static string GetDefaultGateway()
-        {
-            var card = NetworkInterface.GetAllNetworkInterfaces().FirstOrDefault();
-            if (card == null) return null;
-            var address = card.GetIPProperties().GatewayAddresses.First();
-           
-
-            //var address = card.GetIPProperties().GatewayAddresses.FirstOrDefault();
-            return address.Address.MapToIPv4().ToString();
-        }
+        
+        
 
 
     }
