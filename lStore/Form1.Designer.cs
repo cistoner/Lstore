@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(lStore));
-            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
             "test"}, -1, System.Drawing.Color.Empty, System.Drawing.Color.Transparent, new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))));
             this.profilepic = new System.Windows.Forms.PictureBox();
             this.uname = new System.Windows.Forms.Label();
@@ -81,7 +81,6 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.bg1 = new System.ComponentModel.BackgroundWorker();
             this.bgw_internetstate = new System.ComponentModel.BackgroundWorker();
-            this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.selectCategories = new System.Windows.Forms.ComboBox();
             this.bottombar_label2 = new System.Windows.Forms.Label();
@@ -537,16 +536,6 @@
             this.bgw_internetstate.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgw_internetstate_DoWork);
             this.bgw_internetstate.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgw_internetstate_RunWorkerCompleted);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(1097, 583);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 22;
-            this.button1.Text = "test form 2";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(1016, 583);
@@ -665,17 +654,17 @@
             this.lv_rating});
             this.workspace.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.workspace.ForeColor = System.Drawing.Color.DarkRed;
-            listViewGroup1.Header = "ListViewGroup";
-            listViewGroup1.Name = "lv_grp";
-            listViewGroup1.Tag = "group";
+            listViewGroup3.Header = "ListViewGroup";
+            listViewGroup3.Name = "lv_grp";
+            listViewGroup3.Tag = "group";
             this.workspace.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup1});
-            listViewItem1.Checked = true;
-            listViewItem1.Group = listViewGroup1;
-            listViewItem1.IndentCount = 20;
-            listViewItem1.StateImageIndex = 2;
+            listViewGroup3});
+            listViewItem3.Checked = true;
+            listViewItem3.Group = listViewGroup3;
+            listViewItem3.IndentCount = 20;
+            listViewItem3.StateImageIndex = 2;
             this.workspace.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1});
+            listViewItem3});
             this.workspace.Location = new System.Drawing.Point(222, 229);
             this.workspace.Name = "workspace";
             this.workspace.Size = new System.Drawing.Size(733, 364);
@@ -709,7 +698,6 @@
             this.Controls.Add(this.sortbySelectBox);
             this.Controls.Add(this.bottombar_label2);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.bottombar_label1);
             this.Controls.Add(this.filterUser);
@@ -801,7 +789,6 @@
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.ComponentModel.BackgroundWorker bg1;
         private System.ComponentModel.BackgroundWorker bgw_internetstate;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ComboBox selectCategories;
         private System.Windows.Forms.Label bottombar_label2;

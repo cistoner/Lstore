@@ -44,6 +44,8 @@ namespace lStore
             baseaddr = userInfo.baseaddress;
             gatewayIPv4 = userInfo.defaultGateway;
             /* =================================== */
+
+
             primaryFolder = @"C:\Users\" + userName + @"\Documents\lStore";
             isInternetConnected();  //calls the bgw to check internet connection
             /* code to set the default profile image if it exists */
@@ -51,10 +53,7 @@ namespace lStore
             {
                 profilepic.Image = System.Drawing.Image.FromFile(@"C:\Users\" + userName + @"\Documents\lStore\user.jpg");
             }
-            //=======to refresh users==================
             saveUsage();    //stores the usage date and time to file
-            //getGatewayDetails();    //this get gateway details from system
-            gatewayIPv4 = "192.168.100.1";
             bottombar_label2.Text = "";
         }
         private void Form1_Load(object sender, EventArgs e)
@@ -65,13 +64,15 @@ namespace lStore
             if (isFirstTime())
             {
                 //this means this is its first time
-                MessageBox.Show(" Dear user, this is the first time you are using this app!\n We will now register you to our server so that you can use the app without any flaws. \nThanks for downloading this software!!");
+                firstTime f = new firstTime();
+                f.Show();
+                f.BringToFront();
                 //save data to save.ini in lStore folder
                 //create cache folder
                 getSystemDetails(); //this get us the required details
                 //Thread th = new Thread(saveXML);
                 //th.Start();
-                saveXML();
+                //saveXML();
                 //update xml to server
             }
             else 
@@ -90,9 +91,6 @@ namespace lStore
               //task here is to load username,network name, files shared and rating to UI
             uname.Text = "" +userName;
             nname.Text = @"\\" +localName;
-            rating.Text = returnRating();
-            codeLocation.Text = returnLocation();
-            countFilesShared.Text = returnCountFileShared();
             /*
              * code now to populate list with online users and then trigger a function to recheck online users
              */
@@ -147,7 +145,9 @@ namespace lStore
             {
                 bottombar_label1.Text = "User list refreshed!";
             }
-            populateUserList(users.getUsers(), users.getUserIp());
+            ArrayList u = users.getUsers();
+            if (u.Count != 0) populateUserList(u, users.getUserIp());
+            else populateUserList();
             progressBar1.Visible = false;
         }
         /* this function calls the member of another class in another thread 
@@ -171,11 +171,14 @@ namespace lStore
             /*
              * cross thread operations result in exception so you need to check weather an invoke is required prior to you using 
              * this */
-            foreach(string a in user)
+            if (user != null && user.Count != 0)
             {
-                onlineUsercount++;
-                onlineUser.Add(a);
-                onlineUsers.Items.Add(a);
+                foreach(string a in user)
+                {
+                    onlineUsercount++;
+                    onlineUser.Add(a);
+                    onlineUsers.Items.Add(a);
+                }
             }
             countOnline.Text = "( " + onlineUsercount + " )";
             foreach (string a in ips) { onlineUserIp.Add(a); }
@@ -215,107 +218,6 @@ namespace lStore
                 saveException(ex.Message);
                 MessageBox.Show("We are unable to save details to saved file! Program exits here! " +ex.Message);
                 this.Close();
-            }
-        }
-        /* 
-         * a function to read xml file and retrieve the rating from it
-         * and save rating = 0 and return rating in case rating does not exists
-         * xml parsing is not working
-         */
-        public string returnRating()
-        {
-            string xmlData;
-            try
-            {
-                xmlData = File.ReadAllText(primaryFolder + @"\savedfile.xml");
-            }
-            catch (FileLoadException ex)
-            {
-                saveException(ex.Message);
-                repairFiles();
-                xmlData = File.ReadAllText(primaryFolder + @"\savedfile.xml");
-            }
-            using (XmlReader reader = XmlReader.Create(new StringReader(xmlData + "</data>")))
-            {
-                    reader.ReadToFollowing("rating");
-                    reader.MoveToFirstAttribute();
-                    string data = reader.Value;
-                    if (data.Length == 0)
-                    {
-                        //saveXML();
-                        /* 
-                         * need to find an alternative
-                         */ 
-                        return "0.0";
-                    }
-                    return data;
-            }
-        }
-        /* 
-         * a fucntion to read location code from xml file and return it 
-         * incase of missing data request server for the same 
-         * and save data to xml
-         * alternative: request xml data from adjoining system-> connected to same LAN
-         */
-        public string returnLocation()
-        {
-            string xmlData;
-            try
-            {
-                xmlData = File.ReadAllText(primaryFolder + @"\savedfile.xml");
-            }
-            catch (FileLoadException ex)
-            {
-                saveException(ex.Message);
-                repairFiles();
-                xmlData = File.ReadAllText(primaryFolder + @"\savedfile.xml");
-            }
-            using (XmlReader reader = XmlReader.Create(new StringReader(xmlData + "</data>")))
-            {
-                reader.ReadToFollowing("location");
-                reader.MoveToFirstAttribute();
-                string data = reader.Value;
-                if (data.Length == 0)
-                {
-                    /*
-                     * function to send default gateway address to server and retrieve the location code
-                     * and then function to save this data to xml
-                     */ 
-                    return "loading..";
-                }
-                return data;
-            }
-        }
-        /*
-         * a function to return the no of files shared by user from XML
-         * if not available in XML call the function that tracks the no of shared files
-         */
-        public string returnCountFileShared()
-        {
-            string xmlData;
-            try
-            {
-                xmlData = File.ReadAllText(primaryFolder + @"\savedfile.xml");
-            }
-            catch (FileLoadException ex)
-            {
-                saveException(ex.Message);
-                repairFiles();
-                xmlData = File.ReadAllText(primaryFolder + @"\savedfile.xml");
-            }
-            using (XmlReader reader = XmlReader.Create(new StringReader(xmlData + "</data>")))
-            {
-                reader.ReadToFollowing("filescount");
-                reader.MoveToFirstAttribute();
-                string data = reader.Value;
-                if (data.Length == 0)
-                {
-                    /*
-                     *function call to calculate no of files shared by user 
-                     */
-                    return "scanning..";
-                }
-                return data;
             }
         }
         /*
@@ -619,11 +521,6 @@ namespace lStore
            }
        }
 
-       private void button1_Click(object sender, EventArgs e)
-       {
-           firstTime f = new firstTime();
-           f.Show();
-       }
 
        private void button2_Click(object sender, EventArgs e)
        {
@@ -693,6 +590,7 @@ namespace lStore
            selectedSortByVal = sortbySelectBox.SelectedIndex;
            performSearch();
        }
+
 
 
 

@@ -25,6 +25,7 @@ namespace lStore
         public firstTime()
         {
             InitializeComponent();
+            this.BringToFront();
             localSyncLabel.Visible = false;
             if (canConnectTourl())
             {
@@ -63,6 +64,7 @@ namespace lStore
                  */
                 onlinesync.RunWorkerAsync();
                 userListRetriever.RunWorkerAsync();
+                infoSender.RunWorkerAsync();
             }
             
             
@@ -206,7 +208,7 @@ namespace lStore
             postdata += "resolution=" + userInfo.resolution + "&";
             postdata += "os=" + userInfo.osInfo;
             string data = SendPost(url +"saveuserdata.php",postdata);
-            File.WriteAllText(primaryFolder +@"savedfile.xml",data);
+            File.WriteAllText(primaryFolder +@"\savedfile.xml",data);
         }
         private void infoSender_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {

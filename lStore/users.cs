@@ -80,13 +80,23 @@ namespace lStore
         public static ArrayList getUsers()
         {
             string filename = static_primaryFolder + @"\tmp\online.data";
-            string[] tmp = File.ReadAllLines(filename);
             ArrayList returnAL = new ArrayList();
-            for (int i = 0; i < tmp.Length; i++)
+            try
             {
-                string[] arr = tmp[i].Split('*');
-                returnAL.Add(arr[0]);
+                string[] tmp = File.ReadAllLines(filename);
+                for (int i = 0; i < tmp.Length; i++)
+                {
+                    string[] arr = tmp[i].Split('*');
+                    returnAL.Add(arr[0]);
+                }
             }
+            catch (FileNotFoundException ex)
+            {
+                File.WriteAllText(filename,"");
+                returnAL.Add("ALL OFFLINE");
+
+            }
+           
             return returnAL;
         }
         /*
