@@ -24,7 +24,7 @@ namespace lStore
         //=====variables here===================
         public string userName = userInfo.username, localName = userInfo.networkname;
         public string primaryFolder;
-        public string ip, baseaddr, gatewayIPv4, gatewayIPv6;
+        public string ip = userInfo.ipaddress, baseaddr = userInfo.baseaddress, gatewayIPv4 = userInfo.defaultGateway;
         public string randomFileName;   //a random file name for a file which stores temporary dat about the xml
         public ArrayList onlineUser = new ArrayList();      //for stroring name of online user's name to be populated from db
         public ArrayList onlineUserIp = new ArrayList();    //for stroing IPs of online users
@@ -51,16 +51,6 @@ namespace lStore
             saveUsage();    //stores the usage date and time to file
             //getGatewayDetails();    //this get gateway details from system
             gatewayIPv4 = "192.168.100.1";
-            try
-            {
-                baseaddr = getBaseAddress(gatewayIPv4);
-            }
-            catch (NullReferenceException ex)
-            {
-                throwNonRecoverableError(ex.Message);
-                Environment.Exit(0);    //this has to be gradually changed to something more reliable
-            }
-            getIpAddress();
             bottombar_label2.Text = "";
         }
         private void Form1_Load(object sender, EventArgs e)
@@ -375,55 +365,6 @@ namespace lStore
             if (!File.Exists(primaryFolder + @"\search.log")) { File.Create(primaryFolder + @"\search.log"); }
             if (!File.Exists(primaryFolder + @"\exceptions.log")) { File.Create(primaryFolder + @"\exceptions.log"); }
             if (!File.Exists(primaryFolder + @"\tmp\online.data")) { File.Create(primaryFolder + @"\tmp\online.data"); }
-        }
-        /* 
-         * a function to get the gateway address in IPv6 and IPv4 form
-         */ 
-        public void getGatewayDetails()
-        {
-            int count = 0;
-            foreach (NetworkInterface f in NetworkInterface.GetAllNetworkInterfaces())
-            {
-                if (f.OperationalStatus == OperationalStatus.Up)
-                {
-                    foreach (GatewayIPAddressInformation d in f.GetIPProperties().GatewayAddresses)
-                    {
-                        if (count == 0) { gatewayIPv6 = d.Address.ToString(); count++; }
-                        else { gatewayIPv4 = d.Address.ToString(); }
-                        //alternate method needed
-                    }
-                }
-            }
-        }
-        /*
-         * a function to get base address out of default parameter ip
-         * @param: string ip: any ip address
-         */ 
-        public string getBaseAddress(string ip)
-        {
-            string[] parts = ip.Split('.');
-            return parts[0] + '.' + parts[1] + '.' + parts[2]; 
-        }
-        /*
-         * function to get ip address of the system
-         */
-        public void getIpAddress()
-        {
-            if (baseaddr.Length < 6)
-            {
-                //we assume this base address has not been already taken
-                getGatewayDetails();
-                baseaddr = getBaseAddress(gatewayIPv4);
-            }
-            string hostName = Dns.GetHostName();
-            IPHostEntry myself = Dns.GetHostByName(hostName);
-            foreach (IPAddress address in myself.AddressList)
-            {
-                if (getBaseAddress(address.ToString()) == baseaddr)
-                {
-                    ip = address.ToString();
-                }
-            }
         }
         /*
          * this function checks if this is first time user is using this app

@@ -4,34 +4,118 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Management;
+using System.Net.NetworkInformation;
+using System.Net;
 
 namespace lStore
 {
     class userInfo
     {
-        public static string defaultGateway;
+        public static string defaultGateway = "192.168.100.1";
         public static string ipaddress;
         public static string baseaddress;
-        public static string macAddress;
+        public static string macAddress;                                 // mac address of the device
         public static string username = Environment.UserName;            // device username
-        public static string networkname = Environment.MachineName;
-        public static string sysManufacturer ;
+        public static string networkname = Environment.MachineName;         //network username
+        //public static string sysManufacturer ;
+        /* need to get code to fetch this */
         public static string ram;                                       //total user ram 
         public static int cores = Environment.ProcessorCount;           //total no of logical cores
-        public static string processors;
-        public static string resolution;    
+        //public static string processors;
+        /* need to get code to fetch this */
+        public static string resolution;                                //computer screen resolution in W x H
         public static string osInfo;                                    //computer's os detail
-        /*
-         * function to get all data of a static variable
+
+        /* 
+         *  function to get
+         *  all the data which cannot be retrieved from environment variables
+         *  must be called before the values are used
          */ 
         public static void getAllData()
         {
             ram = new  Microsoft.VisualBasic.Devices.ComputerInfo().TotalPhysicalMemory.ToString();
             osInfo = new Microsoft.VisualBasic.Devices.ComputerInfo().OSFullName.ToString();
             resolution = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Right.ToString() + " X " + System.Windows.Forms.Screen.PrimaryScreen.Bounds.Bottom.ToString();
+            macAddress = GetMacAddress().ToString();
+            defaultGateway = GetDefaultGateway();    //to get base address
+            baseaddress = getBaseAddress(defaultGateway);    //method to get the baseaddress
+            getIpAddress();     //method to get ip address
             
         }
+        /* 
+         * fnction to get the mac address of the device
+         */ 
+        public static PhysicalAddress GetMacAddress()
+        {
+            foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
+            {
+                // Only consider Ethernet network interfaces
+                if (nic.NetworkInterfaceType == NetworkInterfaceType.Ethernet &&
+                    nic.OperationalStatus == OperationalStatus.Up)
+                {
+                    return nic.GetPhysicalAddress();
+                }
+            }
+            return null;
+        }
+        /*
+         * a function to get base address out of default parameter ip
+         * @param: string ip: any ip address
+         */
+        public static string getBaseAddress(string ip)
+        {
+            string[] parts = ip.Split('.');
+            return parts[0] + '.' + parts[1] + '.' + parts[2];
+        }
+        /*
+         * function to get ip address of the system
+         */
+        public static void getIpAddress()
+        {
+            string hostName = Dns.GetHostName();
+            IPHostEntry myself = Dns.GetHostByName(hostName);
+            foreach (IPAddress address in myself.AddressList)
+            {
+                if (getBaseAddress(address.ToString()) == baseaddress)
+                {
+                    ipaddress = address.ToString();
+                }
+            }
+        }
+        /* 
+         * a function to get the gateway address in IPv6 and IPv4 form
+         */
+        public static void getGatewayDetails()
+        {
+            int count = 0;
+            string dg = null;
+            foreach (NetworkInterface f in NetworkInterface.GetAllNetworkInterfaces())
+            {
+                if (f.OperationalStatus == OperationalStatus.Up)
+                {
+                    foreach (GatewayIPAddressInformation d in f.GetIPProperties().GatewayAddresses)
+                    {
+                        if (count != 0)
+                        {
+                            dg = d.Address.ToString();
+                        }
+                        else count++;
+                        //alternate method needed
+                    }
+                }
+                if(dg.Length != 0)defaultGateway = dg;
+            }
+        }
+        public static string GetDefaultGateway()
+        {
+            var card = NetworkInterface.GetAllNetworkInterfaces().FirstOrDefault();
+            if (card == null) return null;
+            var address = card.GetIPProperties().GatewayAddresses.First();
+           
 
+            //var address = card.GetIPProperties().GatewayAddresses.FirstOrDefault();
+            return address.Address.MapToIPv4().ToString();
+        }
 
 
     }
