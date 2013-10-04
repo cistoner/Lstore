@@ -699,11 +699,11 @@ namespace lStore
                bottombar_label2.Text = "User is not available or not accessible. User removed from list";
                return;
            }
-           var items = workspace.Items;
-           items.Clear();
+           workspace.Items.Clear();
            for (int i = 0; i < folders.Count; i++)
            {
-               items.Add(folders[i].ToString());
+               workspace.Items.Add(folders[i].ToString());
+               
            }
 
        }

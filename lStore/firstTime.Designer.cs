@@ -41,6 +41,8 @@
             this.localsync = new System.ComponentModel.BackgroundWorker();
             this.localSyncLabel = new System.Windows.Forms.Label();
             this.proxyLabel = new System.Windows.Forms.Label();
+            this.infoSender = new System.ComponentModel.BackgroundWorker();
+            this.userListRetriever = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -164,6 +166,16 @@
             this.proxyLabel.TabIndex = 8;
             this.proxyLabel.Text = "PROXY: disabled";
             // 
+            // infoSender
+            // 
+            this.infoSender.WorkerReportsProgress = true;
+            this.infoSender.WorkerSupportsCancellation = true;
+            // 
+            // userListRetriever
+            // 
+            this.userListRetriever.WorkerReportsProgress = true;
+            this.userListRetriever.WorkerSupportsCancellation = true;
+            // 
             // firstTime
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -206,5 +218,7 @@
         private System.ComponentModel.BackgroundWorker localsync;
         private System.Windows.Forms.Label localSyncLabel;
         private System.Windows.Forms.Label proxyLabel;
+        private System.ComponentModel.BackgroundWorker infoSender;
+        private System.ComponentModel.BackgroundWorker userListRetriever;
     }
 }

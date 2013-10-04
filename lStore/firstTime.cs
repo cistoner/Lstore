@@ -16,10 +16,11 @@ namespace lStore
     public partial class firstTime : Form
     {
         public int step = 1;
-        public string url = "http://www.cistoner.com";
+        public string url = "http://localhost/lstore";
         public bool isFirst = false,isProxyEnabled = false;
         private bool[] isFileDownloaded = new bool[10];
         public string primaryFolder = @"C:\Users\" + Environment.UserName + @"\Documents\lStore";
+        private bool isDataSyncOver = false, isUserListRetrieved = false;   //these two variables are flag for two imp processes
         public firstTime()
         {
             InitializeComponent();
@@ -49,7 +50,7 @@ namespace lStore
                 }
                 else
                 {
-                    proxyLabel.Text = "Unable to connect"; 
+                    proxyLabel.Text = "Unable to connect! you may have to use proxifiers like \" Ultra surf \""; 
                 }
                            
             }

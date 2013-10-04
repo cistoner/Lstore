@@ -30,8 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(lStore));
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
-            "test"}, -1, System.Drawing.Color.Empty, System.Drawing.SystemColors.Menu, new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))));
+            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
+            "test"}, -1, System.Drawing.Color.Empty, System.Drawing.Color.Transparent, new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))));
             this.profilepic = new System.Windows.Forms.PictureBox();
             this.uname = new System.Windows.Forms.Label();
             this.nname = new System.Windows.Forms.Label();
@@ -93,6 +94,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.workspace = new System.Windows.Forms.ListView();
+            this.lv_slno = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.lv_filename = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.lv_username = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.lv_filesize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.lv_rating = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.profilepic)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.contextMenuNotif.SuspendLayout();
@@ -651,20 +657,45 @@
             // 
             // workspace
             // 
+            this.workspace.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lv_slno,
+            this.lv_filename,
+            this.lv_username,
+            this.lv_filesize,
+            this.lv_rating});
             this.workspace.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.workspace.ForeColor = System.Drawing.Color.DarkRed;
-            listViewItem2.Checked = true;
-            listViewItem2.IndentCount = 20;
-            listViewItem2.StateImageIndex = 1;
+            listViewGroup1.Header = "ListViewGroup";
+            listViewGroup1.Name = "lv_grp";
+            listViewGroup1.Tag = "group";
+            this.workspace.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
+            listViewGroup1});
+            listViewItem1.Checked = true;
+            listViewItem1.Group = listViewGroup1;
+            listViewItem1.IndentCount = 20;
+            listViewItem1.StateImageIndex = 2;
             this.workspace.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem2});
+            listViewItem1});
             this.workspace.Location = new System.Drawing.Point(222, 229);
             this.workspace.Name = "workspace";
             this.workspace.Size = new System.Drawing.Size(733, 364);
             this.workspace.TabIndex = 30;
             this.workspace.TileSize = new System.Drawing.Size(710, 50);
             this.workspace.UseCompatibleStateImageBehavior = false;
-            this.workspace.View = System.Windows.Forms.View.Tile;
+            this.workspace.View = System.Windows.Forms.View.List;
+            // 
+            // lv_slno
+            // 
+            this.lv_slno.Width = 200;
+            // 
+            // lv_filename
+            // 
+            this.lv_filename.Text = "Filename";
+            this.lv_filename.Width = 150;
+            // 
+            // lv_username
+            // 
+            this.lv_username.Text = "Owner";
             // 
             // lStore
             // 
@@ -783,6 +814,11 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ListView workspace;
+        private System.Windows.Forms.ColumnHeader lv_slno;
+        private System.Windows.Forms.ColumnHeader lv_filename;
+        private System.Windows.Forms.ColumnHeader lv_username;
+        private System.Windows.Forms.ColumnHeader lv_filesize;
+        private System.Windows.Forms.ColumnHeader lv_rating;
     }
 }
 
