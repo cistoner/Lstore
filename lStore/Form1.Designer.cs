@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(lStore));
-            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
             "test"}, -1, System.Drawing.Color.Empty, System.Drawing.Color.Transparent, new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))));
             this.profilepic = new System.Windows.Forms.PictureBox();
             this.uname = new System.Windows.Forms.Label();
@@ -189,26 +189,27 @@
             // nEWToolStripMenuItem
             // 
             this.nEWToolStripMenuItem.Name = "nEWToolStripMenuItem";
-            this.nEWToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
+            this.nEWToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.nEWToolStripMenuItem.Text = "NEW";
             // 
             // oPENToolStripMenuItem
             // 
             this.oPENToolStripMenuItem.Name = "oPENToolStripMenuItem";
-            this.oPENToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
+            this.oPENToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.oPENToolStripMenuItem.Text = "OPEN";
             // 
             // rESETToolStripMenuItem
             // 
             this.rESETToolStripMenuItem.Name = "rESETToolStripMenuItem";
-            this.rESETToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
+            this.rESETToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.rESETToolStripMenuItem.Text = "RESET";
             // 
             // eXITToolStripMenuItem
             // 
             this.eXITToolStripMenuItem.Name = "eXITToolStripMenuItem";
-            this.eXITToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
+            this.eXITToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.eXITToolStripMenuItem.Text = "EXIT";
+            this.eXITToolStripMenuItem.Click += new System.EventHandler(this.eXITToolStripMenuItem_Click);
             // 
             // eDITToolStripMenuItem
             // 
@@ -588,7 +589,7 @@
             this.helpToolStripMenuItem1,
             this.exitToolStripMenuItem1});
             this.contextMenuNotif.Name = "contextMenuNotif";
-            this.contextMenuNotif.Size = new System.Drawing.Size(152, 70);
+            this.contextMenuNotif.Size = new System.Drawing.Size(153, 92);
             // 
             // sendFeedbackToolStripMenuItem
             // 
@@ -605,8 +606,9 @@
             // exitToolStripMenuItem1
             // 
             this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
-            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(151, 22);
+            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem1.Text = "Exit";
+            this.exitToolStripMenuItem1.Click += new System.EventHandler(this.exitToolStripMenuItem1_Click);
             // 
             // sortbySelectBox
             // 
@@ -654,17 +656,17 @@
             this.lv_rating});
             this.workspace.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.workspace.ForeColor = System.Drawing.Color.DarkRed;
-            listViewGroup3.Header = "ListViewGroup";
-            listViewGroup3.Name = "lv_grp";
-            listViewGroup3.Tag = "group";
+            listViewGroup2.Header = "ListViewGroup";
+            listViewGroup2.Name = "lv_grp";
+            listViewGroup2.Tag = "group";
             this.workspace.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup3});
-            listViewItem3.Checked = true;
-            listViewItem3.Group = listViewGroup3;
-            listViewItem3.IndentCount = 20;
-            listViewItem3.StateImageIndex = 2;
+            listViewGroup2});
+            listViewItem2.Checked = true;
+            listViewItem2.Group = listViewGroup2;
+            listViewItem2.IndentCount = 20;
+            listViewItem2.StateImageIndex = 2;
             this.workspace.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem3});
+            listViewItem2});
             this.workspace.Location = new System.Drawing.Point(222, 229);
             this.workspace.Name = "workspace";
             this.workspace.Size = new System.Drawing.Size(733, 364);

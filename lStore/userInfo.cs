@@ -14,8 +14,8 @@ namespace lStore
     class userInfo
     {
         public static string defaultGateway = "192.168.100.1";
-        public static string ipaddress;
-        public static string baseaddress;
+        public static string ipaddress;                                 //ip address of the system
+        public static string baseaddress;                               //base addres of the system
         public static string macAddress;                                 // mac address of the device
         public static string username = Environment.UserName;            // device username
         public static string networkname = Environment.MachineName;         //network username

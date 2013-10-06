@@ -23,7 +23,7 @@ namespace lStore
     {
         //=====variables here===================
         public string userName = userInfo.username, localName = userInfo.networkname;
-        public string primaryFolder;
+        public string primaryFolder = @"C:\Users\" + userInfo.username + @"\Documents\lStore";
         public string ip = userInfo.ipaddress, baseaddr, gatewayIPv4 ;
         public string randomFileName;   //a random file name for a file which stores temporary dat about the xml
         public ArrayList onlineUser = new ArrayList();      //for stroring name of online user's name to be populated from db
@@ -40,15 +40,15 @@ namespace lStore
         {
             InitializeComponent();
             userInfo.getAllData();          //so that usrInfo call get all the data from system
-            //MessageBox.Show(userInfo.rating);
             /* change value of these two every where and delete this */
+            /* =================================== */
             baseaddr = userInfo.baseaddress;
             gatewayIPv4 = userInfo.defaultGateway;
             /* =================================== */
-
-
-            primaryFolder = @"C:\Users\" + userName + @"\Documents\lStore";
-            isInternetConnected();  //calls the bgw to check internet connection
+            isInternetConnected();  
+            /*
+             * calls the bgw to check internet connection
+             */ 
             /* code to set the default profile image if it exists */
             if (File.Exists(@"C:\Users\" + userName + @"\Documents\lStore\user.jpg"))
             {
@@ -56,9 +56,10 @@ namespace lStore
             }
             saveUsage();    //stores the usage date and time to file
             bottombar_label2.Text = "";
-            rating.Text = " " + userInfo.rating;
-            codeLocation.Text = " " + userInfo.location;
-            countFilesShared.Text = " " + userInfo.files_shared;
+            /* 
+             * feeding to UI the parameters
+             */ 
+            
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -67,21 +68,18 @@ namespace lStore
              */
             if (isFirstTime())
             {
-                //this means this is its first time
+                /*
+                 * this means this is its first time
+                 */
                 this.Visible = false;
                 firstTime f = new firstTime();
                 f.Show();
                 this.Opacity = 50;
                 this.Text = "Syncronising with server";
-                //save data to save.ini in lStore folder
-                //create cache folder
                 f.BringToFront();
             }
             else 
             {
-                //this means this is not the first time
-                //task -> get required details
-                //update and match xml from server and take required actions
                 //tier two task is to :
                 /*
                  * 1: scan in alternate thread
@@ -89,9 +87,12 @@ namespace lStore
                  * 3: check the db against last scan date/time and scan if it exceeds limit time -> upload to server
                  * 
                  */
-                //task here is to load username,network name, files shared and rating to UI
+                rating.Text = " " + userInfo.rating;
+                codeLocation.Text = " " + userInfo.location;
+                countFilesShared.Text = " " + userInfo.files_shared;
                 uname.Text = "" + userName;
                 nname.Text = @"\\" + localName;
+                
                 /*
                  * code now to populate list with online users and then trigger a function to recheck online users
                  */
@@ -584,6 +585,22 @@ namespace lStore
        {
            selectedSortByVal = sortbySelectBox.SelectedIndex;
            performSearch();
+       }
+        //==============menu==actions
+        /*
+         * exit button in FILE menu
+         */ 
+       private void eXITToolStripMenuItem_Click(object sender, EventArgs e)
+       {
+           this.Close();
+       }
+        /* 
+         * exit button in notification bar
+         * at bottom of menu
+         */ 
+       private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
+       {
+           this.Close();
        }
 
 
