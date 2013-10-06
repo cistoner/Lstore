@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Management;
 using System.Net.NetworkInformation;
 using System.Net;
+using System.Xml;
+using System.IO;
 
 namespace lStore
 {
@@ -25,7 +27,11 @@ namespace lStore
         /* need to get code to fetch this */
         public static string resolution;                                //computer screen resolution in W x H
         public static string osInfo;                                    //computer's os detail
-
+        public static string rating;                                    //user's rating @from XML
+        public static string files_shared = "100";                              //count of files shared by user @from XML
+        public static string location;                                  //user's location code @from XML
+        public static string hash;                                  //user's pvt hash code @from XML
+        public static string primaryFolder = @"C:\Users\" + Environment.UserName + @"\Documents\lStore";
         /* 
          *  function to get
          *  all the data which cannot be retrieved from environment variables
@@ -39,7 +45,12 @@ namespace lStore
             macAddress = GetMacAddress().ToString();
             baseaddress = getBaseAddress(defaultGateway);    //method to get the baseaddress
             getIpAddress();     //method to get ip address
-            
+            rating = getDataFromXML("rating");
+            location = getDataFromXML("location");
+            if (location.Length == 0) location = "-NA-";
+            else location = "[" + location + "]";
+            hash = getDataFromXML("hash");
+            //files_shared = getDataFromXML("files");
         }
         /* 
          * fnction to get the mac address of the device
@@ -80,6 +91,29 @@ namespace lStore
                     ipaddress = address.ToString();
                 }
             }
+        }
+        /* 
+         * function to get the data in node @param:node from
+         * savedfile.xml in lstore folder
+         */
+        public static string getDataFromXML(string node)
+        {
+            string output = null;
+            string xmlString;
+            try
+            {
+                xmlString = File.ReadAllText(primaryFolder + @"\savedfile.xml");
+            }
+            catch (Exception ex)
+            {
+                return "-NA-";
+            }
+            using (XmlReader reader = XmlReader.Create(new StringReader(xmlString)))
+            {
+                reader.ReadToFollowing(node);
+                output = reader.ReadElementContentAsString();
+            }
+            return output;
         }
         
         

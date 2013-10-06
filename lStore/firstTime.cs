@@ -266,7 +266,7 @@ namespace lStore
          */ 
         private void finishbutton_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("lStore has synced data with server! Application shall restart now");
+            MessageBox.Show("Woohoo! lStore has synced data with server! Application shall restart now");
             Application.Restart();
         }
 

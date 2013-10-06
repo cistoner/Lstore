@@ -40,6 +40,7 @@ namespace lStore
         {
             InitializeComponent();
             userInfo.getAllData();          //so that usrInfo call get all the data from system
+            //MessageBox.Show(userInfo.rating);
             /* change value of these two every where and delete this */
             baseaddr = userInfo.baseaddress;
             gatewayIPv4 = userInfo.defaultGateway;
@@ -55,6 +56,9 @@ namespace lStore
             }
             saveUsage();    //stores the usage date and time to file
             bottombar_label2.Text = "";
+            rating.Text = " " + userInfo.rating;
+            codeLocation.Text = " " + userInfo.location;
+            countFilesShared.Text = " " + userInfo.files_shared;
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -64,44 +68,38 @@ namespace lStore
             if (isFirstTime())
             {
                 //this means this is its first time
+                this.Visible = false;
                 firstTime f = new firstTime();
                 f.Show();
-                f.BringToFront();
+                this.Opacity = 50;
+                this.Text = "Syncronising with server";
                 //save data to save.ini in lStore folder
                 //create cache folder
-                getSystemDetails(); //this get us the required details
-                //Thread th = new Thread(saveXML);
-                //th.Start();
-                //saveXML();
-                //update xml to server
+                f.BringToFront();
             }
             else 
             {
                 //this means this is not the first time
                 //task -> get required details
                 //update and match xml from server and take required actions
+                //tier two task is to :
+                /*
+                 * 1: scan in alternate thread
+                 * 2: match the xml details against that in server, another thread 
+                 * 3: check the db against last scan date/time and scan if it exceeds limit time -> upload to server
+                 * 
+                 */
+                //task here is to load username,network name, files shared and rating to UI
+                uname.Text = "" + userName;
+                nname.Text = @"\\" + localName;
+                /*
+                 * code now to populate list with online users and then trigger a function to recheck online users
+                 */
+                populateUserList(users.getUsers(), users.getUserIp());
+                Thread th = new Thread(gatherOnlineUser);
+                th.Start();
+                bg1.RunWorkerAsync();
             }
-            //tier two task is to :
-            /*
-             * 1: scan in alternate thread
-             * 2: match the xml details against that in server, another thread 
-             * 3: check the db against last scan date/time and scan if it exceeds limit time -> upload to server
-             * 
-             */
-              //task here is to load username,network name, files shared and rating to UI
-            uname.Text = "" +userName;
-            nname.Text = @"\\" +localName;
-            /*
-             * code now to populate list with online users and then trigger a function to recheck online users
-             */
-            populateUserList(users.getUsers(), users.getUserIp());
-            Thread th = new Thread(gatherOnlineUser);
-            th.Start();
-            //progressBar1.Value = 20;
-            bg1.RunWorkerAsync();
-            //            populateUserList(users.getUsers(), users.getUserIp());
-            
-
         }
         /*need to create a listner to track a variable change */
         private void bg1_DoWork(object sender, DoWorkEventArgs e)
@@ -209,6 +207,11 @@ namespace lStore
             xml += "<username>" + userName + "</username>" + Environment.NewLine;
             xml += "<localname>" + localName + "</localname>" + Environment.NewLine;
             xml += "<rating>0.0</rating>" + Environment.NewLine;
+            /*
+             * need to resync rating,location,files_shared,hash from memmory
+             * if they do not exist exit the applicatiion with an error
+             * message
+             */ 
             try
             {
                 File.WriteAllText(primaryFolder + @"\savedfile.xml", xml);
@@ -232,14 +235,6 @@ namespace lStore
                           .Select(s => s[random.Next(s.Length)])
                           .ToArray());
             return result;
-        }
-        /*
-         * this function get details about the system from system an saves it to the variables
-         */
-        public void getSystemDetails()
-        { 
-            //get unique id
-            //need of this function need to be thought off again
         }
         /* this function checks for each required folders if they exist or not and create the required folder 
          * according to need
