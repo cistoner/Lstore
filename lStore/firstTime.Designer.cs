@@ -187,13 +187,14 @@
             this.finishbutton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.finishbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.finishbutton.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.finishbutton.Location = new System.Drawing.Point(815, 344);
+            this.finishbutton.Location = new System.Drawing.Point(734, 372);
             this.finishbutton.Name = "finishbutton";
-            this.finishbutton.Size = new System.Drawing.Size(75, 22);
+            this.finishbutton.Size = new System.Drawing.Size(75, 33);
             this.finishbutton.TabIndex = 9;
             this.finishbutton.Text = "finish";
             this.finishbutton.UseVisualStyleBackColor = false;
             this.finishbutton.Visible = false;
+            this.finishbutton.Click += new System.EventHandler(this.finishbutton_Click);
             // 
             // firstTime
             // 

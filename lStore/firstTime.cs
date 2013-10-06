@@ -107,6 +107,9 @@ namespace lStore
             {
                 stepCount.Text = " " + step.ToString() + " of 10 ";
             }
+            else {
+                stepCount.Text = " 10 of 10 ";
+            }
         }
         /*
          * background worker to read data line by line from file
@@ -208,6 +211,15 @@ namespace lStore
             postdata += "resolution=" + userInfo.resolution + "&";
             postdata += "os=" + userInfo.osInfo;
             string data = SendPost(url +"saveuserdata.php",postdata);
+            if (data == "1049")
+            { 
+                //========error condition====== server side db error
+                /*
+                 * post an error report to server
+                 */
+                MessageBox.Show("Well this ain't cool! our server encountered some error and we have reported thi issue to administratiors. Give us some time to solve this and restart this app in 2hours. Thanks!!");
+                Application.Exit();
+            }
             File.WriteAllText(primaryFolder +@"\savedfile.xml",data);
         }
         private void infoSender_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -247,6 +259,15 @@ namespace lStore
             {
                 finishbutton.Visible = true;
             }
+        }
+        /* 
+         * function to restart app on clicking
+         * on restart button
+         */ 
+        private void finishbutton_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("lStore has synced data with server! Application shall restart now");
+            Application.Restart();
         }
 
         
