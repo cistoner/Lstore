@@ -50,7 +50,7 @@ namespace lStore
             if (location.Length == 0) location = "-NA-";
             else location = "[" + location + "]";
             hash = getDataFromXML("hash");
-            //files_shared = getDataFromXML("files");
+            files_shared = getDataFromXML("files");
         }
         /* 
          * fnction to get the mac address of the device
