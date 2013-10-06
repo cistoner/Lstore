@@ -516,13 +516,6 @@ namespace lStore
                internetState.ForeColor = System.Drawing.Color.Red;
            }
        }
-
-
-       private void button2_Click(object sender, EventArgs e)
-       {
-           chat c = new chat();
-           c.Show();
-       }
         /*
          * this event runs when someone clicks on online user list
          */ 
@@ -601,6 +594,15 @@ namespace lStore
        private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
        {
            this.Close();
+       }
+        /* 
+         * option: social
+         * @suboption: Chat
+         */ 
+       private void cHATToolStripMenuItem_Click(object sender, EventArgs e)
+       {
+           chat c = new chat();
+           c.Show();
        }
 
 

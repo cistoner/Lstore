@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(lStore));
-            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
             "test"}, -1, System.Drawing.Color.Empty, System.Drawing.Color.Transparent, new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))));
             this.profilepic = new System.Windows.Forms.PictureBox();
             this.uname = new System.Windows.Forms.Label();
@@ -81,7 +81,6 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.bg1 = new System.ComponentModel.BackgroundWorker();
             this.bgw_internetstate = new System.ComponentModel.BackgroundWorker();
-            this.button2 = new System.Windows.Forms.Button();
             this.selectCategories = new System.Windows.Forms.ComboBox();
             this.bottombar_label2 = new System.Windows.Forms.Label();
             this.notifICO = new System.Windows.Forms.NotifyIcon(this.components);
@@ -189,25 +188,25 @@
             // nEWToolStripMenuItem
             // 
             this.nEWToolStripMenuItem.Name = "nEWToolStripMenuItem";
-            this.nEWToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.nEWToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.nEWToolStripMenuItem.Text = "NEW";
             // 
             // oPENToolStripMenuItem
             // 
             this.oPENToolStripMenuItem.Name = "oPENToolStripMenuItem";
-            this.oPENToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.oPENToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.oPENToolStripMenuItem.Text = "OPEN";
             // 
             // rESETToolStripMenuItem
             // 
             this.rESETToolStripMenuItem.Name = "rESETToolStripMenuItem";
-            this.rESETToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.rESETToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.rESETToolStripMenuItem.Text = "RESET";
             // 
             // eXITToolStripMenuItem
             // 
             this.eXITToolStripMenuItem.Name = "eXITToolStripMenuItem";
-            this.eXITToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.eXITToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.eXITToolStripMenuItem.Text = "EXIT";
             this.eXITToolStripMenuItem.Click += new System.EventHandler(this.eXITToolStripMenuItem_Click);
             // 
@@ -307,8 +306,9 @@
             // cHATToolStripMenuItem
             // 
             this.cHATToolStripMenuItem.Name = "cHATToolStripMenuItem";
-            this.cHATToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.cHATToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.cHATToolStripMenuItem.Text = "Chat";
+            this.cHATToolStripMenuItem.Click += new System.EventHandler(this.cHATToolStripMenuItem_Click);
             // 
             // groupChatToolStripMenuItem
             // 
@@ -537,16 +537,6 @@
             this.bgw_internetstate.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgw_internetstate_DoWork);
             this.bgw_internetstate.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgw_internetstate_RunWorkerCompleted);
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(1016, 583);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 23;
-            this.button2.Text = "test chat";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
             // selectCategories
             // 
             this.selectCategories.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -589,7 +579,7 @@
             this.helpToolStripMenuItem1,
             this.exitToolStripMenuItem1});
             this.contextMenuNotif.Name = "contextMenuNotif";
-            this.contextMenuNotif.Size = new System.Drawing.Size(153, 92);
+            this.contextMenuNotif.Size = new System.Drawing.Size(152, 70);
             // 
             // sendFeedbackToolStripMenuItem
             // 
@@ -606,7 +596,7 @@
             // exitToolStripMenuItem1
             // 
             this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
-            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(151, 22);
             this.exitToolStripMenuItem1.Text = "Exit";
             this.exitToolStripMenuItem1.Click += new System.EventHandler(this.exitToolStripMenuItem1_Click);
             // 
@@ -656,17 +646,17 @@
             this.lv_rating});
             this.workspace.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.workspace.ForeColor = System.Drawing.Color.DarkRed;
-            listViewGroup2.Header = "ListViewGroup";
-            listViewGroup2.Name = "lv_grp";
-            listViewGroup2.Tag = "group";
+            listViewGroup3.Header = "ListViewGroup";
+            listViewGroup3.Name = "lv_grp";
+            listViewGroup3.Tag = "group";
             this.workspace.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup2});
-            listViewItem2.Checked = true;
-            listViewItem2.Group = listViewGroup2;
-            listViewItem2.IndentCount = 20;
-            listViewItem2.StateImageIndex = 2;
+            listViewGroup3});
+            listViewItem3.Checked = true;
+            listViewItem3.Group = listViewGroup3;
+            listViewItem3.IndentCount = 20;
+            listViewItem3.StateImageIndex = 2;
             this.workspace.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem2});
+            listViewItem3});
             this.workspace.Location = new System.Drawing.Point(222, 229);
             this.workspace.Name = "workspace";
             this.workspace.Size = new System.Drawing.Size(733, 364);
@@ -699,7 +689,6 @@
             this.Controls.Add(this.selectCategories);
             this.Controls.Add(this.sortbySelectBox);
             this.Controls.Add(this.bottombar_label2);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.bottombar_label1);
             this.Controls.Add(this.filterUser);
@@ -791,7 +780,6 @@
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.ComponentModel.BackgroundWorker bg1;
         private System.ComponentModel.BackgroundWorker bgw_internetstate;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ComboBox selectCategories;
         private System.Windows.Forms.Label bottombar_label2;
         private System.Windows.Forms.NotifyIcon notifICO;
