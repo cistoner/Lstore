@@ -42,7 +42,14 @@ namespace lStore
             ram = new  Microsoft.VisualBasic.Devices.ComputerInfo().TotalPhysicalMemory.ToString();
             osInfo = new Microsoft.VisualBasic.Devices.ComputerInfo().OSFullName.ToString();
             resolution = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Right.ToString() + " X " + System.Windows.Forms.Screen.PrimaryScreen.Bounds.Bottom.ToString();
-            macAddress = GetMacAddress().ToString();
+            try
+            {
+                macAddress = GetMacAddress().ToString();
+            }
+            catch (Exception ex)
+            {
+                macAddress = "NA";
+            }
             baseaddress = getBaseAddress(defaultGateway);    //method to get the baseaddress
             getIpAddress();     //method to get ip address
             rating = getDataFromXML("rating");

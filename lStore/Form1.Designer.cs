@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(lStore));
-            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
             "test"}, -1, System.Drawing.Color.Empty, System.Drawing.Color.Transparent, new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))));
             this.profilepic = new System.Windows.Forms.PictureBox();
             this.uname = new System.Windows.Forms.Label();
@@ -188,25 +188,25 @@
             // nEWToolStripMenuItem
             // 
             this.nEWToolStripMenuItem.Name = "nEWToolStripMenuItem";
-            this.nEWToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
+            this.nEWToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.nEWToolStripMenuItem.Text = "NEW";
             // 
             // oPENToolStripMenuItem
             // 
             this.oPENToolStripMenuItem.Name = "oPENToolStripMenuItem";
-            this.oPENToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
+            this.oPENToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.oPENToolStripMenuItem.Text = "OPEN";
             // 
             // rESETToolStripMenuItem
             // 
             this.rESETToolStripMenuItem.Name = "rESETToolStripMenuItem";
-            this.rESETToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
+            this.rESETToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.rESETToolStripMenuItem.Text = "RESET";
             // 
             // eXITToolStripMenuItem
             // 
             this.eXITToolStripMenuItem.Name = "eXITToolStripMenuItem";
-            this.eXITToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
+            this.eXITToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.eXITToolStripMenuItem.Text = "EXIT";
             this.eXITToolStripMenuItem.Click += new System.EventHandler(this.eXITToolStripMenuItem_Click);
             // 
@@ -313,13 +313,13 @@
             // groupChatToolStripMenuItem
             // 
             this.groupChatToolStripMenuItem.Name = "groupChatToolStripMenuItem";
-            this.groupChatToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.groupChatToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.groupChatToolStripMenuItem.Text = "Group Chat";
             // 
             // bROADCASTToolStripMenuItem
             // 
             this.bROADCASTToolStripMenuItem.Name = "bROADCASTToolStripMenuItem";
-            this.bROADCASTToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.bROADCASTToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.bROADCASTToolStripMenuItem.Text = "Broadcast";
             // 
             // codeLocationLabel
@@ -329,9 +329,9 @@
             this.codeLocationLabel.Location = new System.Drawing.Point(123, 68);
             this.codeLocationLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.codeLocationLabel.Name = "codeLocationLabel";
-            this.codeLocationLabel.Size = new System.Drawing.Size(148, 16);
+            this.codeLocationLabel.Size = new System.Drawing.Size(98, 16);
             this.codeLocationLabel.TabIndex = 6;
-            this.codeLocationLabel.Text = "Location code:";
+            this.codeLocationLabel.Text = "Location:";
             // 
             // linkChangeImage
             // 
@@ -350,7 +350,7 @@
             this.codeLocation.AutoSize = true;
             this.codeLocation.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.codeLocation.ForeColor = System.Drawing.Color.OrangeRed;
-            this.codeLocation.Location = new System.Drawing.Point(261, 69);
+            this.codeLocation.Location = new System.Drawing.Point(215, 69);
             this.codeLocation.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.codeLocation.Name = "codeLocation";
             this.codeLocation.Size = new System.Drawing.Size(108, 16);
@@ -646,20 +646,20 @@
             this.lv_rating});
             this.workspace.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.workspace.ForeColor = System.Drawing.Color.DarkRed;
-            listViewGroup3.Header = "ListViewGroup";
-            listViewGroup3.Name = "lv_grp";
-            listViewGroup3.Tag = "group";
+            listViewGroup1.Header = "ListViewGroup";
+            listViewGroup1.Name = "lv_grp";
+            listViewGroup1.Tag = "group";
             this.workspace.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup3});
-            listViewItem3.Checked = true;
-            listViewItem3.Group = listViewGroup3;
-            listViewItem3.IndentCount = 20;
-            listViewItem3.StateImageIndex = 2;
+            listViewGroup1});
+            listViewItem1.Checked = true;
+            listViewItem1.Group = listViewGroup1;
+            listViewItem1.IndentCount = 20;
+            listViewItem1.StateImageIndex = 2;
             this.workspace.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem3});
+            listViewItem1});
             this.workspace.Location = new System.Drawing.Point(222, 229);
             this.workspace.Name = "workspace";
-            this.workspace.Size = new System.Drawing.Size(733, 364);
+            this.workspace.Size = new System.Drawing.Size(944, 364);
             this.workspace.TabIndex = 30;
             this.workspace.TileSize = new System.Drawing.Size(710, 50);
             this.workspace.UseCompatibleStateImageBehavior = false;
@@ -720,6 +720,7 @@
             this.MinimumSize = new System.Drawing.Size(700, 395);
             this.Name = "lStore";
             this.Text = "lStore: LAN Sharing simplified !";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.lStore_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.profilepic)).EndInit();
             this.menuStrip1.ResumeLayout(false);

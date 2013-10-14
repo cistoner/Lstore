@@ -604,6 +604,16 @@ namespace lStore
            chat c = new chat();
            c.Show();
        }
+        /* 
+         * function called when form exits
+         */ 
+       private void lStore_FormClosed(object sender, FormClosedEventArgs e)
+       {
+           
+       }
+
+
+
 
 
 
