@@ -38,24 +38,34 @@ namespace lStore
         public lStore()
         {
             InitializeComponent();
-            userInfo.getAllData();          //so that usrInfo call get all the data from system
-            isInternetConnected();          // to check if internet is connected in one of the background worker
-            /* code to set the default profile image if it exists */
+            /*
+             * so that usrInfo call get all the data from system
+             */
+            userInfo.getAllData();
+            /*
+             * to check if internet is connected in one of the background worker
+             */ 
+            isInternetConnected();       
+            /* 
+             * code to set the default profile image if it exists 
+             */
             if (File.Exists(@"C:\Users\" + userName + @"\Documents\lStore\user.jpg"))
             {
                 profilepic.Image = System.Drawing.Image.FromFile(@"C:\Users\" + userName + @"\Documents\lStore\user.jpg");
             }
-            saveUsage();    //stores the usage date and time to file
-            bottombar_label2.Text = "";
-            /* 
-             * feeding to UI the parameters
-             */ 
-            
+            /*
+             * stores the usage date and time to file
+             * general stats @ :)
+             */
+            saveUsage();    //
+            bottombar_label2.Text = "";            
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            /*task here is to check if this is first time or not
-            this is the first task to be performed by the tool in main thread
+            /*
+             * task here is to check if this is first time or not
+             * this is the first task to be performed by the tool in
+             * main thread
              */
             if (isFirstTime())
             {
@@ -85,15 +95,79 @@ namespace lStore
                 nname.Text = @"\\" + localName;
                 
                 /*
-                 * code now to populate list with online users and then trigger a function to recheck online users
+                 * code now to populate list with online users 
+                 * and then trigger a function to recheck online users
                  */
-                populateUserList(users.getUsers(), users.getUserIp());
-                Thread th = new Thread(gatherOnlineUser);
-                th.Start();
-                bg1.RunWorkerAsync();
+                //populateUserList(users.getUsers(), users.getUserIp());
+                populateUserList(users.getUsers());
+                //Thread th = new Thread(gatherOnlineUser);
+                //th.Start();
+                //bg1.RunWorkerAsync();
+                onlineUserRetriever.RunWorkerAsync();
             }
         }
-        /*need to create a listner to track a variable change */
+        /*
+         * background worker to retrieve online users by checking files available to them
+         */
+        private void onlineUserRetriever_DoWork(object sender, DoWorkEventArgs e)
+        {
+            string file = primaryFolder + @"\tmp\alluserlist.data";
+            string tmpFile = primaryFolder + @"\tmp\tmp.data";
+            File.WriteAllText(tmpFile,"");
+            if (!File.Exists(file))
+            {
+                //need to fetch this from server
+            }
+            else
+            {
+                string dat = File.ReadAllText(file);
+                string[] arr = dat.Split('*');
+                for (int i = 0; i < arr.Length - 1; i++)
+                {
+                    ArrayList folders = crawler.get_folders(arr[i]);
+                    if (folders.Count != 0)
+                    { 
+                        // this means the user is available
+                        File.AppendAllText(tmpFile,arr[i] + Environment.NewLine);
+                        
+                    }
+                    File.AppendAllText(primaryFolder + @"\tmp\test.data", arr[i] + " tested" + Environment.NewLine);
+                    //report progress here
+                    onlineUserRetriever.ReportProgress(i / (arr.Length-1) * 100);
+                }
+            }
+
+        }
+        private void onlineUserRetriever_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            progressBar1.Value = (e.ProgressPercentage);
+        }
+        private void onlineUserRetriever_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if ((e.Cancelled == true))
+            {
+                bottombar_label1.Text = "Refreshing Canceled!";
+            }
+
+            else if (!(e.Error == null))
+            {
+                bottombar_label1.Text = "Could not refresh!";
+            }
+            else
+            {
+                bottombar_label1.Text = "User list refreshed!";
+            }
+            string data = File.ReadAllText(primaryFolder +@"\tmp\tmp.data");
+            File.WriteAllText(primaryFolder + @"\tmp\online.data",data);
+            ArrayList u = users.getUsers();
+            if (u.Count != 0) populateUserList(u);
+            else populateUserList();
+            progressBar1.Visible = false;
+        }
+        /*
+         * need to create a listner to track a variable change 
+         */
+
         private void bg1_DoWork(object sender, DoWorkEventArgs e)
         {
             
@@ -107,8 +181,6 @@ namespace lStore
                     break;
                 }
                 count += steps;
-               // MessageBox.Show((count.ToString()));
-                //MessageBox.Show((count / maxTime * 100).ToString());
                 Thread.Sleep((int)steps);
                 worker.ReportProgress((int) (count / maxTime * 100 ));
             }
@@ -136,11 +208,12 @@ namespace lStore
                 bottombar_label1.Text = "User list refreshed!";
             }
             ArrayList u = users.getUsers();
-            if (u.Count != 0) populateUserList(u, users.getUserIp());
+            if (u.Count != 0) populateUserList(u);
             else populateUserList();
             progressBar1.Visible = false;
         }
-        /* this function calls the member of another class in another thread 
+        /* 
+         * this function calls the member of another class in another thread 
          * so that it can retireve list of online users on LAN
          */ 
         public void gatherOnlineUser() {
@@ -150,7 +223,9 @@ namespace lStore
             
         }
         
-        /* overloaded populateUserlist */
+        /* 
+         * populateUserlist 
+         */
         public void populateUserList(ArrayList user,ArrayList ips)
         {
             /* need to add code to get IP from file as well */
@@ -174,6 +249,30 @@ namespace lStore
             foreach (string a in ips) { onlineUserIp.Add(a); }
 
         }
+        /* 
+         * populateUserlist 
+         * accpts only one parameter that is arraylist of usernames
+         */
+        public void populateUserList(ArrayList user)
+        {
+            onlineUser.Clear();
+            onlineUsers.Items.Clear();
+            onlineUsercount = 0;
+            /*
+             * cross thread operations result in exception so you need to check weather an invoke is required prior to you using 
+             * this 
+             */
+            if (user != null && user.Count != 0)
+            {
+                foreach (string a in user)
+                {
+                    onlineUsercount++;
+                    onlineUser.Add(a);
+                    onlineUsers.Items.Add(a);
+                }
+            }
+            countOnline.Text = "( " + onlineUsercount + " )";
+        }
         /*
          * overloaded populateUserlist 
          * this method is called when change has to be made from 
@@ -191,6 +290,11 @@ namespace lStore
             countOnline.Text = "( " + onlineUsercount + " )";
 
         }
+        /* 
+         * we may not need this function
+         * or sync data from local db if
+         * available
+         */ 
         public void saveXML()
         {
             //primaryFolder = @"C:\Users\" + userName + @"\Documents\lStore";
@@ -512,7 +616,16 @@ namespace lStore
          */ 
        private void onlineUsers_SelectedIndexChanged(object sender, EventArgs e)
        {
-           string user =  onlineUsers.SelectedItem.ToString();
+           string user;
+           try
+           {
+               user = onlineUsers.SelectedItem.ToString();
+           }
+           catch(Exception ex)
+           {
+               saveException(ex.Message);
+               return;
+           }
            ArrayList folders = crawler.get_folders(user);
            if (folders.Count == 0 || folders[0].ToString() == "-1" )
            {
@@ -602,6 +715,12 @@ namespace lStore
        {
            
        }
+
+       
+
+       
+
+       
 
 
 

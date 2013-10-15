@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(lStore));
-            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem(new string[] {
             "test"}, -1, System.Drawing.Color.Empty, System.Drawing.Color.Transparent, new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))));
             this.profilepic = new System.Windows.Forms.PictureBox();
             this.uname = new System.Windows.Forms.Label();
@@ -49,6 +49,7 @@
             this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vIEWToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.usageSTATSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hELPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.offlineHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.onlineHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -97,7 +98,7 @@
             this.lv_username = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lv_filesize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lv_rating = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.usageSTATSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.onlineUserRetriever = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.profilepic)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.contextMenuNotif.SuspendLayout();
@@ -189,25 +190,25 @@
             // nEWToolStripMenuItem
             // 
             this.nEWToolStripMenuItem.Name = "nEWToolStripMenuItem";
-            this.nEWToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.nEWToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.nEWToolStripMenuItem.Text = "NEW";
             // 
             // oPENToolStripMenuItem
             // 
             this.oPENToolStripMenuItem.Name = "oPENToolStripMenuItem";
-            this.oPENToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.oPENToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.oPENToolStripMenuItem.Text = "OPEN";
             // 
             // rESETToolStripMenuItem
             // 
             this.rESETToolStripMenuItem.Name = "rESETToolStripMenuItem";
-            this.rESETToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.rESETToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.rESETToolStripMenuItem.Text = "RESET";
             // 
             // eXITToolStripMenuItem
             // 
             this.eXITToolStripMenuItem.Name = "eXITToolStripMenuItem";
-            this.eXITToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.eXITToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.eXITToolStripMenuItem.Text = "EXIT";
             this.eXITToolStripMenuItem.Click += new System.EventHandler(this.eXITToolStripMenuItem_Click);
             // 
@@ -225,21 +226,21 @@
             // 
             this.cutToolStripMenuItem.Enabled = false;
             this.cutToolStripMenuItem.Name = "cutToolStripMenuItem";
-            this.cutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cutToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.cutToolStripMenuItem.Text = "Cut";
             // 
             // copyToolStripMenuItem
             // 
             this.copyToolStripMenuItem.Enabled = false;
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.copyToolStripMenuItem.Text = "Copy ";
             // 
             // pasteToolStripMenuItem
             // 
             this.pasteToolStripMenuItem.Enabled = false;
             this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
-            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.pasteToolStripMenuItem.Text = "Paste";
             // 
             // vIEWToolStripMenuItem
@@ -249,6 +250,12 @@
             this.vIEWToolStripMenuItem.Name = "vIEWToolStripMenuItem";
             this.vIEWToolStripMenuItem.Size = new System.Drawing.Size(46, 22);
             this.vIEWToolStripMenuItem.Text = "VIEW";
+            // 
+            // usageSTATSToolStripMenuItem
+            // 
+            this.usageSTATSToolStripMenuItem.Name = "usageSTATSToolStripMenuItem";
+            this.usageSTATSToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.usageSTATSToolStripMenuItem.Text = "Usage STATS";
             // 
             // hELPToolStripMenuItem
             // 
@@ -263,19 +270,19 @@
             // offlineHelpToolStripMenuItem
             // 
             this.offlineHelpToolStripMenuItem.Name = "offlineHelpToolStripMenuItem";
-            this.offlineHelpToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.offlineHelpToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.offlineHelpToolStripMenuItem.Text = "Offline Help";
             // 
             // onlineHelpToolStripMenuItem
             // 
             this.onlineHelpToolStripMenuItem.Name = "onlineHelpToolStripMenuItem";
-            this.onlineHelpToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.onlineHelpToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.onlineHelpToolStripMenuItem.Text = "Online Help";
             // 
             // aboutUsToolStripMenuItem
             // 
             this.aboutUsToolStripMenuItem.Name = "aboutUsToolStripMenuItem";
-            this.aboutUsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutUsToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.aboutUsToolStripMenuItem.Text = "About Us";
             // 
             // tOOLSToolStripMenuItem
@@ -312,20 +319,20 @@
             // cHATToolStripMenuItem
             // 
             this.cHATToolStripMenuItem.Name = "cHATToolStripMenuItem";
-            this.cHATToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cHATToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.cHATToolStripMenuItem.Text = "Chat";
             this.cHATToolStripMenuItem.Click += new System.EventHandler(this.cHATToolStripMenuItem_Click);
             // 
             // groupChatToolStripMenuItem
             // 
             this.groupChatToolStripMenuItem.Name = "groupChatToolStripMenuItem";
-            this.groupChatToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.groupChatToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.groupChatToolStripMenuItem.Text = "Group Chat";
             // 
             // bROADCASTToolStripMenuItem
             // 
             this.bROADCASTToolStripMenuItem.Name = "bROADCASTToolStripMenuItem";
-            this.bROADCASTToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.bROADCASTToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.bROADCASTToolStripMenuItem.Text = "Broadcast";
             // 
             // codeLocationLabel
@@ -652,17 +659,17 @@
             this.lv_rating});
             this.workspace.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.workspace.ForeColor = System.Drawing.Color.DarkRed;
-            listViewGroup1.Header = "ListViewGroup";
-            listViewGroup1.Name = "lv_grp";
-            listViewGroup1.Tag = "group";
+            listViewGroup4.Header = "ListViewGroup";
+            listViewGroup4.Name = "lv_grp";
+            listViewGroup4.Tag = "group";
             this.workspace.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup1});
-            listViewItem1.Checked = true;
-            listViewItem1.Group = listViewGroup1;
-            listViewItem1.IndentCount = 20;
-            listViewItem1.StateImageIndex = 2;
+            listViewGroup4});
+            listViewItem4.Checked = true;
+            listViewItem4.Group = listViewGroup4;
+            listViewItem4.IndentCount = 20;
+            listViewItem4.StateImageIndex = 2;
             this.workspace.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1});
+            listViewItem4});
             this.workspace.Location = new System.Drawing.Point(222, 229);
             this.workspace.Name = "workspace";
             this.workspace.Size = new System.Drawing.Size(944, 364);
@@ -684,11 +691,13 @@
             // 
             this.lv_username.Text = "Owner";
             // 
-            // usageSTATSToolStripMenuItem
+            // onlineUserRetriever
             // 
-            this.usageSTATSToolStripMenuItem.Name = "usageSTATSToolStripMenuItem";
-            this.usageSTATSToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.usageSTATSToolStripMenuItem.Text = "Usage STATS";
+            this.onlineUserRetriever.WorkerReportsProgress = true;
+            this.onlineUserRetriever.WorkerSupportsCancellation = true;
+            this.onlineUserRetriever.DoWork += new System.ComponentModel.DoWorkEventHandler(this.onlineUserRetriever_DoWork);
+            this.onlineUserRetriever.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.onlineUserRetriever_ProgressChanged);
+            this.onlineUserRetriever.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.onlineUserRetriever_RunWorkerCompleted);
             // 
             // lStore
             // 
@@ -810,6 +819,7 @@
         private System.Windows.Forms.ColumnHeader lv_filesize;
         private System.Windows.Forms.ColumnHeader lv_rating;
         private System.Windows.Forms.ToolStripMenuItem usageSTATSToolStripMenuItem;
+        private System.ComponentModel.BackgroundWorker onlineUserRetriever;
     }
 }
 

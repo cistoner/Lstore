@@ -87,8 +87,7 @@ namespace lStore
                 string[] tmp = File.ReadAllLines(filename);
                 for (int i = 0; i < tmp.Length; i++)
                 {
-                    string[] arr = tmp[i].Split('*');
-                    returnAL.Add(arr[0]);
+                    returnAL.Add(tmp[i]);
                 }
             }
             catch (FileNotFoundException ex)
@@ -103,6 +102,7 @@ namespace lStore
         /*
          * a function to return arraylist of ips of online user from file
          */
+        /*
         public static ArrayList getUserIp()
         {
             string filename = static_primaryFolder + @"\tmp\online.data";
@@ -115,6 +115,7 @@ namespace lStore
             }
             return returnAL;
         }
+         */
         /* function to explicitly copy contents of
          * tmp.data to online.data
          */
