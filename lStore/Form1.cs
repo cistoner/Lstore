@@ -15,7 +15,6 @@ using System.Xml;
 using System.Threading;
 using System.Collections;
 using System.Web;
-using System.ComponentModel;
 //=========================================namespaces till here==============
 namespace lStore
 {
@@ -24,7 +23,7 @@ namespace lStore
         //=====variables here===================
         public string userName = userInfo.username, localName = userInfo.networkname;
         public string primaryFolder = @"C:\Users\" + userInfo.username + @"\Documents\lStore";
-        public string ip = userInfo.ipaddress, baseaddr, gatewayIPv4 ;
+        public string ip = userInfo.ipaddress;
         public string randomFileName;   //a random file name for a file which stores temporary dat about the xml
         public ArrayList onlineUser = new ArrayList();      //for stroring name of online user's name to be populated from db
         public ArrayList onlineUserIp = new ArrayList();    //for stroing IPs of online users
@@ -34,21 +33,13 @@ namespace lStore
         public float maxTime = 40000, steps = 100;
         public bool isInternet = false;
         userImage imageObj = new userImage();
-        public string selectedCategory = "";
-        public int selectedSortByVal = -1;   //int val for selected option in sort by select box @ default = 0
+        public string selectedCategory = "";    //category for search
+        public int selectedSortByVal = -1;      //int val for selected option in sort by select box @ default = 0
         public lStore()
         {
             InitializeComponent();
             userInfo.getAllData();          //so that usrInfo call get all the data from system
-            /* change value of these two every where and delete this */
-            /* =================================== */
-            baseaddr = userInfo.baseaddress;
-            gatewayIPv4 = userInfo.defaultGateway;
-            /* =================================== */
-            isInternetConnected();  
-            /*
-             * calls the bgw to check internet connection
-             */ 
+            isInternetConnected();          // to check if internet is connected in one of the background worker
             /* code to set the default profile image if it exists */
             if (File.Exists(@"C:\Users\" + userName + @"\Documents\lStore\user.jpg"))
             {
@@ -154,7 +145,7 @@ namespace lStore
          */ 
         public void gatherOnlineUser() {
             isRefreshing = true;
-            users userObj = new users(baseaddr,primaryFolder);
+            users userObj = new users(userInfo.baseaddress, primaryFolder);
             isRefreshing = false;
             
         }
