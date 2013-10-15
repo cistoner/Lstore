@@ -58,7 +58,8 @@ namespace lStore
              * general stats @ :)
              */
             saveUsage();    //
-            bottombar_label2.Text = "";            
+            bottombar_label2.Text = "";
+            pingLabel.Visible = false;
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -102,12 +103,14 @@ namespace lStore
                 populateUserList(users.getUsers());
                 //Thread th = new Thread(gatherOnlineUser);
                 //th.Start();
-                //bg1.RunWorkerAsync();
+                bg1.RunWorkerAsync();
+                pingLabel.Visible = true;
                 onlineUserRetriever.RunWorkerAsync();
             }
         }
         /*
          * background worker to retrieve online users by checking files available to them
+         * and refresh list view upon completion
          */
         private void onlineUserRetriever_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -131,7 +134,6 @@ namespace lStore
                         File.AppendAllText(tmpFile,arr[i] + Environment.NewLine);
                         
                     }
-                    File.AppendAllText(primaryFolder + @"\tmp\test.data", arr[i] + " tested" + Environment.NewLine);
                     //report progress here
                     onlineUserRetriever.ReportProgress(i / (arr.Length-1) * 100);
                 }
@@ -165,61 +167,78 @@ namespace lStore
             progressBar1.Visible = false;
         }
         /*
-         * need to create a listner to track a variable change 
-         */
-
+         * background worker to generate list of online user by IP method and 
+         * and upon completion match it with local db and 
+         * send new device name to server
+         */ 
         private void bg1_DoWork(object sender, DoWorkEventArgs e)
         {
-            
-            BackgroundWorker worker = sender as BackgroundWorker;
-            float count = 10000;
-            while (count <= maxTime)
+            isRefreshing = true;
+            File.WriteAllText(primaryFolder + @"\tmp\tmp_.data", "");
+            for (int i = 0; i <= 255; i++)
             {
-                if ((worker.CancellationPending == true))
+                string ip = (string)userInfo.baseaddress + "." + i.ToString();
+                Ping p = new Ping();
+                p.PingCompleted += new PingCompletedEventHandler(p_PingCompleted);
+                try
                 {
-                    e.Cancel = true;
-                    break;
+                    p.SendAsync(ip, 100, ip);
+                    File.AppendAllText(primaryFolder + @"\tmp\test_.data", "pinged " +ip +Environment.NewLine);
                 }
-                count += steps;
-                Thread.Sleep((int)steps);
-                worker.ReportProgress((int) (count / maxTime * 100 ));
+                catch (PingException ex)
+                {
+                    File.AppendAllText(primaryFolder + @"\tmp\test_.data", "exception for  " + ip +" : " +ex.Message + Environment.NewLine);
+                    continue;
+                }
             }
+        }
+        /*
+         * a method to recieve the ping()
+         */
+        public void p_PingCompleted(object sender, PingCompletedEventArgs e)
+        {
+
+            string ip = (string)e.UserState;
+            if (e.Reply != null && e.Reply.Status == IPStatus.Success)
+            {
+                string name;
+                try
+                {
+                    IPHostEntry hostEntry = Dns.GetHostEntry(ip);
+                    try
+                    {
+                        name = hostEntry.HostName;
+                        File.AppendAllText(primaryFolder + @"\tmp\tmp_.data", name + Environment.NewLine);
+                        File.AppendAllText(primaryFolder + @"\tmp\test_.data", "ping returned from " + ip + Environment.NewLine);
+                    }
+                    catch (SocketException ex) { }
+                }
+                catch (Exception ex) { }
+            }
+            bg1.ReportProgress(0);
         }
         private void bg1_ProgressChanged_1(object sender, System.ComponentModel.ProgressChangedEventArgs e)
         {
-            progressBar1.Value = (e.ProgressPercentage);
-            
+            //can add a progress bar at bottom label later
         }
         private void bg1_RunWorkerCompleted_1(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
-             
-            if ((e.Cancelled == true))
-            {
-                bottombar_label1.Text = "Refreshing Canceled!";
-            }
-
-            else if (!(e.Error == null))
-            {
-                bottombar_label1.Text = "Could not refresh!";
-            }
-
-            else
-            {
-                bottombar_label1.Text = "User list refreshed!";
-            }
-            ArrayList u = users.getUsers();
-            if (u.Count != 0) populateUserList(u);
-            else populateUserList();
-            progressBar1.Visible = false;
+            isRefreshing = false;
+            pingLabel.Visible = false;
+            /* 
+             * task: match the list so generated with users in db
+             * and whichsoever does not exists
+             * make a list and post it to server
+             */ 
         }
         /* 
          * this function calls the member of another class in another thread 
          * so that it can retireve list of online users on LAN
          */ 
         public void gatherOnlineUser() {
-            isRefreshing = true;
+            
             users userObj = new users(userInfo.baseaddress, primaryFolder);
-            isRefreshing = false;
+            
             
         }
         

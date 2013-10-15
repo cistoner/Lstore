@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(lStore));
-            System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
             "test"}, -1, System.Drawing.Color.Empty, System.Drawing.Color.Transparent, new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))));
             this.profilepic = new System.Windows.Forms.PictureBox();
             this.uname = new System.Windows.Forms.Label();
@@ -99,6 +99,7 @@
             this.lv_filesize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lv_rating = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.onlineUserRetriever = new System.ComponentModel.BackgroundWorker();
+            this.pingLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.profilepic)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.contextMenuNotif.SuspendLayout();
@@ -659,17 +660,17 @@
             this.lv_rating});
             this.workspace.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.workspace.ForeColor = System.Drawing.Color.DarkRed;
-            listViewGroup4.Header = "ListViewGroup";
-            listViewGroup4.Name = "lv_grp";
-            listViewGroup4.Tag = "group";
+            listViewGroup1.Header = "ListViewGroup";
+            listViewGroup1.Name = "lv_grp";
+            listViewGroup1.Tag = "group";
             this.workspace.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup4});
-            listViewItem4.Checked = true;
-            listViewItem4.Group = listViewGroup4;
-            listViewItem4.IndentCount = 20;
-            listViewItem4.StateImageIndex = 2;
+            listViewGroup1});
+            listViewItem1.Checked = true;
+            listViewItem1.Group = listViewGroup1;
+            listViewItem1.IndentCount = 20;
+            listViewItem1.StateImageIndex = 2;
             this.workspace.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem4});
+            listViewItem1});
             this.workspace.Location = new System.Drawing.Point(222, 229);
             this.workspace.Name = "workspace";
             this.workspace.Size = new System.Drawing.Size(944, 364);
@@ -699,11 +700,22 @@
             this.onlineUserRetriever.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.onlineUserRetriever_ProgressChanged);
             this.onlineUserRetriever.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.onlineUserRetriever_RunWorkerCompleted);
             // 
+            // pingLabel
+            // 
+            this.pingLabel.AutoSize = true;
+            this.pingLabel.ForeColor = System.Drawing.Color.DarkCyan;
+            this.pingLabel.Location = new System.Drawing.Point(882, 621);
+            this.pingLabel.Name = "pingLabel";
+            this.pingLabel.Size = new System.Drawing.Size(111, 13);
+            this.pingLabel.TabIndex = 31;
+            this.pingLabel.Text = "talking to other users!!";
+            // 
             // lStore
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 637);
+            this.Controls.Add(this.pingLabel);
             this.Controls.Add(this.workspace);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -820,6 +832,7 @@
         private System.Windows.Forms.ColumnHeader lv_rating;
         private System.Windows.Forms.ToolStripMenuItem usageSTATSToolStripMenuItem;
         private System.ComponentModel.BackgroundWorker onlineUserRetriever;
+        private System.Windows.Forms.Label pingLabel;
     }
 }
 
