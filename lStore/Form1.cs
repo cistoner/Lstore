@@ -99,10 +99,7 @@ namespace lStore
                  * code now to populate list with online users 
                  * and then trigger a function to recheck online users
                  */
-                //populateUserList(users.getUsers(), users.getUserIp());
                 populateUserList(users.getUsers());
-                //Thread th = new Thread(gatherOnlineUser);
-                //th.Start();
                 bg1.RunWorkerAsync();
                 pingLabel.Visible = true;
                 onlineUserRetriever.RunWorkerAsync();
@@ -230,18 +227,7 @@ namespace lStore
              * and whichsoever does not exists
              * make a list and post it to server
              */ 
-        }
-        /* 
-         * this function calls the member of another class in another thread 
-         * so that it can retireve list of online users on LAN
-         */ 
-        public void gatherOnlineUser() {
-            
-            users userObj = new users(userInfo.baseaddress, primaryFolder);
-            
-            
-        }
-        
+        }      
         /* 
          * populateUserlist 
          */
