@@ -618,6 +618,7 @@ namespace lStore
        }
         /*
          * this event runs when someone clicks on online user list
+         * need to add code to get file size and rating
          */ 
        private void onlineUsers_SelectedIndexChanged(object sender, EventArgs e)
        {
@@ -642,7 +643,8 @@ namespace lStore
            workspace.Items.Clear();
            for (int i = 0; i < folders.Count; i++)
            {
-               workspace.Items.Add(folders[i].ToString());
+               ListViewItem foo = new ListViewItem(new string[] { folders[i].ToString(), crawler.getOwner(folders[i].ToString()), "--NA--", "--NA--" });
+               workspace.Items.Add(foo);
                
            }
 

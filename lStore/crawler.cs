@@ -15,6 +15,16 @@ namespace lStore
     class crawler
     {
         /*
+         * returns the name of file owner depending on the name of file
+         */ 
+        public static string getOwner(string file)
+        {
+            file = file.Replace(@"\",@"/");
+            string []arr = file.Split('/');
+            return arr[2];
+
+        }
+        /*
          * static function to get list of folders on 
          * the network name so provided
          */ 
