@@ -30,14 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(lStore));
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
-            "test",
-            "mikky"}, -1, System.Drawing.Color.Empty, System.Drawing.Color.Transparent, new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))));
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
-            "boo",
-            "foo",
-            "bharti"}, -1, System.Drawing.Color.Empty, System.Drawing.SystemColors.Window, null);
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("Location");
             this.profilepic = new System.Windows.Forms.PictureBox();
             this.uname = new System.Windows.Forms.Label();
             this.nname = new System.Windows.Forms.Label();
@@ -105,9 +97,14 @@
             this.onlineUserRetriever = new System.ComponentModel.BackgroundWorker();
             this.pingLabel = new System.Windows.Forms.Label();
             this.imageListLV = new System.Windows.Forms.ImageList(this.components);
+            this.lv_menu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.lv_menu_open = new System.Windows.Forms.ToolStripMenuItem();
+            this.lv_menu_download = new System.Windows.Forms.ToolStripMenuItem();
+            this.lv_category = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.profilepic)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.contextMenuNotif.SuspendLayout();
+            this.lv_menu.SuspendLayout();
             this.SuspendLayout();
             // 
             // profilepic
@@ -661,25 +658,18 @@
             this.lv_filename,
             this.lv_username,
             this.lv_filesize,
+            this.lv_category,
             this.lv_rating});
+            this.workspace.ContextMenuStrip = this.lv_menu;
             this.workspace.Cursor = System.Windows.Forms.Cursors.Hand;
             this.workspace.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.workspace.ForeColor = System.Drawing.Color.DarkRed;
             this.workspace.FullRowSelect = true;
             this.workspace.GridLines = true;
-            listViewItem1.Checked = true;
-            listViewItem1.StateImageIndex = 2;
-            listViewItem2.StateImageIndex = 0;
-            listViewItem3.Tag = "1";
-            listViewItem3.ToolTipText = "boo";
-            this.workspace.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3});
-            this.workspace.Location = new System.Drawing.Point(240, 229);
+            this.workspace.Location = new System.Drawing.Point(212, 229);
             this.workspace.MultiSelect = false;
             this.workspace.Name = "workspace";
-            this.workspace.Size = new System.Drawing.Size(944, 364);
+            this.workspace.Size = new System.Drawing.Size(960, 364);
             this.workspace.TabIndex = 30;
             this.workspace.TileSize = new System.Drawing.Size(710, 50);
             this.workspace.UseCompatibleStateImageBehavior = false;
@@ -693,12 +683,12 @@
             // lv_username
             // 
             this.lv_username.Text = "Owner";
-            this.lv_username.Width = 150;
+            this.lv_username.Width = 100;
             // 
             // lv_filesize
             // 
             this.lv_filesize.Text = "size (mb)";
-            this.lv_filesize.Width = 150;
+            this.lv_filesize.Width = 100;
             // 
             // lv_rating
             // 
@@ -728,6 +718,33 @@
             this.imageListLV.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
             this.imageListLV.ImageSize = new System.Drawing.Size(16, 16);
             this.imageListLV.TransparentColor = System.Drawing.Color.Transparent;
+            // 
+            // lv_menu
+            // 
+            this.lv_menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lv_menu_open,
+            this.lv_menu_download});
+            this.lv_menu.Name = "lv_menu";
+            this.lv_menu.Size = new System.Drawing.Size(143, 48);
+            // 
+            // lv_menu_open
+            // 
+            this.lv_menu_open.Enabled = false;
+            this.lv_menu_open.Name = "lv_menu_open";
+            this.lv_menu_open.Size = new System.Drawing.Size(142, 22);
+            this.lv_menu_open.Text = "OPEN";
+            // 
+            // lv_menu_download
+            // 
+            this.lv_menu_download.Enabled = false;
+            this.lv_menu_download.Name = "lv_menu_download";
+            this.lv_menu_download.Size = new System.Drawing.Size(142, 22);
+            this.lv_menu_download.Text = "DOWNLOAD";
+            // 
+            // lv_category
+            // 
+            this.lv_category.Text = "Category";
+            this.lv_category.Width = 120;
             // 
             // lStore
             // 
@@ -778,6 +795,7 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.contextMenuNotif.ResumeLayout(false);
+            this.lv_menu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -852,6 +870,10 @@
         private System.ComponentModel.BackgroundWorker onlineUserRetriever;
         private System.Windows.Forms.Label pingLabel;
         private System.Windows.Forms.ImageList imageListLV;
+        private System.Windows.Forms.ContextMenuStrip lv_menu;
+        private System.Windows.Forms.ToolStripMenuItem lv_menu_open;
+        private System.Windows.Forms.ToolStripMenuItem lv_menu_download;
+        private System.Windows.Forms.ColumnHeader lv_category;
     }
 }
 

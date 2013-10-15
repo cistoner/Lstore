@@ -618,7 +618,8 @@ namespace lStore
        }
         /*
          * this event runs when someone clicks on online user list
-         * need to add code to get file size and rating
+         * need to add code to get file size and rating and
+         * CATEGORY
          */ 
        private void onlineUsers_SelectedIndexChanged(object sender, EventArgs e)
        {
@@ -643,7 +644,7 @@ namespace lStore
            workspace.Items.Clear();
            for (int i = 0; i < folders.Count; i++)
            {
-               ListViewItem foo = new ListViewItem(new string[] { folders[i].ToString(), crawler.getOwner(folders[i].ToString()), "--NA--", "--NA--" });
+               ListViewItem foo = new ListViewItem(new string[] { folders[i].ToString(), crawler.getOwner(folders[i].ToString()), "--NA--", "--NA--", "--NA--" });
                workspace.Items.Add(foo);
                
            }
@@ -720,27 +721,7 @@ namespace lStore
          */ 
        private void lStore_FormClosed(object sender, FormClosedEventArgs e)
        {
-           
+
        }
-
-       
-
-       
-
-       
-
-
-
-
-
-
-
-       
-       
-
-       
-
-      
-
-    }
+   }
 }
