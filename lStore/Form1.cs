@@ -180,11 +180,9 @@ namespace lStore
                 try
                 {
                     p.SendAsync(ip, 100, ip);
-                    File.AppendAllText(primaryFolder + @"\tmp\test_.data", "pinged " +ip +Environment.NewLine);
                 }
                 catch (PingException ex)
                 {
-                    File.AppendAllText(primaryFolder + @"\tmp\test_.data", "exception for  " + ip +" : " +ex.Message + Environment.NewLine);
                     continue;
                 }
             }
@@ -206,7 +204,6 @@ namespace lStore
                     {
                         name = hostEntry.HostName;
                         File.AppendAllText(primaryFolder + @"\tmp\tmp_.data", name + Environment.NewLine);
-                        File.AppendAllText(primaryFolder + @"\tmp\test_.data", "ping returned from " + ip + Environment.NewLine);
                     }
                     catch (SocketException ex) { }
                 }
@@ -650,6 +647,52 @@ namespace lStore
            }
 
        }
+       private void workspace_MouseDoubleClick(object sender, MouseEventArgs e)
+       {
+           string sel = workspace.SelectedItems[0].Text;
+           workspace.Items.Clear();
+           ListViewItem foo = new ListViewItem(new string[] { crawler.getUpUrl(sel), crawler.getOwner(crawler.getUpUrl(sel)), "--NA--", "--NA--", "--NA--" });
+           workspace.Items.Add(foo);
+           try
+           {
+               string[] folders = Directory.GetDirectories(sel);
+               int len = folders.Length;
+               for (int i = 0; i < len; i++)
+               {
+                   try
+                   {
+                       workspace.Items.Add(new ListViewItem(new string[] { folders[i], crawler.getOwner(folders[i]), "--NA--", "--NA--", "--NA--" }));
+                   }
+                   catch (Exception ex) { continue; }
+               }
+               string[] files = Directory.GetFiles(sel);
+               len = files.Length;
+               for (int i = 0; i < len; i++)
+               {
+                   try
+                   {
+                       workspace.Items.Add(new ListViewItem(new string[] { files[i], crawler.getOwner(files[i]), "--NA--", "--NA--", "--NA--" }));
+                   }
+                   catch (Exception ex) { continue; }
+               }
+           }
+           catch (ArgumentException ex)
+           {
+               ArrayList folders = crawler.get_folders(sel);
+               workspace.Items.Clear();
+               for (int i = 0; i < folders.Count; i++)
+               {
+                   workspace.Items.Add(new ListViewItem(new string[] { folders[i].ToString(), crawler.getOwner(folders[i].ToString()), "--NA--", "--NA--", "--NA--" }));
+               }
+           }
+           catch (IOException ex)
+           { 
+                //this means it can be a file
+               
+           }
+
+       }
+
         /* 
          * invoked when select for categories is changed
          */ 
@@ -723,5 +766,12 @@ namespace lStore
        {
 
        }
+
+       
+       private void filterUser_MouseClick(object sender, MouseEventArgs e)
+       {
+           if (filterUser.Text == "search....") filterUser.SelectAll();
+       }
+
    }
 }

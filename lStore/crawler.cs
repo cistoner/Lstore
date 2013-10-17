@@ -24,6 +24,17 @@ namespace lStore
             return arr[2];
 
         }
+        public static string getUpUrl(string url)
+        {
+            string x = url.Replace(@"\", @"/");
+            string[] arr = x.Split('/');
+            string output = "";
+            for(int i = 0;i<arr.Length-1;i++)
+            {
+                output += arr[i] +@"\";
+            }
+            return output;
+        }
         /*
          * static function to get list of folders on 
          * the network name so provided

@@ -30,6 +30,12 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(lStore));
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
+            "test",
+            "test",
+            "test",
+            "test",
+            "test"}, -1, System.Drawing.Color.DarkRed, System.Drawing.Color.Empty, null);
             this.profilepic = new System.Windows.Forms.PictureBox();
             this.uname = new System.Windows.Forms.Label();
             this.nname = new System.Windows.Forms.Label();
@@ -93,14 +99,14 @@
             this.lv_filename = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lv_username = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lv_filesize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.lv_category = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lv_rating = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.onlineUserRetriever = new System.ComponentModel.BackgroundWorker();
-            this.pingLabel = new System.Windows.Forms.Label();
-            this.imageListLV = new System.Windows.Forms.ImageList(this.components);
             this.lv_menu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.lv_menu_open = new System.Windows.Forms.ToolStripMenuItem();
             this.lv_menu_download = new System.Windows.Forms.ToolStripMenuItem();
-            this.lv_category = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.onlineUserRetriever = new System.ComponentModel.BackgroundWorker();
+            this.pingLabel = new System.Windows.Forms.Label();
+            this.imageListLV = new System.Windows.Forms.ImageList(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.profilepic)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.contextMenuNotif.SuspendLayout();
@@ -521,6 +527,7 @@
             this.filterUser.TabIndex = 19;
             this.filterUser.Text = "search....";
             this.filterUser.Click += new System.EventHandler(this.filterUser_Click);
+            this.filterUser.MouseClick += new System.Windows.Forms.MouseEventHandler(this.filterUser_MouseClick);
             this.filterUser.TextChanged += new System.EventHandler(this.filterUser_TextChanged);
             // 
             // bottombar_label1
@@ -666,6 +673,8 @@
             this.workspace.ForeColor = System.Drawing.Color.DarkRed;
             this.workspace.FullRowSelect = true;
             this.workspace.GridLines = true;
+            this.workspace.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem2});
             this.workspace.Location = new System.Drawing.Point(212, 229);
             this.workspace.MultiSelect = false;
             this.workspace.Name = "workspace";
@@ -674,6 +683,7 @@
             this.workspace.TileSize = new System.Drawing.Size(710, 50);
             this.workspace.UseCompatibleStateImageBehavior = false;
             this.workspace.View = System.Windows.Forms.View.Details;
+            this.workspace.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.workspace_MouseDoubleClick);
             // 
             // lv_filename
             // 
@@ -690,10 +700,37 @@
             this.lv_filesize.Text = "size (mb)";
             this.lv_filesize.Width = 100;
             // 
+            // lv_category
+            // 
+            this.lv_category.Text = "Category";
+            this.lv_category.Width = 120;
+            // 
             // lv_rating
             // 
             this.lv_rating.Text = "rating";
             this.lv_rating.Width = 100;
+            // 
+            // lv_menu
+            // 
+            this.lv_menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lv_menu_open,
+            this.lv_menu_download});
+            this.lv_menu.Name = "lv_menu";
+            this.lv_menu.Size = new System.Drawing.Size(143, 48);
+            // 
+            // lv_menu_open
+            // 
+            this.lv_menu_open.Enabled = false;
+            this.lv_menu_open.Name = "lv_menu_open";
+            this.lv_menu_open.Size = new System.Drawing.Size(142, 22);
+            this.lv_menu_open.Text = "OPEN";
+            // 
+            // lv_menu_download
+            // 
+            this.lv_menu_download.Enabled = false;
+            this.lv_menu_download.Name = "lv_menu_download";
+            this.lv_menu_download.Size = new System.Drawing.Size(142, 22);
+            this.lv_menu_download.Text = "DOWNLOAD";
             // 
             // onlineUserRetriever
             // 
@@ -718,33 +755,6 @@
             this.imageListLV.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
             this.imageListLV.ImageSize = new System.Drawing.Size(16, 16);
             this.imageListLV.TransparentColor = System.Drawing.Color.Transparent;
-            // 
-            // lv_menu
-            // 
-            this.lv_menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lv_menu_open,
-            this.lv_menu_download});
-            this.lv_menu.Name = "lv_menu";
-            this.lv_menu.Size = new System.Drawing.Size(143, 48);
-            // 
-            // lv_menu_open
-            // 
-            this.lv_menu_open.Enabled = false;
-            this.lv_menu_open.Name = "lv_menu_open";
-            this.lv_menu_open.Size = new System.Drawing.Size(142, 22);
-            this.lv_menu_open.Text = "OPEN";
-            // 
-            // lv_menu_download
-            // 
-            this.lv_menu_download.Enabled = false;
-            this.lv_menu_download.Name = "lv_menu_download";
-            this.lv_menu_download.Size = new System.Drawing.Size(142, 22);
-            this.lv_menu_download.Text = "DOWNLOAD";
-            // 
-            // lv_category
-            // 
-            this.lv_category.Text = "Category";
-            this.lv_category.Width = 120;
             // 
             // lStore
             // 
