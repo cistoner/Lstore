@@ -647,11 +647,23 @@ namespace lStore
            }
 
        }
+        /*
+         * event when mouse dbl click occurs in listviw detail item 
+         */
        private void workspace_MouseDoubleClick(object sender, MouseEventArgs e)
+       {
+           refreshListView();          
+       }
+       /* 
+        * this function deals with refresing the listview UI when even user 
+        * clicks or enter clikc
+        * on the listView item
+        */ 
+       private void refreshListView()
        {
            string sel = workspace.SelectedItems[0].Text;
            workspace.Items.Clear();
-           ListViewItem foo = new ListViewItem(new string[] { crawler.getUpUrl(sel), crawler.getOwner(crawler.getUpUrl(sel)), "--NA--", "--NA--", "--NA--" });
+           ListViewItem foo = new ListViewItem(new string[] { crawler.getUpUrl(sel), crawler.getOwner(crawler.getUpUrl(sel)), "", "UP", "" });
            workspace.Items.Add(foo);
            try
            {
@@ -661,7 +673,8 @@ namespace lStore
                {
                    try
                    {
-                       workspace.Items.Add(new ListViewItem(new string[] { folders[i], crawler.getOwner(folders[i]), "--NA--", "--NA--", "--NA--" }));
+                       workspace.Items.Add(new ListViewItem(new string[] { folders[i], crawler.getOwner(folders[i]), "--", "--NA--", "--NA--" }));
+                        
                    }
                    catch (Exception ex) { continue; }
                }
@@ -669,9 +682,20 @@ namespace lStore
                len = files.Length;
                for (int i = 0; i < len; i++)
                {
+                   FileInfo f = new FileInfo(files[i]);
+                   long s = f.Length;
+                   string size;
+                   if (s / (1024 * 1024) <= 1) { 
+                        if(s / 1024 <= 1)
+                        {
+                            size = s.ToString() +"bytes";
+                        }
+                        else size = (s/1024).ToString() + "kb";
+                   }
+                   else size = (s/(1024*1024)).ToString() +"mb";
                    try
                    {
-                       workspace.Items.Add(new ListViewItem(new string[] { files[i], crawler.getOwner(files[i]), "--NA--", "--NA--", "--NA--" }));
+                       workspace.Items.Add(new ListViewItem(new string[] { files[i], crawler.getOwner(files[i]), size, "--NA--", "--NA--" }));
                    }
                    catch (Exception ex) { continue; }
                }
@@ -686,13 +710,11 @@ namespace lStore
                }
            }
            catch (IOException ex)
-           { 
-                //this means it can be a file
-               
+           {
+               //this means it can be a file
+
            }
-
        }
-
         /* 
          * invoked when select for categories is changed
          */ 

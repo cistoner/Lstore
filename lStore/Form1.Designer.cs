@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(lStore));
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
             "test",
             "test",
             "test",
@@ -674,7 +674,7 @@
             this.workspace.FullRowSelect = true;
             this.workspace.GridLines = true;
             this.workspace.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem2});
+            listViewItem1});
             this.workspace.Location = new System.Drawing.Point(212, 229);
             this.workspace.MultiSelect = false;
             this.workspace.Name = "workspace";
@@ -693,16 +693,19 @@
             // lv_username
             // 
             this.lv_username.Text = "Owner";
+            this.lv_username.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.lv_username.Width = 100;
             // 
             // lv_filesize
             // 
-            this.lv_filesize.Text = "size (mb)";
+            this.lv_filesize.Text = "size";
+            this.lv_filesize.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.lv_filesize.Width = 100;
             // 
             // lv_category
             // 
             this.lv_category.Text = "Category";
+            this.lv_category.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.lv_category.Width = 120;
             // 
             // lv_rating
