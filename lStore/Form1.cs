@@ -35,6 +35,7 @@ namespace lStore
         userImage imageObj = new userImage();
         public string selectedCategory = "";    //category for search
         public int selectedSortByVal = -1;      //int val for selected option in sort by select box @ default = 0
+        public bool needRefresh = false;
         public lStore()
         {
             InitializeComponent();
@@ -140,6 +141,7 @@ namespace lStore
         private void onlineUserRetriever_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             progressBar1.Value = (e.ProgressPercentage);
+            File.AppendAllText(primaryFolder + @"\tmp\test.data", e.ProgressPercentage +Environment.NewLine);
         }
         private void onlineUserRetriever_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -162,6 +164,11 @@ namespace lStore
             if (u.Count != 0) populateUserList(u);
             else populateUserList();
             progressBar1.Visible = false;
+            if (needRefresh)
+            {
+                needRefresh = false;
+                onlineUserRetriever.RunWorkerAsync();
+            }
         }
         /*
          * background worker to generate list of online user by IP method and 
@@ -180,9 +187,11 @@ namespace lStore
                 try
                 {
                     p.SendAsync(ip, 100, ip);
+                    File.AppendAllText(primaryFolder + @"\tmp\test_.data","ping sent to " +ip + Environment.NewLine);
                 }
                 catch (PingException ex)
                 {
+                    File.AppendAllText(primaryFolder + @"\tmp\test_.data", "could not ping " + ip +" || " +ex.Message + Environment.NewLine);
                     continue;
                 }
             }
@@ -209,7 +218,11 @@ namespace lStore
                 }
                 catch (Exception ex) { }
             }
-            bg1.ReportProgress(0);
+            try
+            {
+                bg1.ReportProgress(0);
+            }
+            catch (Exception ex) { }
         }
         private void bg1_ProgressChanged_1(object sender, System.ComponentModel.ProgressChangedEventArgs e)
         {
@@ -219,11 +232,36 @@ namespace lStore
         {
             isRefreshing = false;
             pingLabel.Visible = false;
+            string data = File.ReadAllText(primaryFolder + @"\tmp\alluserlist.data");
+            string []newNname = File.ReadAllLines(primaryFolder + @"\tmp\tmp_.data");
+            bool flag = false;
+            int len = newNname.Length,i;
+            for (i = 0; i < len; i++)
+            {
+                if (data.IndexOf(newNname[i]) == -1)
+                {
+                    flag = true;
+                    File.AppendAllText(primaryFolder + @"\tmp\alluserlist.data",newNname[i] +"*");
+                }
+            }
+            if (flag) 
+            {
+
+                if (onlineUserRetriever.IsBusy)
+                {
+                    needRefresh = true;
+                }
+                else
+                {
+                    onlineUserRetriever.RunWorkerAsync();
+                }
+            }
             /* 
              * task: match the list so generated with users in db
              * and whichsoever does not exists
              * make a list and post it to server
-             */ 
+             */
+
         }      
         /* 
          * populateUserlist 
@@ -641,7 +679,7 @@ namespace lStore
            workspace.Items.Clear();
            for (int i = 0; i < folders.Count; i++)
            {
-               ListViewItem foo = new ListViewItem(new string[] { folders[i].ToString(), crawler.getOwner(folders[i].ToString()), "--NA--", "--NA--", "--NA--" });
+               ListViewItem foo = new ListViewItem(new string[] { folders[i].ToString(), crawler.getOwner(folders[i].ToString()), "", crawler.getCategory(folders[i].ToString()), "" });
                workspace.Items.Add(foo);
                
            }
@@ -654,6 +692,18 @@ namespace lStore
        {
            refreshListView();          
        }
+       /*
+        * when enter button is pressed
+        * in listview
+        * overan item
+        */ 
+       private void workspace_KeyDown(object sender, KeyEventArgs e)
+       {
+           if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Return)
+           {
+               refreshListView();
+           }
+       }
        /* 
         * this function deals with refresing the listview UI when even user 
         * clicks or enter clikc
@@ -661,19 +711,33 @@ namespace lStore
         */ 
        private void refreshListView()
        {
-           string sel = workspace.SelectedItems[0].Text;
+           string sel;
+           try
+           {
+               sel = workspace.SelectedItems[0].Text;
+           }
+           catch (Exception ex) { return; }
            workspace.Items.Clear();
            ListViewItem foo = new ListViewItem(new string[] { crawler.getUpUrl(sel), crawler.getOwner(crawler.getUpUrl(sel)), "", "UP", "" });
            workspace.Items.Add(foo);
            try
            {
-               string[] folders = Directory.GetDirectories(sel);
+               string[] folders;
+               try
+               {
+                   folders = Directory.GetDirectories(sel);
+               }
+               catch (UnauthorizedAccessException ex)
+               {
+                   MessageBox.Show(@"Oops! you do not seem to have access to this folder. Our bad :/");
+                   return;
+               }
                int len = folders.Length;
                for (int i = 0; i < len; i++)
                {
                    try
                    {
-                       workspace.Items.Add(new ListViewItem(new string[] { folders[i], crawler.getOwner(folders[i]), "--", "--NA--", "--NA--" }));
+                       workspace.Items.Add(new ListViewItem(new string[] { folders[i], crawler.getOwner(folders[i]), "", "folder", "--NA--" }));
                         
                    }
                    catch (Exception ex) { continue; }
@@ -695,7 +759,7 @@ namespace lStore
                    else size = (s/(1024*1024)).ToString() +"mb";
                    try
                    {
-                       workspace.Items.Add(new ListViewItem(new string[] { files[i], crawler.getOwner(files[i]), size, "--NA--", "--NA--" }));
+                       workspace.Items.Add(new ListViewItem(new string[] { files[i], crawler.getOwner(files[i]), size, crawler.getCategory(files[i]), "--NA--" }));
                    }
                    catch (Exception ex) { continue; }
                }
@@ -794,6 +858,8 @@ namespace lStore
        {
            if (filterUser.Text == "search....") filterUser.SelectAll();
        }
+
+       
 
    }
 }

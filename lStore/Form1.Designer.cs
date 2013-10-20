@@ -683,6 +683,7 @@
             this.workspace.TileSize = new System.Drawing.Size(710, 50);
             this.workspace.UseCompatibleStateImageBehavior = false;
             this.workspace.View = System.Windows.Forms.View.Details;
+            this.workspace.KeyDown += new System.Windows.Forms.KeyEventHandler(this.workspace_KeyDown);
             this.workspace.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.workspace_MouseDoubleClick);
             // 
             // lv_filename

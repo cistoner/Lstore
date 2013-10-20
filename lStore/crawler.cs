@@ -22,18 +22,34 @@ namespace lStore
             file = file.Replace(@"\",@"/");
             string []arr = file.Split('/');
             return arr[2];
-
         }
+        /* 
+         * returns the up url from a certain url
+         */ 
         public static string getUpUrl(string url)
         {
             string x = url.Replace(@"\", @"/");
             string[] arr = x.Split('/');
             string output = "";
-            for(int i = 0;i<arr.Length-1;i++)
+            int len = arr.Length-1,i;
+            for(i = 0;i < len;i++)
             {
                 output += arr[i] +@"\";
             }
             return output;
+        }
+        /*
+         * a function to return category from filename
+         */
+        public static string getCategory(string filename)
+        {
+            string x = filename.Replace(@"\",@"/");
+            string[] arr = x.Split('/');
+            x = arr[arr.Length - 1];
+            if (x.IndexOf('.') == -1) return "folder";
+            arr = x.Split('.');
+            string ext = arr[arr.Length - 1];
+            return ext;// for now
         }
         /*
          * static function to get list of folders on 
