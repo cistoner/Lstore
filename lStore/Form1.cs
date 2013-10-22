@@ -15,6 +15,7 @@ using System.Xml;
 using System.Threading;
 using System.Collections;
 using System.Web;
+using System.Collections.Specialized;
 //=========================================namespaces till here==============
 namespace lStore
 {
@@ -36,6 +37,11 @@ namespace lStore
         public string selectedCategory = "";    //category for search
         public int selectedSortByVal = -1;      //int val for selected option in sort by select box @ default = 0
         public bool needRefresh = false;
+        public Stack<string> back = new Stack<string>();
+        /* this stack will store the data for back button in listView */
+        private string presentState = "";
+        //==for copying a file
+        StringCollection paths = new StringCollection();
         public lStore()
         {
             InitializeComponent();
@@ -133,7 +139,7 @@ namespace lStore
                         
                     }
                     //report progress here
-                    onlineUserRetriever.ReportProgress(i / (arr.Length-1) * 100);
+                    onlineUserRetriever.ReportProgress((i * 100) / (arr.Length - 1));
                 }
             }
 
@@ -141,7 +147,6 @@ namespace lStore
         private void onlineUserRetriever_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             progressBar1.Value = (e.ProgressPercentage);
-            File.AppendAllText(primaryFolder + @"\tmp\test.data", e.ProgressPercentage +Environment.NewLine);
         }
         private void onlineUserRetriever_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -187,12 +192,11 @@ namespace lStore
                 try
                 {
                     p.SendAsync(ip, 100, ip);
-                    File.AppendAllText(primaryFolder + @"\tmp\test_.data","ping sent to " +ip + Environment.NewLine);
                 }
                 catch (PingException ex)
                 {
-                    File.AppendAllText(primaryFolder + @"\tmp\test_.data", "could not ping " + ip +" || " +ex.Message + Environment.NewLine);
-                    continue;
+                    saveException(ex.Message);
+					continue;
                 }
             }
         }
@@ -655,7 +659,11 @@ namespace lStore
          * this event runs when someone clicks on online user list
          * need to add code to get file size and rating and
          * CATEGORY
-         */ 
+         */
+       private void clearStack(Stack<string> st)
+       {
+           st.Clear();
+       }
        private void onlineUsers_SelectedIndexChanged(object sender, EventArgs e)
        {
            string user;
@@ -668,6 +676,8 @@ namespace lStore
                saveException(ex.Message);
                return;
            }
+           clearStack(back);
+           back.Push(@"\\" +user);
            ArrayList folders = crawler.get_folders(user);
            if (folders.Count == 0 || folders[0].ToString() == "-1" )
            {
@@ -690,7 +700,29 @@ namespace lStore
          */
        private void workspace_MouseDoubleClick(object sender, MouseEventArgs e)
        {
-           refreshListView();          
+           string sel;
+           try
+           {
+               sel = workspace.SelectedItems[0].Text;
+           }
+           catch (Exception ex) { return; }
+           if (sel != "..")
+           {
+               if (presentState.Length != 0) back.Push(presentState);
+               presentState = sel;
+               refreshListView(sel);
+           }
+           else
+           {
+               try
+               {
+                   refreshListView(back.Pop());
+               }
+               catch (Exception ex) 
+               {
+                   saveException(ex.Message);
+               }
+           }
        }
        /*
         * when enter button is pressed
@@ -701,24 +733,49 @@ namespace lStore
        {
            if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Return)
            {
-               refreshListView();
+               string sel;
+               try
+               {
+                   sel = workspace.SelectedItems[0].Text;
+               }
+               catch (Exception ex) 
+               {
+                   //
+                   MessageBox.Show(ex.Message);
+                   return;
+               }
+               if (sel != "..")
+               {
+                   if (presentState.Length != 0) back.Push(presentState);
+                   presentState = sel;
+                   refreshListView(sel);
+               }
+               else
+               {
+                   try
+                   {
+                       refreshListView(back.Pop());
+                   }
+                   catch (Exception ex)
+                   {
+                       //
+                       MessageBox.Show(ex.Message);
+                       saveException(ex.Message);
+                   }
+               }
            }
        }
        /* 
         * this function deals with refresing the listview UI when even user 
         * clicks or enter clikc
         * on the listView item
+        * @param: directory to access [ string : "sel" ]
         */ 
-       private void refreshListView()
+       private void refreshListView(string sel)
        {
-           string sel;
-           try
-           {
-               sel = workspace.SelectedItems[0].Text;
-           }
-           catch (Exception ex) { return; }
+           
            workspace.Items.Clear();
-           ListViewItem foo = new ListViewItem(new string[] { crawler.getUpUrl(sel), crawler.getOwner(crawler.getUpUrl(sel)), "", "UP", "" });
+           ListViewItem foo = new ListViewItem(new string[] { "..", "", "", "UP", "" });
            workspace.Items.Add(foo);
            try
            {
@@ -740,7 +797,12 @@ namespace lStore
                        workspace.Items.Add(new ListViewItem(new string[] { folders[i], crawler.getOwner(folders[i]), "", "folder", "--NA--" }));
                         
                    }
-                   catch (Exception ex) { continue; }
+                   catch (Exception ex) 
+                   {
+                       //
+                       MessageBox.Show(ex.Message); 
+                       continue;
+                   }
                }
                string[] files = Directory.GetFiles(sel);
                len = files.Length;
@@ -761,11 +823,19 @@ namespace lStore
                    {
                        workspace.Items.Add(new ListViewItem(new string[] { files[i], crawler.getOwner(files[i]), size, crawler.getCategory(files[i]), "--NA--" }));
                    }
-                   catch (Exception ex) { continue; }
+                   catch (Exception ex) 
+                   { 
+                       //
+                       MessageBox.Show(ex.Message); 
+                       continue;
+                   }
                }
            }
            catch (ArgumentException ex)
            {
+               sel = sel.Replace(@"\\", "");
+               clearStack(back);
+               back.Push(sel);
                ArrayList folders = crawler.get_folders(sel);
                workspace.Items.Clear();
                for (int i = 0; i < folders.Count; i++)
@@ -776,7 +846,15 @@ namespace lStore
            catch (IOException ex)
            {
                //this means it can be a file
-
+               try
+               {
+                   openDirec(sel);
+               }
+               catch (Exception e)
+               { 
+               
+               }
+               refreshListView(back.Pop());
            }
        }
         /* 
@@ -852,14 +930,48 @@ namespace lStore
        {
 
        }
-
-       
        private void filterUser_MouseClick(object sender, MouseEventArgs e)
        {
            if (filterUser.Text == "search....") filterUser.SelectAll();
        }
-
-       
+        /*
+         * function to open a folder in explorer or a file
+         * in default viewer when usr clicks on the option 
+         * by right clicking on that field
+         */
+       private void openDirec(string sel)
+       {
+           try
+           {
+               System.Diagnostics.Process.Start(@sel);
+           }
+           catch (Exception ex)
+           {
+               MessageBox.Show("Unable to open, Exception: " + ex.Message);
+           }
+       }
+       private void lv_menu_open_Click(object sender, EventArgs e)
+       {
+           string sel = workspace.SelectedItems[0].Text;
+           openDirec(sel);
+       }
+        /* 
+         * function to copy a file to clipboard when user clicks on that option
+         */ 
+       private void toMemoryToolStripMenuItem_Click(object sender, EventArgs e)
+       {
+           paths.Clear();
+           try
+           {
+               paths.Add(workspace.SelectedItems[0].Text);
+               Clipboard.SetFileDropList(paths);
+           }
+           catch (Exception ex)
+           {
+               saveException(ex.Message);
+               return;
+           }
+       }
 
    }
 }

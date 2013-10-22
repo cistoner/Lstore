@@ -107,6 +107,10 @@
             this.onlineUserRetriever = new System.ComponentModel.BackgroundWorker();
             this.pingLabel = new System.Windows.Forms.Label();
             this.imageListLV = new System.Windows.Forms.ImageList(this.components);
+            this.cOPYToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toDownloadsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toMemoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rATEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.profilepic)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.contextMenuNotif.SuspendLayout();
@@ -718,22 +722,24 @@
             // 
             this.lv_menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lv_menu_open,
-            this.lv_menu_download});
+            this.lv_menu_download,
+            this.cOPYToolStripMenuItem1,
+            this.rATEToolStripMenuItem});
             this.lv_menu.Name = "lv_menu";
-            this.lv_menu.Size = new System.Drawing.Size(143, 48);
+            this.lv_menu.Size = new System.Drawing.Size(162, 114);
             // 
             // lv_menu_open
             // 
-            this.lv_menu_open.Enabled = false;
             this.lv_menu_open.Name = "lv_menu_open";
-            this.lv_menu_open.Size = new System.Drawing.Size(142, 22);
-            this.lv_menu_open.Text = "OPEN";
+            this.lv_menu_open.Size = new System.Drawing.Size(161, 22);
+            this.lv_menu_open.Text = "Open in explorer";
+            this.lv_menu_open.Click += new System.EventHandler(this.lv_menu_open_Click);
             // 
             // lv_menu_download
             // 
             this.lv_menu_download.Enabled = false;
             this.lv_menu_download.Name = "lv_menu_download";
-            this.lv_menu_download.Size = new System.Drawing.Size(142, 22);
+            this.lv_menu_download.Size = new System.Drawing.Size(161, 22);
             this.lv_menu_download.Text = "DOWNLOAD";
             // 
             // onlineUserRetriever
@@ -759,6 +765,34 @@
             this.imageListLV.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
             this.imageListLV.ImageSize = new System.Drawing.Size(16, 16);
             this.imageListLV.TransparentColor = System.Drawing.Color.Transparent;
+            // 
+            // cOPYToolStripMenuItem1
+            // 
+            this.cOPYToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toDownloadsToolStripMenuItem,
+            this.toMemoryToolStripMenuItem});
+            this.cOPYToolStripMenuItem1.Name = "cOPYToolStripMenuItem1";
+            this.cOPYToolStripMenuItem1.Size = new System.Drawing.Size(161, 22);
+            this.cOPYToolStripMenuItem1.Text = "COPY";
+            // 
+            // toDownloadsToolStripMenuItem
+            // 
+            this.toDownloadsToolStripMenuItem.Name = "toDownloadsToolStripMenuItem";
+            this.toDownloadsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.toDownloadsToolStripMenuItem.Text = "To Downloads";
+            // 
+            // toMemoryToolStripMenuItem
+            // 
+            this.toMemoryToolStripMenuItem.Name = "toMemoryToolStripMenuItem";
+            this.toMemoryToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.toMemoryToolStripMenuItem.Text = "To Memory";
+            this.toMemoryToolStripMenuItem.Click += new System.EventHandler(this.toMemoryToolStripMenuItem_Click);
+            // 
+            // rATEToolStripMenuItem
+            // 
+            this.rATEToolStripMenuItem.Name = "rATEToolStripMenuItem";
+            this.rATEToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.rATEToolStripMenuItem.Text = "RATE";
             // 
             // lStore
             // 
@@ -799,7 +833,6 @@
             this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(1200, 676);
-            this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(700, 395);
             this.Name = "lStore";
             this.Text = "lStore: LAN Sharing simplified !";
@@ -888,6 +921,10 @@
         private System.Windows.Forms.ToolStripMenuItem lv_menu_open;
         private System.Windows.Forms.ToolStripMenuItem lv_menu_download;
         private System.Windows.Forms.ColumnHeader lv_category;
+        private System.Windows.Forms.ToolStripMenuItem cOPYToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem toDownloadsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toMemoryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rATEToolStripMenuItem;
     }
 }
 
