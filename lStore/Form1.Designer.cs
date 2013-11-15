@@ -369,7 +369,7 @@
             // 
             this.codeLocation.AutoSize = true;
             this.codeLocation.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.codeLocation.ForeColor = System.Drawing.Color.OrangeRed;
+            this.codeLocation.ForeColor = System.Drawing.SystemColors.Highlight;
             this.codeLocation.Location = new System.Drawing.Point(215, 69);
             this.codeLocation.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.codeLocation.Name = "codeLocation";
@@ -381,7 +381,7 @@
             // 
             this.rating.AutoSize = true;
             this.rating.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rating.ForeColor = System.Drawing.Color.OrangeRed;
+            this.rating.ForeColor = System.Drawing.SystemColors.Highlight;
             this.rating.Location = new System.Drawing.Point(192, 51);
             this.rating.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.rating.Name = "rating";
@@ -393,7 +393,7 @@
             // 
             this.countFilesShared.AutoSize = true;
             this.countFilesShared.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.countFilesShared.ForeColor = System.Drawing.Color.OrangeRed;
+            this.countFilesShared.ForeColor = System.Drawing.SystemColors.Highlight;
             this.countFilesShared.Location = new System.Drawing.Point(252, 89);
             this.countFilesShared.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.countFilesShared.Name = "countFilesShared";
