@@ -152,9 +152,9 @@
             this.countFileSharedLabel.Location = new System.Drawing.Point(123, 87);
             this.countFileSharedLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.countFileSharedLabel.Name = "countFileSharedLabel";
-            this.countFileSharedLabel.Size = new System.Drawing.Size(148, 16);
+            this.countFileSharedLabel.Size = new System.Drawing.Size(88, 16);
             this.countFileSharedLabel.TabIndex = 3;
-            this.countFileSharedLabel.Text = "Files shared: ";
+            this.countFileSharedLabel.Text = "Shared: ";
             // 
             // ratingLabel
             // 
@@ -370,7 +370,7 @@
             this.codeLocation.AutoSize = true;
             this.codeLocation.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.codeLocation.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.codeLocation.Location = new System.Drawing.Point(215, 69);
+            this.codeLocation.Location = new System.Drawing.Point(212, 69);
             this.codeLocation.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.codeLocation.Name = "codeLocation";
             this.codeLocation.Size = new System.Drawing.Size(108, 16);
@@ -394,7 +394,7 @@
             this.countFilesShared.AutoSize = true;
             this.countFilesShared.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.countFilesShared.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.countFilesShared.Location = new System.Drawing.Point(252, 89);
+            this.countFilesShared.Location = new System.Drawing.Point(192, 88);
             this.countFilesShared.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.countFilesShared.Name = "countFilesShared";
             this.countFilesShared.Size = new System.Drawing.Size(108, 16);
