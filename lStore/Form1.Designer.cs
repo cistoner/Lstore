@@ -30,12 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(lStore));
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
-            "test",
-            "test",
-            "test",
-            "test",
-            "test"}, -1, System.Drawing.Color.DarkRed, System.Drawing.Color.Empty, null);
             this.profilepic = new System.Windows.Forms.PictureBox();
             this.uname = new System.Windows.Forms.Label();
             this.nname = new System.Windows.Forms.Label();
@@ -69,7 +63,6 @@
             this.codeLocation = new System.Windows.Forms.Label();
             this.rating = new System.Windows.Forms.Label();
             this.countFilesShared = new System.Windows.Forms.Label();
-            this.internetState = new System.Windows.Forms.Label();
             this.search = new System.Windows.Forms.TextBox();
             this.submitSearch = new System.Windows.Forms.Button();
             this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
@@ -104,13 +97,14 @@
             this.lv_menu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.lv_menu_open = new System.Windows.Forms.ToolStripMenuItem();
             this.lv_menu_download = new System.Windows.Forms.ToolStripMenuItem();
-            this.onlineUserRetriever = new System.ComponentModel.BackgroundWorker();
-            this.pingLabel = new System.Windows.Forms.Label();
-            this.imageListLV = new System.Windows.Forms.ImageList(this.components);
             this.cOPYToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toDownloadsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toMemoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rATEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.onlineUserRetriever = new System.ComponentModel.BackgroundWorker();
+            this.pingLabel = new System.Windows.Forms.Label();
+            this.imageListLV = new System.Windows.Forms.ImageList(this.components);
+            this.internetstateImg = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
             ((System.ComponentModel.ISupportInitialize)(this.profilepic)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.contextMenuNotif.SuspendLayout();
@@ -130,9 +124,9 @@
             // uname
             // 
             this.uname.AutoSize = true;
-            this.uname.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.uname.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.uname.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uname.Location = new System.Drawing.Point(16, 150);
+            this.uname.Location = new System.Drawing.Point(16, 151);
             this.uname.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.uname.Name = "uname";
             this.uname.Size = new System.Drawing.Size(108, 16);
@@ -142,7 +136,7 @@
             // nname
             // 
             this.nname.AutoSize = true;
-            this.nname.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.nname.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.nname.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nname.Location = new System.Drawing.Point(123, 27);
             this.nname.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -185,7 +179,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(6, 1, 0, 1);
-            this.menuStrip1.Size = new System.Drawing.Size(1184, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1350, 24);
             this.menuStrip1.TabIndex = 5;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -407,21 +401,11 @@
             this.countFilesShared.TabIndex = 10;
             this.countFilesShared.Text = "loading...";
             // 
-            // internetState
-            // 
-            this.internetState.AutoSize = true;
-            this.internetState.BackColor = System.Drawing.Color.Transparent;
-            this.internetState.ForeColor = System.Drawing.Color.Red;
-            this.internetState.Location = new System.Drawing.Point(1057, 6);
-            this.internetState.Name = "internetState";
-            this.internetState.Size = new System.Drawing.Size(0, 13);
-            this.internetState.TabIndex = 11;
-            // 
             // search
             // 
             this.search.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.search.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.search.Location = new System.Drawing.Point(602, 66);
+            this.search.Location = new System.Drawing.Point(755, 51);
             this.search.MaximumSize = new System.Drawing.Size(500, 58);
             this.search.Name = "search";
             this.search.Size = new System.Drawing.Size(435, 26);
@@ -433,7 +417,7 @@
             // 
             // submitSearch
             // 
-            this.submitSearch.Location = new System.Drawing.Point(1043, 65);
+            this.submitSearch.Location = new System.Drawing.Point(1196, 50);
             this.submitSearch.Name = "submitSearch";
             this.submitSearch.Size = new System.Drawing.Size(102, 28);
             this.submitSearch.TabIndex = 13;
@@ -447,10 +431,11 @@
             this.shapeContainer1.Margin = new System.Windows.Forms.Padding(0);
             this.shapeContainer1.Name = "shapeContainer1";
             this.shapeContainer1.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
+            this.internetstateImg,
             this.rectangleShape3,
             this.rectangleShape2,
             this.rectangleShape1});
-            this.shapeContainer1.Size = new System.Drawing.Size(1184, 637);
+            this.shapeContainer1.Size = new System.Drawing.Size(1350, 681);
             this.shapeContainer1.TabIndex = 14;
             this.shapeContainer1.TabStop = false;
             // 
@@ -459,13 +444,13 @@
             this.rectangleShape3.BackColor = System.Drawing.SystemColors.ControlLight;
             this.rectangleShape3.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque;
             this.rectangleShape3.BorderColor = System.Drawing.Color.Transparent;
-            this.rectangleShape3.Location = new System.Drawing.Point(0, 617);
+            this.rectangleShape3.Location = new System.Drawing.Point(-2, 690);
             this.rectangleShape3.Name = "rectangleShape3";
-            this.rectangleShape3.Size = new System.Drawing.Size(2000, 20);
+            this.rectangleShape3.Size = new System.Drawing.Size(2000, 40);
             // 
             // rectangleShape2
             // 
-            this.rectangleShape2.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.rectangleShape2.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.rectangleShape2.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque;
             this.rectangleShape2.BorderColor = System.Drawing.Color.Transparent;
             this.rectangleShape2.Location = new System.Drawing.Point(16, 150);
@@ -474,12 +459,12 @@
             // 
             // rectangleShape1
             // 
-            this.rectangleShape1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.rectangleShape1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.rectangleShape1.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque;
             this.rectangleShape1.BorderColor = System.Drawing.Color.Transparent;
-            this.rectangleShape1.Location = new System.Drawing.Point(586, 41);
+            this.rectangleShape1.Location = new System.Drawing.Point(733, 39);
             this.rectangleShape1.Name = "rectangleShape1";
-            this.rectangleShape1.Size = new System.Drawing.Size(579, 104);
+            this.rectangleShape1.Size = new System.Drawing.Size(607, 104);
             // 
             // tmpLog
             // 
@@ -512,6 +497,8 @@
             // 
             // onlineUsers
             // 
+            this.onlineUsers.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.onlineUsers.Cursor = System.Windows.Forms.Cursors.Hand;
             this.onlineUsers.Font = new System.Drawing.Font("Maiandra GD", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.onlineUsers.FormattingEnabled = true;
             this.onlineUsers.ItemHeight = 15;
@@ -519,7 +506,7 @@
             "testItem"});
             this.onlineUsers.Location = new System.Drawing.Point(16, 249);
             this.onlineUsers.Name = "onlineUsers";
-            this.onlineUsers.Size = new System.Drawing.Size(158, 334);
+            this.onlineUsers.Size = new System.Drawing.Size(158, 420);
             this.onlineUsers.TabIndex = 18;
             this.onlineUsers.SelectedIndexChanged += new System.EventHandler(this.onlineUsers_SelectedIndexChanged);
             // 
@@ -537,7 +524,7 @@
             // bottombar_label1
             // 
             this.bottombar_label1.AutoSize = true;
-            this.bottombar_label1.Location = new System.Drawing.Point(13, 621);
+            this.bottombar_label1.Location = new System.Drawing.Point(15, 695);
             this.bottombar_label1.Name = "bottombar_label1";
             this.bottombar_label1.Size = new System.Drawing.Size(91, 13);
             this.bottombar_label1.TabIndex = 20;
@@ -545,7 +532,7 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(16, 583);
+            this.progressBar1.Location = new System.Drawing.Point(16, 668);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(158, 10);
             this.progressBar1.TabIndex = 21;
@@ -576,7 +563,7 @@
             "Games",
             "Softwares",
             "Codes"});
-            this.selectCategories.Location = new System.Drawing.Point(711, 114);
+            this.selectCategories.Location = new System.Drawing.Point(864, 99);
             this.selectCategories.Name = "selectCategories";
             this.selectCategories.Size = new System.Drawing.Size(121, 21);
             this.selectCategories.TabIndex = 24;
@@ -586,7 +573,7 @@
             // 
             this.bottombar_label2.AutoSize = true;
             this.bottombar_label2.ForeColor = System.Drawing.Color.Red;
-            this.bottombar_label2.Location = new System.Drawing.Point(389, 621);
+            this.bottombar_label2.Location = new System.Drawing.Point(391, 695);
             this.bottombar_label2.Name = "bottombar_label2";
             this.bottombar_label2.Size = new System.Drawing.Size(195, 13);
             this.bottombar_label2.TabIndex = 26;
@@ -635,7 +622,7 @@
             "User Rating",
             "Online Rating",
             "Date modified"});
-            this.sortbySelectBox.Location = new System.Drawing.Point(924, 114);
+            this.sortbySelectBox.Location = new System.Drawing.Point(1077, 99);
             this.sortbySelectBox.Name = "sortbySelectBox";
             this.sortbySelectBox.Size = new System.Drawing.Size(121, 21);
             this.sortbySelectBox.TabIndex = 27;
@@ -646,7 +633,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label2.Location = new System.Drawing.Point(606, 116);
+            this.label2.Location = new System.Drawing.Point(759, 101);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(99, 19);
             this.label2.TabIndex = 28;
@@ -657,7 +644,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label3.Location = new System.Drawing.Point(847, 116);
+            this.label3.Location = new System.Drawing.Point(1000, 101);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(72, 19);
             this.label3.TabIndex = 29;
@@ -665,6 +652,7 @@
             // 
             // workspace
             // 
+            this.workspace.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.workspace.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.lv_filename,
             this.lv_username,
@@ -677,12 +665,10 @@
             this.workspace.ForeColor = System.Drawing.Color.DarkRed;
             this.workspace.FullRowSelect = true;
             this.workspace.GridLines = true;
-            this.workspace.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1});
-            this.workspace.Location = new System.Drawing.Point(212, 229);
+            this.workspace.Location = new System.Drawing.Point(195, 229);
             this.workspace.MultiSelect = false;
             this.workspace.Name = "workspace";
-            this.workspace.Size = new System.Drawing.Size(960, 364);
+            this.workspace.Size = new System.Drawing.Size(1143, 364);
             this.workspace.TabIndex = 30;
             this.workspace.TileSize = new System.Drawing.Size(710, 50);
             this.workspace.UseCompatibleStateImageBehavior = false;
@@ -726,7 +712,7 @@
             this.cOPYToolStripMenuItem1,
             this.rATEToolStripMenuItem});
             this.lv_menu.Name = "lv_menu";
-            this.lv_menu.Size = new System.Drawing.Size(162, 114);
+            this.lv_menu.Size = new System.Drawing.Size(162, 92);
             // 
             // lv_menu_open
             // 
@@ -742,30 +728,6 @@
             this.lv_menu_download.Size = new System.Drawing.Size(161, 22);
             this.lv_menu_download.Text = "DOWNLOAD";
             // 
-            // onlineUserRetriever
-            // 
-            this.onlineUserRetriever.WorkerReportsProgress = true;
-            this.onlineUserRetriever.WorkerSupportsCancellation = true;
-            this.onlineUserRetriever.DoWork += new System.ComponentModel.DoWorkEventHandler(this.onlineUserRetriever_DoWork);
-            this.onlineUserRetriever.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.onlineUserRetriever_ProgressChanged);
-            this.onlineUserRetriever.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.onlineUserRetriever_RunWorkerCompleted);
-            // 
-            // pingLabel
-            // 
-            this.pingLabel.AutoSize = true;
-            this.pingLabel.ForeColor = System.Drawing.Color.DarkCyan;
-            this.pingLabel.Location = new System.Drawing.Point(882, 621);
-            this.pingLabel.Name = "pingLabel";
-            this.pingLabel.Size = new System.Drawing.Size(111, 13);
-            this.pingLabel.TabIndex = 31;
-            this.pingLabel.Text = "talking to other users!!";
-            // 
-            // imageListLV
-            // 
-            this.imageListLV.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.imageListLV.ImageSize = new System.Drawing.Size(16, 16);
-            this.imageListLV.TransparentColor = System.Drawing.Color.Transparent;
-            // 
             // cOPYToolStripMenuItem1
             // 
             this.cOPYToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -778,13 +740,13 @@
             // toDownloadsToolStripMenuItem
             // 
             this.toDownloadsToolStripMenuItem.Name = "toDownloadsToolStripMenuItem";
-            this.toDownloadsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.toDownloadsToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.toDownloadsToolStripMenuItem.Text = "To Downloads";
             // 
             // toMemoryToolStripMenuItem
             // 
             this.toMemoryToolStripMenuItem.Name = "toMemoryToolStripMenuItem";
-            this.toMemoryToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.toMemoryToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.toMemoryToolStripMenuItem.Text = "To Memory";
             this.toMemoryToolStripMenuItem.Click += new System.EventHandler(this.toMemoryToolStripMenuItem_Click);
             // 
@@ -794,28 +756,61 @@
             this.rATEToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.rATEToolStripMenuItem.Text = "RATE";
             // 
+            // onlineUserRetriever
+            // 
+            this.onlineUserRetriever.WorkerReportsProgress = true;
+            this.onlineUserRetriever.WorkerSupportsCancellation = true;
+            this.onlineUserRetriever.DoWork += new System.ComponentModel.DoWorkEventHandler(this.onlineUserRetriever_DoWork);
+            this.onlineUserRetriever.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.onlineUserRetriever_ProgressChanged);
+            this.onlineUserRetriever.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.onlineUserRetriever_RunWorkerCompleted);
+            // 
+            // pingLabel
+            // 
+            this.pingLabel.AutoSize = true;
+            this.pingLabel.ForeColor = System.Drawing.Color.DarkCyan;
+            this.pingLabel.Location = new System.Drawing.Point(884, 695);
+            this.pingLabel.Name = "pingLabel";
+            this.pingLabel.Size = new System.Drawing.Size(111, 13);
+            this.pingLabel.TabIndex = 31;
+            this.pingLabel.Text = "talking to other users!!";
+            // 
+            // imageListLV
+            // 
+            this.imageListLV.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageListLV.ImageSize = new System.Drawing.Size(16, 16);
+            this.imageListLV.TransparentColor = System.Drawing.Color.Transparent;
+            // 
+            // internetstateImg
+            // 
+            this.internetstateImg.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("internetstateImg.BackgroundImage")));
+            this.internetstateImg.BorderColor = System.Drawing.Color.Transparent;
+            this.internetstateImg.Location = new System.Drawing.Point(1301, 155);
+            this.internetstateImg.Name = "internetstateImg";
+            this.internetstateImg.Size = new System.Drawing.Size(40, 40);
+            // 
             // lStore
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1184, 637);
-            this.Controls.Add(this.workspace);
-            this.Controls.Add(this.pingLabel);
+            this.AutoSize = true;
+            this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.ClientSize = new System.Drawing.Size(1350, 681);
+            this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.search);
+            this.Controls.Add(this.submitSearch);
+            this.Controls.Add(this.sortbySelectBox);
+            this.Controls.Add(this.selectCategories);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.selectCategories);
-            this.Controls.Add(this.sortbySelectBox);
-            this.Controls.Add(this.bottombar_label2);
-            this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.workspace);
             this.Controls.Add(this.bottombar_label1);
+            this.Controls.Add(this.bottombar_label2);
+            this.Controls.Add(this.pingLabel);
             this.Controls.Add(this.filterUser);
             this.Controls.Add(this.onlineUsers);
             this.Controls.Add(this.countOnline);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tmpLog);
-            this.Controls.Add(this.submitSearch);
-            this.Controls.Add(this.search);
-            this.Controls.Add(this.internetState);
             this.Controls.Add(this.countFilesShared);
             this.Controls.Add(this.rating);
             this.Controls.Add(this.codeLocation);
@@ -831,11 +826,11 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(1200, 676);
             this.MinimumSize = new System.Drawing.Size(700, 395);
             this.Name = "lStore";
             this.Text = "lStore: LAN Sharing simplified !";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.lStore_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.lStore_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.profilepic)).EndInit();
@@ -868,7 +863,6 @@
         private System.Windows.Forms.Label codeLocation;
         private System.Windows.Forms.Label rating;
         private System.Windows.Forms.Label countFilesShared;
-        private System.Windows.Forms.Label internetState;
         private System.Windows.Forms.TextBox search;
         private System.Windows.Forms.Button submitSearch;
         private Microsoft.VisualBasic.PowerPacks.ShapeContainer shapeContainer1;
@@ -925,6 +919,7 @@
         private System.Windows.Forms.ToolStripMenuItem toDownloadsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toMemoryToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rATEToolStripMenuItem;
+        private Microsoft.VisualBasic.PowerPacks.RectangleShape internetstateImg;
     }
 }
 
