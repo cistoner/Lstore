@@ -619,8 +619,10 @@ namespace lStore
          */ 
        public void isInternetConnected()
        {
-           internetState.Text = "Checking Internet";
-           internetState.ForeColor = System.Drawing.Color.Blue;
+           //internetState.Text = "Checking Internet";
+           //internetState.ForeColor = System.Drawing.Color.Blue;
+           string processing = primaryFolder + @"\offline.png";
+           internetstateImg.BackgroundImage = System.Drawing.Image.FromFile(processing);
            bgw_internetstate.RunWorkerAsync();
        }
         /* 
@@ -644,15 +646,15 @@ namespace lStore
          */ 
        private void bgw_internetstate_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
        {
+           string online = primaryFolder +@"\online.png";
+           string offline = primaryFolder + @"\offline.png";
            if (isInternet)
            { 
-               internetState.Text = "Connected to internet";
-               internetState.ForeColor = System.Drawing.Color.Green;
+               internetstateImg.BackgroundImage = System.Drawing.Image.FromFile(online);
            }
            else 
            {
-               internetState.Text = "No internet connection";
-               internetState.ForeColor = System.Drawing.Color.Red;
+               internetstateImg.BackgroundImage = System.Drawing.Image.FromFile(offline);
            }
        }
         /*
@@ -930,6 +932,12 @@ namespace lStore
        {
 
        }
+       private void lStore_FormClosing(object sender, FormClosingEventArgs e)
+       {
+           /* 
+            * a dialog box for confirmation if you want to exit
+            */
+       }
        private void filterUser_MouseClick(object sender, MouseEventArgs e)
        {
            if (filterUser.Text == "search....") filterUser.SelectAll();
@@ -972,6 +980,8 @@ namespace lStore
                return;
            }
        }
+
+       
 
    }
 }
