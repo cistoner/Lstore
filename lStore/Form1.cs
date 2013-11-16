@@ -67,6 +67,10 @@ namespace lStore
             saveUsage();    //
             bottombar_label2.Text = "";
             pingLabel.Visible = false;
+            backbutton.Visible = false;
+            notifICO.BalloonTipText = "lStore active: monitering LAN activities";
+            notifICO.BalloonTipTitle = "LStore: LAN sharing simplified";
+            notifICO.ShowBalloonTip(1000);
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -96,9 +100,9 @@ namespace lStore
                  * 3: check the db against last scan date/time and scan if it exceeds limit time -> upload to server
                  * 
                  */
-                rating.Text = " " + userInfo.rating;
-                codeLocation.Text = " " + userInfo.location;
-                countFilesShared.Text = " " + userInfo.files_shared;
+                rating.Text = "[STARS] " + userInfo.rating +"";
+                codeLocation.Text = "[LOC] " + userInfo.location;
+                countFilesShared.Text = "[FILES] " + userInfo.files_shared + "";
                 uname.Text = "" + userName;
                 nname.Text = @"\\" + localName;
                 
@@ -651,11 +655,17 @@ namespace lStore
            if (isInternet)
            { 
                internetstateImg.BackgroundImage = System.Drawing.Image.FromFile(online);
+               notifICO.BalloonTipText = "You are online. Stay online for better performance!";
+               notifICO.BalloonTipTitle = "LStore: LAN sharing simplified";
+               
            }
            else 
            {
                internetstateImg.BackgroundImage = System.Drawing.Image.FromFile(offline);
+               notifICO.BalloonTipText = "You are offline. Get online for better performance!";
+               notifICO.BalloonTipTitle = "LStore: LAN sharing simplified";
            }
+           notifICO.ShowBalloonTip(1000);
        }
         /*
          * this event runs when someone clicks on online user list
@@ -930,7 +940,8 @@ namespace lStore
          */ 
        private void lStore_FormClosed(object sender, FormClosedEventArgs e)
        {
-
+           notifICO.BalloonTipText = "You can access lStore from Notification panel anytime. Stay connected!";
+           notifICO.ShowBalloonTip(1000);
        }
        private void lStore_FormClosing(object sender, FormClosingEventArgs e)
        {
@@ -981,6 +992,7 @@ namespace lStore
            }
        }
 
+      
        
 
    }
