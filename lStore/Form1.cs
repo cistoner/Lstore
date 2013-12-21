@@ -26,9 +26,8 @@ namespace lStore
         public string primaryFolder = @"C:\Users\" + userInfo.username + @"\Documents\lStore";
         public string ip = userInfo.ipaddress;
         public string randomFileName;   //a random file name for a file which stores temporary dat about the xml
-        public ArrayList onlineUser = new ArrayList();      //for stroring name of online user's name to be populated from db
+        public ArrayList onlineUserS = new ArrayList();      //for stroring name of online user's name to be populated from db
         public ArrayList onlineUserIp = new ArrayList();    //for stroing IPs of online users
-        delegate void myDelegate(ArrayList u, ArrayList i);
         public int onlineUsercount = 0;
         public bool isRefreshing = false;
         public float maxTime = 40000, steps = 100;
@@ -38,29 +37,33 @@ namespace lStore
         public int selectedSortByVal = -1;      //int val for selected option in sort by select box @ default = 0
         public bool needRefresh = false;
         public Stack<string> back = new Stack<string>();
-        /* this stack will store the data for back button in listView */
+        /** this stack will store the data for back button in listView */
         private string presentState = "";
         //==for copying a file
         StringCollection paths = new StringCollection();
         public lStore()
         {
             InitializeComponent();
-            /*
+
+            /**
              * so that usrInfo call get all the data from system
              */
             userInfo.getAllData();
-            /*
+
+            /**
              * to check if internet is connected in one of the background worker
              */ 
-            isInternetConnected();       
-            /* 
+            isInternetConnected();   
+
+            /** 
              * code to set the default profile image if it exists 
              */
             if (File.Exists(@"C:\Users\" + userName + @"\Documents\lStore\user.jpg"))
             {
                 profilepic.Image = System.Drawing.Image.FromFile(@"C:\Users\" + userName + @"\Documents\lStore\user.jpg");
             }
-            /*
+
+            /**
              * stores the usage date and time to file
              * general stats @ :)
              */
@@ -68,20 +71,24 @@ namespace lStore
             bottombar_label2.Text = "";
             pingLabel.Visible = false;
             backbutton.Visible = false;
+
+            /**
+             * code to show baloon notification
+             */ 
             notifICO.BalloonTipText = "lStore active: monitering LAN activities";
             notifICO.BalloonTipTitle = "LStore: LAN sharing simplified";
             notifICO.ShowBalloonTip(1000);
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            /*
+            /**
              * task here is to check if this is first time or not
              * this is the first task to be performed by the tool in
              * main thread
              */
             if (isFirstTime())
             {
-                /*
+                /**
                  * this means this is its first time
                  */
                 this.Visible = false;
@@ -93,64 +100,72 @@ namespace lStore
             }
             else 
             {
-                //tier two task is to :
-                /*
+
+                /**
                  * 1: scan in alternate thread
                  * 2: match the xml details against that in server, another thread 
                  * 3: check the db against last scan date/time and scan if it exceeds limit time -> upload to server
-                 * 
-                 */
-                rating.Text = "[STARS] " + userInfo.rating +"";
-                codeLocation.Text = "[LOC] " + userInfo.location;
-                countFilesShared.Text = "[FILES] " + userInfo.files_shared + "";
-                uname.Text = "" + userName;
-                nname.Text = @"\\" + localName;
-                
-                /*
                  * code now to populate list with online users 
                  * and then trigger a function to recheck online users
                  */
+                uname.Text = "" + userName;
                 populateUserList(users.getUsers());
-                bg1.RunWorkerAsync();
                 pingLabel.Visible = true;
                 onlineUserRetriever.RunWorkerAsync();
             }
         }
-        /*
+
+        /**
          * background worker to retrieve online users by checking files available to them
          * and refresh list view upon completion
          */
         private void onlineUserRetriever_DoWork(object sender, DoWorkEventArgs e)
         {
+            /**
+             * initialisation of variables
+             */ 
             string file = primaryFolder + @"\tmp\alluserlist.data";
-            string tmpFile = primaryFolder + @"\tmp\tmp.data";
-            File.WriteAllText(tmpFile,"");
-            if (!File.Exists(file))
+            ;
+            string fileLocation = primaryFolder + @"\tmp\searchedUsers.log";
+
+            /**
+             * emptying this file for fresh process
+             */ 
+            File.WriteAllText(file,""); 
+
+            /**
+             * process to get list of online users
+             */ 
+            onlineUser.getIpList();
+            onlineUserRetriever.ReportProgress(10);
+            for (int i = 1; i <= 10; i++)
             {
-                //need to fetch this from server
+                System.Threading.Thread.Sleep(1000);
+                onlineUserRetriever.ReportProgress(10 +i*9);
             }
-            else
+                
+            File.WriteAllText(primaryFolder + @"\tmp\online.data","");
+            string data = File.ReadAllText(file);
+            File.WriteAllText(primaryFolder + @"\tmp\online.data",data);
+            /**
+            string[] users = File.ReadAllLines(file);
+            int i = 0;
+            foreach (string user in users)
             {
-                string dat = File.ReadAllText(file);
-                string[] arr = dat.Split('*');
-                for (int i = 0; i < arr.Length - 1; i++)
+                ArrayList folders = crawler.get_folders(user);
+                if (folders.Count != 0)
                 {
-                    ArrayList folders = crawler.get_folders(arr[i]);
-                    if (folders.Count != 0)
-                    { 
-                        // this means the user is available
-                        File.AppendAllText(tmpFile,arr[i] + Environment.NewLine);
-                        
-                    }
-                    //report progress here
-                    onlineUserRetriever.ReportProgress((i * 100) / (arr.Length - 1));
+                    File.AppendAllText(tmpFile, user + Environment.NewLine);
                 }
+                onlineUserRetriever.ReportProgress((i * 90) / (users.Length - 1));
+                i++;
             }
+            */
 
         }
         private void onlineUserRetriever_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            progressBar1.Value = (e.ProgressPercentage);
+            progressBar1.Value = (e.ProgressPercentage); 
         }
         private void onlineUserRetriever_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -167,121 +182,82 @@ namespace lStore
             {
                 bottombar_label1.Text = "User list refreshed!";
             }
-            string data = File.ReadAllText(primaryFolder +@"\tmp\tmp.data");
-            File.WriteAllText(primaryFolder + @"\tmp\online.data",data);
             ArrayList u = users.getUsers();
             if (u.Count != 0) populateUserList(u);
             else populateUserList();
             progressBar1.Visible = false;
+            progressBar1.Value = 0;
             if (needRefresh)
             {
                 needRefresh = false;
                 onlineUserRetriever.RunWorkerAsync();
             }
+            filterOnline.RunWorkerAsync();
         }
-        /*
-         * background worker to generate list of online user by IP method and 
-         * and upon completion match it with local db and 
-         * send new device name to server
-         */ 
-        private void bg1_DoWork(object sender, DoWorkEventArgs e)
-        {
-            isRefreshing = true;
-            File.WriteAllText(primaryFolder + @"\tmp\tmp_.data", "");
-            for (int i = 0; i <= 255; i++)
-            {
-                string ip = (string)userInfo.baseaddress + "." + i.ToString();
-                Ping p = new Ping();
-                p.PingCompleted += new PingCompletedEventHandler(p_PingCompleted);
-                try
-                {
-                    p.SendAsync(ip, 100, ip);
-                }
-                catch (PingException ex)
-                {
-                    saveException(ex.Message);
-					continue;
-                }
-            }
-        }
-        /*
-         * a method to recieve the ping()
+
+        /**
+         * background worker to filter the list created in the search
          */
-        public void p_PingCompleted(object sender, PingCompletedEventArgs e)
+        private void filterOnline_DoWork(object sender, DoWorkEventArgs e)
         {
-
-            string ip = (string)e.UserState;
-            if (e.Reply != null && e.Reply.Status == IPStatus.Success)
-            {
-                string name;
-                try
-                {
-                    IPHostEntry hostEntry = Dns.GetHostEntry(ip);
-                    try
-                    {
-                        name = hostEntry.HostName;
-                        File.AppendAllText(primaryFolder + @"\tmp\tmp_.data", name + Environment.NewLine);
-                    }
-                    catch (SocketException ex) { }
-                }
-                catch (Exception ex) { }
-            }
-            try
-            {
-                bg1.ReportProgress(0);
-            }
-            catch (Exception ex) { }
-        }
-        private void bg1_ProgressChanged_1(object sender, System.ComponentModel.ProgressChangedEventArgs e)
-        {
-            //can add a progress bar at bottom label later
-        }
-        private void bg1_RunWorkerCompleted_1(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
-        {
-            isRefreshing = false;
-            pingLabel.Visible = false;
-            string data = File.ReadAllText(primaryFolder + @"\tmp\alluserlist.data");
-            string []newNname = File.ReadAllLines(primaryFolder + @"\tmp\tmp_.data");
-            bool flag = false;
-            int len = newNname.Length,i;
-            for (i = 0; i < len; i++)
-            {
-                if (data.IndexOf(newNname[i]) == -1)
-                {
-                    flag = true;
-                    File.AppendAllText(primaryFolder + @"\tmp\alluserlist.data",newNname[i] +"*");
-                }
-            }
-            if (flag) 
-            {
-
-                if (onlineUserRetriever.IsBusy)
-                {
-                    needRefresh = true;
-                }
-                else
-                {
-                    onlineUserRetriever.RunWorkerAsync();
-                }
-            }
-            /* 
-             * task: match the list so generated with users in db
-             * and whichsoever does not exists
-             * make a list and post it to server
+            /**
+             * make progressbar visible and show refreshing text
              */
+            filterOnline.ReportProgress(0);
+            
+            /**
+             * file base mechanisms
+             */ 
+            string tmpFile = primaryFolder + @"\tmp\tmp.data";
+            File.WriteAllText(tmpFile,"");
+            string file = primaryFolder + @"\tmp\online.data";
+            string []name = File.ReadAllLines(file);
 
-        }      
-        /* 
+            int i = 0;
+            foreach(string n in name)
+            {
+                ArrayList folders = crawler.get_folders(n);
+                if (folders.Count != 0)
+                {
+                    File.AppendAllText(tmpFile, n + Environment.NewLine);
+                    filterOnline.ReportProgress((i * 100)/(name.Length - 1));
+                }
+                i++;
+            }
+        }
+
+        private void filterOnline_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            if (e.ProgressPercentage == 0)
+            {
+                bottombar_label1.Text = "Filtering listed users";
+                progressBar1.Visible = true;
+            }
+            progressBar1.Value = e.ProgressPercentage;
+        }
+
+        private void filterOnline_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            bottombar_label1.Text = "";
+            progressBar1.Visible = false;
+            progressBar1.Value = 0;
+            string file = primaryFolder + @"\tmp\online.data";
+            string tmpFile = primaryFolder + @"\tmp\tmp.data";
+            File.WriteAllText(file,File.ReadAllText(tmpFile));
+            populateUserList(users.getUsers());
+        }
+            
+        /** 
          * populateUserlist 
          */
         public void populateUserList(ArrayList user,ArrayList ips)
         {
-            /* need to add code to get IP from file as well */
-            onlineUser.Clear();
+            /** need to add code to get IP from file as well */
+            onlineUserS.Clear();
             onlineUserIp.Clear();
             onlineUsers.Items.Clear();
             onlineUsercount = 0;
-            /*
+            /**
              * cross thread operations result in exception so you need to check weather an invoke is required prior to you using 
              * this */
             if (user != null && user.Count != 0)
@@ -289,7 +265,7 @@ namespace lStore
                 foreach(string a in user)
                 {
                     onlineUsercount++;
-                    onlineUser.Add(a);
+                    onlineUserS.Add(a);
                     onlineUsers.Items.Add(a);
                 }
             }
@@ -297,16 +273,16 @@ namespace lStore
             foreach (string a in ips) { onlineUserIp.Add(a); }
 
         }
-        /* 
+        /** 
          * populateUserlist 
          * accpts only one parameter that is arraylist of usernames
          */
         public void populateUserList(ArrayList user)
         {
-            onlineUser.Clear();
+            onlineUserS.Clear();
             onlineUsers.Items.Clear();
             onlineUsercount = 0;
-            /*
+            /**
              * cross thread operations result in exception so you need to check weather an invoke is required prior to you using 
              * this 
              */
@@ -315,13 +291,13 @@ namespace lStore
                 foreach (string a in user)
                 {
                     onlineUsercount++;
-                    onlineUser.Add(a);
+                    onlineUserS.Add(a);
                     onlineUsers.Items.Add(a);
                 }
             }
             countOnline.Text = "( " + onlineUsercount + " )";
         }
-        /*
+        /**
          * overloaded populateUserlist 
          * this method is called when change has to be made from 
          * the existing arraylist
@@ -330,7 +306,7 @@ namespace lStore
         {
             onlineUsers.Items.Clear();
             onlineUsercount = 0;
-            foreach (string a in onlineUser)
+            foreach (string a in onlineUserS)
             {
                 onlineUsercount++;
                 onlineUsers.Items.Add(a);
@@ -338,7 +314,7 @@ namespace lStore
             countOnline.Text = "( " + onlineUsercount + " )";
 
         }
-        /* 
+        /** 
          * we may not need this function
          * or sync data from local db if
          * available
@@ -351,7 +327,7 @@ namespace lStore
             xml += "<username>" + userName + "</username>" + Environment.NewLine;
             xml += "<localname>" + localName + "</localname>" + Environment.NewLine;
             xml += "<rating>0.0</rating>" + Environment.NewLine;
-            /*
+            /**
              * need to resync rating,location,files_shared,hash from memmory
              * if they do not exist exit the applicatiion with an error
              * message
@@ -367,7 +343,7 @@ namespace lStore
                 this.Close();
             }
         }
-        /*
+        /**
          * this function generates a random 8 digit string and returns to you
          */
         string returnRandom()
@@ -380,7 +356,7 @@ namespace lStore
                           .ToArray());
             return result;
         }
-        /* this function checks for each required folders if they exist or not and create the required folder 
+        /** this function checks for each required folders if they exist or not and create the required folder 
          * according to need
          * params:no
          * dir: C:\Users\<userName>\Documents\lStore
@@ -393,7 +369,7 @@ namespace lStore
             string tmpFolder = mainFolder + @"\tmp";
             if (!Directory.Exists(tmpFolder)) { Directory.CreateDirectory(tmpFolder); }
         }
-        /*
+        /**
          a function to check if al required files exist and create necessory one when needed
          * params: no
          * files: saved.xml, usage.log, search: log,exceptions.log
@@ -411,14 +387,14 @@ namespace lStore
             if (!File.Exists(primaryFolder + @"\exceptions.log")) { File.Create(primaryFolder + @"\exceptions.log"); }
             if (!File.Exists(primaryFolder + @"\tmp\online.data")) { File.Create(primaryFolder + @"\tmp\online.data"); }
         }
-        /*
+        /**
          * this function checks if this is first time user is using this app
          * parameters: null
          * return type: bool
          */
         public bool isFirstTime()
         { 
-            /*
+            /**
              * check for the saved file if it does not exists this is first time
              */
             primaryFolder = @"C:\Users\" +userName +@"\Documents\lStore";
@@ -436,7 +412,7 @@ namespace lStore
             return true;
         }
        
-       /*
+       /**
         * program to change profile image
         * this function will be called when the user clicks on the profilepic
         * it should lead to a function that allows to change the profile picture
@@ -463,12 +439,12 @@ namespace lStore
            }
        }
         
-        /* this function is responsible to initiate search */
+        /** this function is responsible to initiate search */
        private void submitSearch_Click(object sender, EventArgs e)
        {
            performSearch();
        }
-        /* 
+        /** 
          * function to perform actual search operation
          */ 
        private void performSearch()
@@ -481,7 +457,7 @@ namespace lStore
            }
            else
            {
-               /*
+               /**
                 case when something logical has been attempted
                 */
                tmpLog.Text = "Searching for \" " + key + " \"";
@@ -499,7 +475,7 @@ namespace lStore
 
            }
        }
-       /*
+       /**
         * this function saves each search to a search log with date and time
         * filename: search.log
         * dir: C:\Users\<userName>\Documents\lStore
@@ -524,7 +500,7 @@ namespace lStore
                throwNonRecoverableError(ex.Message);
            }
        }
-       /*
+       /**
         * this function saves each time this application is opened to a log file 
         * filename: usage.log
         * dir: C:\Users\<userName>\Documents\lStore
@@ -549,7 +525,7 @@ namespace lStore
                throwNonRecoverableError(ex.Message);
            }
        }
-       /*
+       /**
         * a function to save exception to a log file!!
         * params: string ex: the exception message
         * filename: exceptions.log
@@ -574,7 +550,7 @@ namespace lStore
                MessageBox.Show("Some error occured: " + exep.Message);
            }
        }
-        /*
+        /**
          * a function to handle non defined exceptions to be added later into account
          * save the exception into log and display the messageBox
          * @param: string err: ie the error message
@@ -586,7 +562,7 @@ namespace lStore
        } 
        private void search_TextChanged(object sender, EventArgs e)
        {
-           /*
+           /**
             codes to be implemented here to make a UI like google ajax call 
             * search suggestions
             */
@@ -595,7 +571,7 @@ namespace lStore
        {
            filterUser.Focus();
        }
-        /*
+        /**
          * when ever user write some data to user filter this code refreshes the list
          */ 
        private void filterUser_TextChanged(object sender, EventArgs e)
@@ -604,13 +580,13 @@ namespace lStore
            string searchkey = filterUser.Text.ToLower();
            if (searchkey.Length == 0 || searchkey == "search....") 
            {
-               foreach (string name in onlineUser)
+               foreach (string name in onlineUserS)
                {
                    onlineUsers.Items.Add(name);
                }
            }
            
-           foreach(string name in onlineUser)
+           foreach(string name in onlineUserS)
            {
                if (name.ToLower().IndexOf(searchkey) != -1)
                {
@@ -618,7 +594,7 @@ namespace lStore
                }
            }
        }
-        /* 
+        /** 
          * a function to initiate the internet check background worker
          */ 
        public void isInternetConnected()
@@ -629,7 +605,7 @@ namespace lStore
            internetstateImg.BackgroundImage = System.Drawing.Image.FromFile(processing);
            bgw_internetstate.RunWorkerAsync();
        }
-        /* 
+        /** 
          * a background worker to check state of connected internet
          * it checks by opeing url: google.co.in
          * and checks the received error state
@@ -645,7 +621,7 @@ namespace lStore
            }
            catch (WebException ex) { isInternet =  false; }
        }
-        /*
+        /**
          * this event occours when the internet check bgw finish operation
          */ 
        private void bgw_internetstate_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
@@ -667,7 +643,8 @@ namespace lStore
            }
            notifICO.ShowBalloonTip(1000);
        }
-        /*
+
+        /**
          * this event runs when someone clicks on online user list
          * need to add code to get file size and rating and
          * CATEGORY
@@ -682,18 +659,19 @@ namespace lStore
            try
            {
                user = onlineUsers.SelectedItem.ToString();
+               crawler.root = @"\\" + user + @"\";
            }
            catch(Exception ex)
            {
                saveException(ex.Message);
                return;
            }
-           clearStack(back);
-           back.Push(@"\\" +user);
+           //clearStack(back);
+           //back.Push(@"\\" +user);
            ArrayList folders = crawler.get_folders(user);
            if (folders.Count == 0 || folders[0].ToString() == "-1" )
            {
-               onlineUser.Remove(user);
+               onlineUserS.Remove(user);
                populateUserList();  //calling for refreshing the user UI
                bottombar_label2.Text = "User is not available or not accessible. User removed from list";
                return;
@@ -707,7 +685,8 @@ namespace lStore
            }
 
        }
-        /*
+
+        /**
          * event when mouse dbl click occurs in listviw detail item 
          */
        private void workspace_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -736,7 +715,8 @@ namespace lStore
                }
            }
        }
-       /*
+
+       /**
         * when enter button is pressed
         * in listview
         * overan item
@@ -752,7 +732,6 @@ namespace lStore
                }
                catch (Exception ex) 
                {
-                   //
                    MessageBox.Show(ex.Message);
                    return;
                }
@@ -777,7 +756,8 @@ namespace lStore
                }
            }
        }
-       /* 
+
+       /** 
         * this function deals with refresing the listview UI when even user 
         * clicks or enter clikc
         * on the listView item
@@ -811,7 +791,6 @@ namespace lStore
                    }
                    catch (Exception ex) 
                    {
-                       //
                        MessageBox.Show(ex.Message); 
                        continue;
                    }
@@ -869,18 +848,20 @@ namespace lStore
                refreshListView(back.Pop());
            }
        }
-        /* 
+
+        /** 
          * invoked when select for categories is changed
          */ 
        private void selectCategories_SelectedIndexChanged(object sender, EventArgs e)
        {
            selectedCategory = selectCategories.SelectedItem.ToString();
-           /*
+           /**
             * can add code to re-search on category change
             */
            performSearch();
        }
-        /* 
+
+        /** 
          * this function select complete text of the
          * input box search
          * when clicked
@@ -889,7 +870,8 @@ namespace lStore
        {
            search.SelectAll();
        }
-        /*
+
+        /**
          * listner to check enter key was pressed while typing in 
          * search nput
          * and call the search function when the event is triggered
@@ -901,7 +883,7 @@ namespace lStore
                performSearch();
            }
        }
-        /* 
+        /** 
          * triggered when the 
          * sort by select box is changed
          */ 
@@ -910,15 +892,17 @@ namespace lStore
            selectedSortByVal = sortbySelectBox.SelectedIndex;
            performSearch();
        }
+
         //==============menu==actions
-        /*
+        /**
          * exit button in FILE menu
          */ 
        private void eXITToolStripMenuItem_Click(object sender, EventArgs e)
        {
            this.Close();
        }
-        /* 
+
+        /** 
          * exit button in notification bar
          * at bottom of menu
          */ 
@@ -926,7 +910,8 @@ namespace lStore
        {
            this.Close();
        }
-        /* 
+
+        /** 
          * option: social
          * @suboption: Chat
          */ 
@@ -935,7 +920,7 @@ namespace lStore
            chat c = new chat();
            c.Show();
        }
-        /* 
+        /** 
          * function called when form exits
          */ 
        private void lStore_FormClosed(object sender, FormClosedEventArgs e)
@@ -945,7 +930,7 @@ namespace lStore
        }
        private void lStore_FormClosing(object sender, FormClosingEventArgs e)
        {
-           /* 
+           /** 
             * a dialog box for confirmation if you want to exit
             */
        }
@@ -953,7 +938,7 @@ namespace lStore
        {
            if (filterUser.Text == "search....") filterUser.SelectAll();
        }
-        /*
+        /**
          * function to open a folder in explorer or a file
          * in default viewer when usr clicks on the option 
          * by right clicking on that field
@@ -974,7 +959,7 @@ namespace lStore
            string sel = workspace.SelectedItems[0].Text;
            openDirec(sel);
        }
-        /* 
+        /** 
          * function to copy a file to clipboard when user clicks on that option
          */ 
        private void toMemoryToolStripMenuItem_Click(object sender, EventArgs e)
@@ -991,6 +976,18 @@ namespace lStore
                return;
            }
        }
+
+       /**
+        * function called when user click on About Me link
+        * open the aboutUser form
+        */ 
+       private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+       {
+           aboutUser obj = new aboutUser();
+           obj.Show();
+       }
+
+       
 
       
        

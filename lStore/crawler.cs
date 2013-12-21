@@ -14,6 +14,13 @@ namespace lStore
 {
     class crawler
     {
+        /**
+         * placeholder for current root folder
+         * stores the current active directory in workspace
+         * default = null
+         */
+        public static string root = "";
+        
         /*
          * returns the name of file owner depending on the name of file
          */ 

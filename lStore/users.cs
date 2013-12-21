@@ -47,6 +47,7 @@ namespace lStore
            
             return returnAL;
         }
+
         /* function to explicitly copy contents of
          * tmp.data to online.data
          */

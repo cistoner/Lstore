@@ -230,6 +230,7 @@ namespace lStore
                 finishbutton.Visible = true;
             }
         }
+
         /*
          * task is to sendrequest to server to retrieve 
          * list of all users on LAN
@@ -268,6 +269,11 @@ namespace lStore
         {
             MessageBox.Show("Woohoo! lStore has synced data with server! Application shall restart now");
             Application.Restart();
+        }
+
+        private void firstTime_Load(object sender, EventArgs e)
+        {
+
         }
 
         

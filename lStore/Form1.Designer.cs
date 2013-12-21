@@ -32,7 +32,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(lStore));
             this.profilepic = new System.Windows.Forms.PictureBox();
             this.uname = new System.Windows.Forms.Label();
-            this.nname = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fILEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nEWToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,9 +56,6 @@
             this.groupChatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bROADCASTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.linkChangeImage = new System.Windows.Forms.LinkLabel();
-            this.codeLocation = new System.Windows.Forms.Label();
-            this.rating = new System.Windows.Forms.Label();
-            this.countFilesShared = new System.Windows.Forms.Label();
             this.search = new System.Windows.Forms.TextBox();
             this.submitSearch = new System.Windows.Forms.Button();
             this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
@@ -74,7 +70,6 @@
             this.filterUser = new System.Windows.Forms.TextBox();
             this.bottombar_label1 = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.bg1 = new System.ComponentModel.BackgroundWorker();
             this.bgw_internetstate = new System.ComponentModel.BackgroundWorker();
             this.selectCategories = new System.Windows.Forms.ComboBox();
             this.bottombar_label2 = new System.Windows.Forms.Label();
@@ -103,6 +98,9 @@
             this.pingLabel = new System.Windows.Forms.Label();
             this.imageListLV = new System.Windows.Forms.ImageList(this.components);
             this.tmpLog = new System.Windows.Forms.Label();
+            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
+            this.presentLocation = new System.Windows.Forms.TextBox();
+            this.filterOnline = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.profilepic)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.contextMenuNotif.SuspendLayout();
@@ -124,24 +122,12 @@
             this.uname.AutoSize = true;
             this.uname.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.uname.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uname.Location = new System.Drawing.Point(16, 151);
+            this.uname.Location = new System.Drawing.Point(16, 150);
             this.uname.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.uname.Name = "uname";
             this.uname.Size = new System.Drawing.Size(108, 16);
             this.uname.TabIndex = 1;
             this.uname.Text = "Username: ";
-            // 
-            // nname
-            // 
-            this.nname.AutoSize = true;
-            this.nname.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.nname.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nname.Location = new System.Drawing.Point(123, 27);
-            this.nname.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.nname.Name = "nname";
-            this.nname.Size = new System.Drawing.Size(148, 16);
-            this.nname.TabIndex = 2;
-            this.nname.Text = "Network name: ";
             // 
             // menuStrip1
             // 
@@ -330,42 +316,6 @@
             this.linkChangeImage.Text = "change image";
             this.linkChangeImage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkChangeImage_LinkClicked);
             // 
-            // codeLocation
-            // 
-            this.codeLocation.AutoSize = true;
-            this.codeLocation.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.codeLocation.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.codeLocation.Location = new System.Drawing.Point(122, 71);
-            this.codeLocation.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.codeLocation.Name = "codeLocation";
-            this.codeLocation.Size = new System.Drawing.Size(108, 16);
-            this.codeLocation.TabIndex = 8;
-            this.codeLocation.Text = "loading...";
-            // 
-            // rating
-            // 
-            this.rating.AutoSize = true;
-            this.rating.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rating.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.rating.Location = new System.Drawing.Point(122, 52);
-            this.rating.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.rating.Name = "rating";
-            this.rating.Size = new System.Drawing.Size(108, 16);
-            this.rating.TabIndex = 9;
-            this.rating.Text = "loading...";
-            // 
-            // countFilesShared
-            // 
-            this.countFilesShared.AutoSize = true;
-            this.countFilesShared.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.countFilesShared.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.countFilesShared.Location = new System.Drawing.Point(122, 90);
-            this.countFilesShared.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.countFilesShared.Name = "countFilesShared";
-            this.countFilesShared.Size = new System.Drawing.Size(108, 16);
-            this.countFilesShared.TabIndex = 10;
-            this.countFilesShared.Text = "loading...";
-            // 
             // search
             // 
             this.search.Font = new System.Drawing.Font("Lucida Sans Typewriter", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -462,10 +412,10 @@
             // countOnline
             // 
             this.countOnline.AutoSize = true;
-            this.countOnline.Font = new System.Drawing.Font("Minion Pro", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.countOnline.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.countOnline.Location = new System.Drawing.Point(101, 204);
             this.countOnline.Name = "countOnline";
-            this.countOnline.Size = new System.Drawing.Size(42, 21);
+            this.countOnline.Size = new System.Drawing.Size(48, 18);
             this.countOnline.TabIndex = 17;
             this.countOnline.Text = "( 12 )";
             this.countOnline.UseMnemonic = false;
@@ -511,14 +461,6 @@
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(158, 10);
             this.progressBar1.TabIndex = 21;
-            // 
-            // bg1
-            // 
-            this.bg1.WorkerReportsProgress = true;
-            this.bg1.WorkerSupportsCancellation = true;
-            this.bg1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bg1_DoWork);
-            this.bg1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bg1_ProgressChanged_1);
-            this.bg1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bg1_RunWorkerCompleted_1);
             // 
             // bgw_internetstate
             // 
@@ -765,6 +707,34 @@
             this.tmpLog.Size = new System.Drawing.Size(0, 13);
             this.tmpLog.TabIndex = 32;
             // 
+            // linkLabel2
+            // 
+            this.linkLabel2.AutoSize = true;
+            this.linkLabel2.Location = new System.Drawing.Point(34, 183);
+            this.linkLabel2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.linkLabel2.Name = "linkLabel2";
+            this.linkLabel2.Size = new System.Drawing.Size(53, 13);
+            this.linkLabel2.TabIndex = 33;
+            this.linkLabel2.TabStop = true;
+            this.linkLabel2.Text = "About Me";
+            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
+            // 
+            // presentLocation
+            // 
+            this.presentLocation.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.presentLocation.Location = new System.Drawing.Point(260, 190);
+            this.presentLocation.Name = "presentLocation";
+            this.presentLocation.Size = new System.Drawing.Size(531, 29);
+            this.presentLocation.TabIndex = 34;
+            // 
+            // filterOnline
+            // 
+            this.filterOnline.WorkerReportsProgress = true;
+            this.filterOnline.WorkerSupportsCancellation = true;
+            this.filterOnline.DoWork += new System.ComponentModel.DoWorkEventHandler(this.filterOnline_DoWork);
+            this.filterOnline.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.filterOnline_ProgressChanged);
+            this.filterOnline.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.filterOnline_RunWorkerCompleted);
+            // 
             // lStore
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -772,8 +742,9 @@
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(1350, 681);
+            this.Controls.Add(this.presentLocation);
+            this.Controls.Add(this.linkLabel2);
             this.Controls.Add(this.tmpLog);
-            this.Controls.Add(this.codeLocation);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.search);
             this.Controls.Add(this.submitSearch);
@@ -789,10 +760,7 @@
             this.Controls.Add(this.onlineUsers);
             this.Controls.Add(this.countOnline);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.countFilesShared);
-            this.Controls.Add(this.rating);
             this.Controls.Add(this.linkChangeImage);
-            this.Controls.Add(this.nname);
             this.Controls.Add(this.uname);
             this.Controls.Add(this.profilepic);
             this.Controls.Add(this.menuStrip1);
@@ -821,7 +789,6 @@
 
         private System.Windows.Forms.PictureBox profilepic;
         private System.Windows.Forms.Label uname;
-        private System.Windows.Forms.Label nname;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fILEToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nEWToolStripMenuItem;
@@ -831,9 +798,6 @@
         private System.Windows.Forms.ToolStripMenuItem vIEWToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hELPToolStripMenuItem;
         private System.Windows.Forms.LinkLabel linkChangeImage;
-        private System.Windows.Forms.Label codeLocation;
-        private System.Windows.Forms.Label rating;
-        private System.Windows.Forms.Label countFilesShared;
         private System.Windows.Forms.TextBox search;
         private System.Windows.Forms.Button submitSearch;
         private Microsoft.VisualBasic.PowerPacks.ShapeContainer shapeContainer1;
@@ -860,7 +824,6 @@
         private System.Windows.Forms.ToolStripMenuItem groupChatToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bROADCASTToolStripMenuItem;
         private System.Windows.Forms.ProgressBar progressBar1;
-        private System.ComponentModel.BackgroundWorker bg1;
         private System.ComponentModel.BackgroundWorker bgw_internetstate;
         private System.Windows.Forms.ComboBox selectCategories;
         private System.Windows.Forms.Label bottombar_label2;
@@ -892,6 +855,9 @@
         private Microsoft.VisualBasic.PowerPacks.RectangleShape internetstateImg;
         private Microsoft.VisualBasic.PowerPacks.RectangleShape backbutton;
         private System.Windows.Forms.Label tmpLog;
+        private System.Windows.Forms.LinkLabel linkLabel2;
+        private System.Windows.Forms.TextBox presentLocation;
+        private System.ComponentModel.BackgroundWorker filterOnline;
     }
 }
 

@@ -219,6 +219,7 @@
             this.MinimumSize = new System.Drawing.Size(963, 478);
             this.Name = "firstTime";
             this.Text = "Syncronising with server";
+            this.Load += new System.EventHandler(this.firstTime_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
