@@ -32,29 +32,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(lStore));
             this.profilepic = new System.Windows.Forms.PictureBox();
             this.uname = new System.Windows.Forms.Label();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.fILEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.nEWToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.oPENToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rESETToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.eXITToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.eDITToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.vIEWToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.usageSTATSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.hELPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.offlineHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.onlineHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutUsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tOOLSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.checkUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sOCIALToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cHATToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.groupChatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.bROADCASTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.linkChangeImage = new System.Windows.Forms.LinkLabel();
             this.search = new System.Windows.Forms.TextBox();
             this.submitSearch = new System.Windows.Forms.Button();
@@ -74,10 +51,11 @@
             this.selectCategories = new System.Windows.Forms.ComboBox();
             this.bottombar_label2 = new System.Windows.Forms.Label();
             this.notifICO = new System.Windows.Forms.NotifyIcon(this.components);
-            this.contextMenuNotif = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.sendFeedbackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.lv_menu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.lv_menu_open = new System.Windows.Forms.ToolStripMenuItem();
+            this.lv_menu_download = new System.Windows.Forms.ToolStripMenuItem();
+            this.cOPYToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.rATEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sortbySelectBox = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -87,13 +65,6 @@
             this.lv_filesize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lv_category = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lv_rating = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.lv_menu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.lv_menu_open = new System.Windows.Forms.ToolStripMenuItem();
-            this.lv_menu_download = new System.Windows.Forms.ToolStripMenuItem();
-            this.cOPYToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toDownloadsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toMemoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rATEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.onlineUserRetriever = new System.ComponentModel.BackgroundWorker();
             this.pingLabel = new System.Windows.Forms.Label();
             this.imageListLV = new System.Windows.Forms.ImageList(this.components);
@@ -101,10 +72,11 @@
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.presentLocation = new System.Windows.Forms.TextBox();
             this.filterOnline = new System.ComponentModel.BackgroundWorker();
+            this.refreshbutton1 = new System.Windows.Forms.Button();
+            this.loader = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.profilepic)).BeginInit();
-            this.menuStrip1.SuspendLayout();
-            this.contextMenuNotif.SuspendLayout();
             this.lv_menu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.loader)).BeginInit();
             this.SuspendLayout();
             // 
             // profilepic
@@ -129,181 +101,6 @@
             this.uname.TabIndex = 1;
             this.uname.Text = "Username: ";
             // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fILEToolStripMenuItem,
-            this.eDITToolStripMenuItem,
-            this.vIEWToolStripMenuItem,
-            this.hELPToolStripMenuItem,
-            this.tOOLSToolStripMenuItem,
-            this.sOCIALToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(6, 1, 0, 1);
-            this.menuStrip1.Size = new System.Drawing.Size(1350, 24);
-            this.menuStrip1.TabIndex = 5;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // fILEToolStripMenuItem
-            // 
-            this.fILEToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.nEWToolStripMenuItem,
-            this.oPENToolStripMenuItem,
-            this.rESETToolStripMenuItem,
-            this.eXITToolStripMenuItem});
-            this.fILEToolStripMenuItem.Name = "fILEToolStripMenuItem";
-            this.fILEToolStripMenuItem.Size = new System.Drawing.Size(40, 22);
-            this.fILEToolStripMenuItem.Text = "FILE";
-            // 
-            // nEWToolStripMenuItem
-            // 
-            this.nEWToolStripMenuItem.Name = "nEWToolStripMenuItem";
-            this.nEWToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
-            this.nEWToolStripMenuItem.Text = "NEW";
-            // 
-            // oPENToolStripMenuItem
-            // 
-            this.oPENToolStripMenuItem.Name = "oPENToolStripMenuItem";
-            this.oPENToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
-            this.oPENToolStripMenuItem.Text = "OPEN";
-            // 
-            // rESETToolStripMenuItem
-            // 
-            this.rESETToolStripMenuItem.Name = "rESETToolStripMenuItem";
-            this.rESETToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
-            this.rESETToolStripMenuItem.Text = "RESET";
-            // 
-            // eXITToolStripMenuItem
-            // 
-            this.eXITToolStripMenuItem.Name = "eXITToolStripMenuItem";
-            this.eXITToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
-            this.eXITToolStripMenuItem.Text = "EXIT";
-            this.eXITToolStripMenuItem.Click += new System.EventHandler(this.eXITToolStripMenuItem_Click);
-            // 
-            // eDITToolStripMenuItem
-            // 
-            this.eDITToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cutToolStripMenuItem,
-            this.copyToolStripMenuItem,
-            this.pasteToolStripMenuItem});
-            this.eDITToolStripMenuItem.Name = "eDITToolStripMenuItem";
-            this.eDITToolStripMenuItem.Size = new System.Drawing.Size(43, 22);
-            this.eDITToolStripMenuItem.Text = "EDIT";
-            // 
-            // cutToolStripMenuItem
-            // 
-            this.cutToolStripMenuItem.Enabled = false;
-            this.cutToolStripMenuItem.Name = "cutToolStripMenuItem";
-            this.cutToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
-            this.cutToolStripMenuItem.Text = "Cut";
-            // 
-            // copyToolStripMenuItem
-            // 
-            this.copyToolStripMenuItem.Enabled = false;
-            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
-            this.copyToolStripMenuItem.Text = "Copy ";
-            // 
-            // pasteToolStripMenuItem
-            // 
-            this.pasteToolStripMenuItem.Enabled = false;
-            this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
-            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
-            this.pasteToolStripMenuItem.Text = "Paste";
-            // 
-            // vIEWToolStripMenuItem
-            // 
-            this.vIEWToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.usageSTATSToolStripMenuItem});
-            this.vIEWToolStripMenuItem.Name = "vIEWToolStripMenuItem";
-            this.vIEWToolStripMenuItem.Size = new System.Drawing.Size(46, 22);
-            this.vIEWToolStripMenuItem.Text = "VIEW";
-            // 
-            // usageSTATSToolStripMenuItem
-            // 
-            this.usageSTATSToolStripMenuItem.Name = "usageSTATSToolStripMenuItem";
-            this.usageSTATSToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
-            this.usageSTATSToolStripMenuItem.Text = "Usage STATS";
-            // 
-            // hELPToolStripMenuItem
-            // 
-            this.hELPToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.offlineHelpToolStripMenuItem,
-            this.onlineHelpToolStripMenuItem,
-            this.aboutUsToolStripMenuItem});
-            this.hELPToolStripMenuItem.Name = "hELPToolStripMenuItem";
-            this.hELPToolStripMenuItem.Size = new System.Drawing.Size(47, 22);
-            this.hELPToolStripMenuItem.Text = "HELP";
-            // 
-            // offlineHelpToolStripMenuItem
-            // 
-            this.offlineHelpToolStripMenuItem.Name = "offlineHelpToolStripMenuItem";
-            this.offlineHelpToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
-            this.offlineHelpToolStripMenuItem.Text = "Offline Help";
-            // 
-            // onlineHelpToolStripMenuItem
-            // 
-            this.onlineHelpToolStripMenuItem.Name = "onlineHelpToolStripMenuItem";
-            this.onlineHelpToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
-            this.onlineHelpToolStripMenuItem.Text = "Online Help";
-            // 
-            // aboutUsToolStripMenuItem
-            // 
-            this.aboutUsToolStripMenuItem.Name = "aboutUsToolStripMenuItem";
-            this.aboutUsToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
-            this.aboutUsToolStripMenuItem.Text = "About Us";
-            // 
-            // tOOLSToolStripMenuItem
-            // 
-            this.tOOLSToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.optionsToolStripMenuItem,
-            this.checkUpdatesToolStripMenuItem});
-            this.tOOLSToolStripMenuItem.Name = "tOOLSToolStripMenuItem";
-            this.tOOLSToolStripMenuItem.Size = new System.Drawing.Size(56, 22);
-            this.tOOLSToolStripMenuItem.Text = "TOOLS";
-            // 
-            // optionsToolStripMenuItem
-            // 
-            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-            this.optionsToolStripMenuItem.Text = "Options";
-            // 
-            // checkUpdatesToolStripMenuItem
-            // 
-            this.checkUpdatesToolStripMenuItem.Name = "checkUpdatesToolStripMenuItem";
-            this.checkUpdatesToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-            this.checkUpdatesToolStripMenuItem.Text = "Check Updates";
-            // 
-            // sOCIALToolStripMenuItem
-            // 
-            this.sOCIALToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cHATToolStripMenuItem,
-            this.groupChatToolStripMenuItem,
-            this.bROADCASTToolStripMenuItem});
-            this.sOCIALToolStripMenuItem.Name = "sOCIALToolStripMenuItem";
-            this.sOCIALToolStripMenuItem.Size = new System.Drawing.Size(59, 22);
-            this.sOCIALToolStripMenuItem.Text = "SOCIAL";
-            // 
-            // cHATToolStripMenuItem
-            // 
-            this.cHATToolStripMenuItem.Name = "cHATToolStripMenuItem";
-            this.cHATToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
-            this.cHATToolStripMenuItem.Text = "Chat";
-            this.cHATToolStripMenuItem.Click += new System.EventHandler(this.cHATToolStripMenuItem_Click);
-            // 
-            // groupChatToolStripMenuItem
-            // 
-            this.groupChatToolStripMenuItem.Name = "groupChatToolStripMenuItem";
-            this.groupChatToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
-            this.groupChatToolStripMenuItem.Text = "Group Chat";
-            // 
-            // bROADCASTToolStripMenuItem
-            // 
-            this.bROADCASTToolStripMenuItem.Name = "bROADCASTToolStripMenuItem";
-            this.bROADCASTToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
-            this.bROADCASTToolStripMenuItem.Text = "Broadcast";
-            // 
             // linkChangeImage
             // 
             this.linkChangeImage.AutoSize = true;
@@ -320,7 +117,7 @@
             // 
             this.search.Font = new System.Drawing.Font("Lucida Sans Typewriter", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.search.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.search.Location = new System.Drawing.Point(755, 51);
+            this.search.Location = new System.Drawing.Point(755, 46);
             this.search.MaximumSize = new System.Drawing.Size(500, 58);
             this.search.Name = "search";
             this.search.Size = new System.Drawing.Size(435, 26);
@@ -332,7 +129,7 @@
             // 
             // submitSearch
             // 
-            this.submitSearch.Location = new System.Drawing.Point(1196, 50);
+            this.submitSearch.Location = new System.Drawing.Point(1196, 45);
             this.submitSearch.Name = "submitSearch";
             this.submitSearch.Size = new System.Drawing.Size(102, 28);
             this.submitSearch.TabIndex = 13;
@@ -360,9 +157,13 @@
             this.backbutton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("backbutton.BackgroundImage")));
             this.backbutton.BorderColor = System.Drawing.Color.Transparent;
             this.backbutton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.backbutton.FillColor = System.Drawing.Color.Transparent;
+            this.backbutton.FillGradientColor = System.Drawing.Color.Transparent;
             this.backbutton.Location = new System.Drawing.Point(203, 190);
             this.backbutton.Name = "backbutton";
+            this.backbutton.SelectionColor = System.Drawing.Color.Transparent;
             this.backbutton.Size = new System.Drawing.Size(40, 33);
+            this.backbutton.Click += new System.EventHandler(this.backbutton_Click);
             // 
             // internetstateImg
             // 
@@ -395,7 +196,7 @@
             this.rectangleShape1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.rectangleShape1.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque;
             this.rectangleShape1.BorderColor = System.Drawing.Color.Transparent;
-            this.rectangleShape1.Location = new System.Drawing.Point(733, 39);
+            this.rectangleShape1.Location = new System.Drawing.Point(732, 28);
             this.rectangleShape1.Name = "rectangleShape1";
             this.rectangleShape1.Size = new System.Drawing.Size(607, 104);
             // 
@@ -403,7 +204,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Modern No. 20", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(13, 206);
+            this.label1.Location = new System.Drawing.Point(43, 206);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(94, 17);
             this.label1.TabIndex = 16;
@@ -413,7 +214,7 @@
             // 
             this.countOnline.AutoSize = true;
             this.countOnline.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.countOnline.Location = new System.Drawing.Point(101, 204);
+            this.countOnline.Location = new System.Drawing.Point(127, 205);
             this.countOnline.Name = "countOnline";
             this.countOnline.Size = new System.Drawing.Size(48, 18);
             this.countOnline.TabIndex = 17;
@@ -480,7 +281,7 @@
             "Games",
             "Softwares",
             "Codes"});
-            this.selectCategories.Location = new System.Drawing.Point(864, 99);
+            this.selectCategories.Location = new System.Drawing.Point(864, 94);
             this.selectCategories.Name = "selectCategories";
             this.selectCategories.Size = new System.Drawing.Size(121, 21);
             this.selectCategories.TabIndex = 24;
@@ -498,38 +299,47 @@
             // 
             // notifICO
             // 
-            this.notifICO.ContextMenuStrip = this.contextMenuNotif;
+            this.notifICO.ContextMenuStrip = this.lv_menu;
             this.notifICO.Icon = ((System.Drawing.Icon)(resources.GetObject("notifICO.Icon")));
             this.notifICO.Text = "lStore: LAN Sharing simplified";
             this.notifICO.Visible = true;
             // 
-            // contextMenuNotif
+            // lv_menu
             // 
-            this.contextMenuNotif.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.sendFeedbackToolStripMenuItem,
-            this.helpToolStripMenuItem1,
-            this.exitToolStripMenuItem1});
-            this.contextMenuNotif.Name = "contextMenuNotif";
-            this.contextMenuNotif.Size = new System.Drawing.Size(152, 70);
+            this.lv_menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lv_menu_open,
+            this.lv_menu_download,
+            this.cOPYToolStripMenuItem1,
+            this.rATEToolStripMenuItem});
+            this.lv_menu.Name = "lv_menu";
+            this.lv_menu.Size = new System.Drawing.Size(162, 92);
             // 
-            // sendFeedbackToolStripMenuItem
+            // lv_menu_open
             // 
-            this.sendFeedbackToolStripMenuItem.Name = "sendFeedbackToolStripMenuItem";
-            this.sendFeedbackToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
-            this.sendFeedbackToolStripMenuItem.Text = "Send feedback";
+            this.lv_menu_open.Name = "lv_menu_open";
+            this.lv_menu_open.Size = new System.Drawing.Size(161, 22);
+            this.lv_menu_open.Text = "Open in explorer";
+            this.lv_menu_open.Click += new System.EventHandler(this.lv_menu_open_Click);
             // 
-            // helpToolStripMenuItem1
+            // lv_menu_download
             // 
-            this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
-            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(151, 22);
-            this.helpToolStripMenuItem1.Text = "Help";
+            this.lv_menu_download.Enabled = false;
+            this.lv_menu_download.Name = "lv_menu_download";
+            this.lv_menu_download.Size = new System.Drawing.Size(161, 22);
+            this.lv_menu_download.Text = "DOWNLOAD";
             // 
-            // exitToolStripMenuItem1
+            // cOPYToolStripMenuItem1
             // 
-            this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
-            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(151, 22);
-            this.exitToolStripMenuItem1.Text = "Exit";
-            this.exitToolStripMenuItem1.Click += new System.EventHandler(this.exitToolStripMenuItem1_Click);
+            this.cOPYToolStripMenuItem1.Name = "cOPYToolStripMenuItem1";
+            this.cOPYToolStripMenuItem1.Size = new System.Drawing.Size(161, 22);
+            this.cOPYToolStripMenuItem1.Text = "COPY";
+            this.cOPYToolStripMenuItem1.Click += new System.EventHandler(this.cOPYToolStripMenuItem1_Click);
+            // 
+            // rATEToolStripMenuItem
+            // 
+            this.rATEToolStripMenuItem.Name = "rATEToolStripMenuItem";
+            this.rATEToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.rATEToolStripMenuItem.Text = "RATE";
             // 
             // sortbySelectBox
             // 
@@ -539,7 +349,7 @@
             "User Rating",
             "Online Rating",
             "Date modified"});
-            this.sortbySelectBox.Location = new System.Drawing.Point(1077, 99);
+            this.sortbySelectBox.Location = new System.Drawing.Point(1077, 94);
             this.sortbySelectBox.Name = "sortbySelectBox";
             this.sortbySelectBox.Size = new System.Drawing.Size(121, 21);
             this.sortbySelectBox.TabIndex = 27;
@@ -550,7 +360,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label2.Location = new System.Drawing.Point(759, 101);
+            this.label2.Location = new System.Drawing.Point(759, 96);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(99, 19);
             this.label2.TabIndex = 28;
@@ -561,7 +371,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label3.Location = new System.Drawing.Point(1000, 101);
+            this.label3.Location = new System.Drawing.Point(1000, 96);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(72, 19);
             this.label3.TabIndex = 29;
@@ -621,58 +431,6 @@
             this.lv_rating.Text = "rating";
             this.lv_rating.Width = 100;
             // 
-            // lv_menu
-            // 
-            this.lv_menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lv_menu_open,
-            this.lv_menu_download,
-            this.cOPYToolStripMenuItem1,
-            this.rATEToolStripMenuItem});
-            this.lv_menu.Name = "lv_menu";
-            this.lv_menu.Size = new System.Drawing.Size(162, 92);
-            // 
-            // lv_menu_open
-            // 
-            this.lv_menu_open.Name = "lv_menu_open";
-            this.lv_menu_open.Size = new System.Drawing.Size(161, 22);
-            this.lv_menu_open.Text = "Open in explorer";
-            this.lv_menu_open.Click += new System.EventHandler(this.lv_menu_open_Click);
-            // 
-            // lv_menu_download
-            // 
-            this.lv_menu_download.Enabled = false;
-            this.lv_menu_download.Name = "lv_menu_download";
-            this.lv_menu_download.Size = new System.Drawing.Size(161, 22);
-            this.lv_menu_download.Text = "DOWNLOAD";
-            // 
-            // cOPYToolStripMenuItem1
-            // 
-            this.cOPYToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toDownloadsToolStripMenuItem,
-            this.toMemoryToolStripMenuItem});
-            this.cOPYToolStripMenuItem1.Name = "cOPYToolStripMenuItem1";
-            this.cOPYToolStripMenuItem1.Size = new System.Drawing.Size(161, 22);
-            this.cOPYToolStripMenuItem1.Text = "COPY";
-            // 
-            // toDownloadsToolStripMenuItem
-            // 
-            this.toDownloadsToolStripMenuItem.Name = "toDownloadsToolStripMenuItem";
-            this.toDownloadsToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
-            this.toDownloadsToolStripMenuItem.Text = "To Downloads";
-            // 
-            // toMemoryToolStripMenuItem
-            // 
-            this.toMemoryToolStripMenuItem.Name = "toMemoryToolStripMenuItem";
-            this.toMemoryToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
-            this.toMemoryToolStripMenuItem.Text = "To Memory";
-            this.toMemoryToolStripMenuItem.Click += new System.EventHandler(this.toMemoryToolStripMenuItem_Click);
-            // 
-            // rATEToolStripMenuItem
-            // 
-            this.rATEToolStripMenuItem.Name = "rATEToolStripMenuItem";
-            this.rATEToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
-            this.rATEToolStripMenuItem.Text = "RATE";
-            // 
             // onlineUserRetriever
             // 
             this.onlineUserRetriever.WorkerReportsProgress = true;
@@ -721,11 +479,13 @@
             // 
             // presentLocation
             // 
-            this.presentLocation.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.presentLocation.Location = new System.Drawing.Point(260, 190);
+            this.presentLocation.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.presentLocation.Location = new System.Drawing.Point(249, 189);
             this.presentLocation.Name = "presentLocation";
-            this.presentLocation.Size = new System.Drawing.Size(531, 29);
+            this.presentLocation.Size = new System.Drawing.Size(530, 33);
             this.presentLocation.TabIndex = 34;
+            this.presentLocation.Text = "lStore/";
+            this.presentLocation.MouseClick += new System.Windows.Forms.MouseEventHandler(this.presentLocation_MouseClick);
             // 
             // filterOnline
             // 
@@ -735,6 +495,34 @@
             this.filterOnline.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.filterOnline_ProgressChanged);
             this.filterOnline.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.filterOnline_RunWorkerCompleted);
             // 
+            // refreshbutton1
+            // 
+            this.refreshbutton1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.refreshbutton1.FlatAppearance.BorderSize = 0;
+            this.refreshbutton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.refreshbutton1.Image = ((System.Drawing.Image)(resources.GetObject("refreshbutton1.Image")));
+            this.refreshbutton1.Location = new System.Drawing.Point(20, 204);
+            this.refreshbutton1.Name = "refreshbutton1";
+            this.refreshbutton1.Size = new System.Drawing.Size(20, 20);
+            this.refreshbutton1.TabIndex = 35;
+            this.refreshbutton1.Tag = "Refresh online users";
+            this.refreshbutton1.UseVisualStyleBackColor = true;
+            this.refreshbutton1.Visible = false;
+            this.refreshbutton1.Click += new System.EventHandler(this.refreshbutton1_Click);
+            // 
+            // loader
+            // 
+            this.loader.BackColor = System.Drawing.Color.Transparent;
+            this.loader.Cursor = System.Windows.Forms.Cursors.WaitCursor;
+            this.loader.Image = ((System.Drawing.Image)(resources.GetObject("loader.Image")));
+            this.loader.InitialImage = ((System.Drawing.Image)(resources.GetObject("loader.InitialImage")));
+            this.loader.Location = new System.Drawing.Point(788, 192);
+            this.loader.Name = "loader";
+            this.loader.Size = new System.Drawing.Size(24, 24);
+            this.loader.TabIndex = 37;
+            this.loader.TabStop = false;
+            this.loader.Visible = false;
+            // 
             // lStore
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -742,7 +530,10 @@
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(1350, 681);
+            this.Controls.Add(this.onlineUsers);
+            this.Controls.Add(this.loader);
             this.Controls.Add(this.presentLocation);
+            this.Controls.Add(this.refreshbutton1);
             this.Controls.Add(this.linkLabel2);
             this.Controls.Add(this.tmpLog);
             this.Controls.Add(this.progressBar1);
@@ -757,16 +548,14 @@
             this.Controls.Add(this.bottombar_label2);
             this.Controls.Add(this.pingLabel);
             this.Controls.Add(this.filterUser);
-            this.Controls.Add(this.onlineUsers);
             this.Controls.Add(this.countOnline);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.linkChangeImage);
             this.Controls.Add(this.uname);
             this.Controls.Add(this.profilepic);
-            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.shapeContainer1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.MinimumSize = new System.Drawing.Size(700, 395);
             this.Name = "lStore";
@@ -776,10 +565,8 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.lStore_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.profilepic)).EndInit();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
-            this.contextMenuNotif.ResumeLayout(false);
             this.lv_menu.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.loader)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -789,21 +576,11 @@
 
         private System.Windows.Forms.PictureBox profilepic;
         private System.Windows.Forms.Label uname;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem fILEToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem nEWToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem oPENToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem eXITToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem eDITToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem vIEWToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem hELPToolStripMenuItem;
         private System.Windows.Forms.LinkLabel linkChangeImage;
         private System.Windows.Forms.TextBox search;
         private System.Windows.Forms.Button submitSearch;
         private Microsoft.VisualBasic.PowerPacks.ShapeContainer shapeContainer1;
         private Microsoft.VisualBasic.PowerPacks.RectangleShape rectangleShape1;
-        private System.Windows.Forms.ToolStripMenuItem tOOLSToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private Microsoft.VisualBasic.PowerPacks.RectangleShape rectangleShape2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label countOnline;
@@ -811,27 +588,11 @@
         private System.Windows.Forms.TextBox filterUser;
         private Microsoft.VisualBasic.PowerPacks.RectangleShape rectangleShape3;
         private System.Windows.Forms.Label bottombar_label1;
-        private System.Windows.Forms.ToolStripMenuItem rESETToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem cutToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem pasteToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem offlineHelpToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem onlineHelpToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem aboutUsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem checkUpdatesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem sOCIALToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem cHATToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem groupChatToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem bROADCASTToolStripMenuItem;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.ComponentModel.BackgroundWorker bgw_internetstate;
         private System.Windows.Forms.ComboBox selectCategories;
         private System.Windows.Forms.Label bottombar_label2;
         private System.Windows.Forms.NotifyIcon notifICO;
-        private System.Windows.Forms.ContextMenuStrip contextMenuNotif;
-        private System.Windows.Forms.ToolStripMenuItem sendFeedbackToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem1;
         private System.Windows.Forms.ComboBox sortbySelectBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -840,7 +601,6 @@
         private System.Windows.Forms.ColumnHeader lv_username;
         private System.Windows.Forms.ColumnHeader lv_filesize;
         private System.Windows.Forms.ColumnHeader lv_rating;
-        private System.Windows.Forms.ToolStripMenuItem usageSTATSToolStripMenuItem;
         private System.ComponentModel.BackgroundWorker onlineUserRetriever;
         private System.Windows.Forms.Label pingLabel;
         private System.Windows.Forms.ImageList imageListLV;
@@ -849,8 +609,6 @@
         private System.Windows.Forms.ToolStripMenuItem lv_menu_download;
         private System.Windows.Forms.ColumnHeader lv_category;
         private System.Windows.Forms.ToolStripMenuItem cOPYToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem toDownloadsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toMemoryToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rATEToolStripMenuItem;
         private Microsoft.VisualBasic.PowerPacks.RectangleShape internetstateImg;
         private Microsoft.VisualBasic.PowerPacks.RectangleShape backbutton;
@@ -858,6 +616,8 @@
         private System.Windows.Forms.LinkLabel linkLabel2;
         private System.Windows.Forms.TextBox presentLocation;
         private System.ComponentModel.BackgroundWorker filterOnline;
+        private System.Windows.Forms.Button refreshbutton1;
+        private System.Windows.Forms.PictureBox loader;
     }
 }
 

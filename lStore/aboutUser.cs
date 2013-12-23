@@ -14,7 +14,7 @@ namespace lStore
     public partial class aboutUser : Form
     {
         public string userName = userInfo.username, localName = userInfo.networkname;
-        public string primaryFolder = @"C:\Users\" + userInfo.username + @"\Documents\lStore";
+        public string primaryFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\lStore";
         public aboutUser()
         {
             InitializeComponent();
@@ -23,9 +23,9 @@ namespace lStore
             countFilesShared.Text = "[FILES] " + userInfo.files_shared + "";
             uname.Text = "" + userName;
             nname.Text = @"\\" + localName;
-            if (File.Exists(@"C:\Users\" + userName + @"\Documents\lStore\user.jpg"))
+            if (File.Exists(primaryFolder +@"\user.jpg"))
             {
-                profilepic.Image = System.Drawing.Image.FromFile(@"C:\Users\" + userName + @"\Documents\lStore\user.jpg");
+                profilepic.Image = System.Drawing.Image.FromFile(primaryFolder + @"\user.jpg");
             }
         }
 

@@ -11,8 +11,10 @@ namespace lStore
     class userImage
     {
         public string userName = Environment.UserName;
+        public string primaryFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\lStore";
         public int width = 103, height = 123;   //default size of picture box for now
-        /*
+
+        /**
          * code to create a copy of selected image in
          * lStore temp directory
          */ 
@@ -20,11 +22,9 @@ namespace lStore
         {
             string[] splitname = fileToOpen.Split('.');
             string extension = splitname[(splitname.Length - 1)].ToLower();
-            string profileImageDirec = @"C:\Users\" + userName + @"\Documents\lStore\tmp\user." + extension;
+            string profileImageDirec = primaryFolder +@"\tmp\user." + extension;
             if (extension == "jpg" || extension == "png" || extension == "bmp" || extension == "jpeg")
             {
-                //System.IO.FileInfo File = new System.IO.FileInfo(FD.FileName);
-                //System.IO.StreamReader reader = new System.IO.StreamReader(fileToOpen);
                 if (File.Exists(profileImageDirec)) File.Delete(profileImageDirec);
                 try
                 {

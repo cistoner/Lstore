@@ -16,5 +16,10 @@ namespace lStore
         {
             InitializeComponent();
         }
+
+        private void chat_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

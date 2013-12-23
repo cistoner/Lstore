@@ -15,8 +15,8 @@ namespace lStore
 {
     class onlineUser
     {
-        public static string primaryFolder = @"C:\Users\" + userInfo.username + @"\Documents\lStore";
-        public static string filename = @"C:\Users\" + userInfo.username + @"\Documents\lStore\tmp\searchedUsers_.log";
+        public static string primaryFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\lStore";
+        public static string filename = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +@"\lStore\tmp\searchedUsers_.log";
 
         /**
          * constructor: 

@@ -88,6 +88,7 @@
             this.Controls.Add(this.richTextBox1);
             this.Name = "chat";
             this.Text = "chat";
+            this.Load += new System.EventHandler(this.chat_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

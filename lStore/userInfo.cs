@@ -13,6 +13,10 @@ namespace lStore
 {
     class userInfo
     {
+        /**
+         * this has been hard coded for now
+         * find a method to find correct default gateway
+         */ 
         public static string defaultGateway = "192.168.100.1";
         public static string ipaddress;                                 //ip address of the system
         public static string baseaddress;                               //base addres of the system
@@ -31,8 +35,9 @@ namespace lStore
         public static string files_shared = "100";                              //count of files shared by user @from XML
         public static string location;                                  //user's location code @from XML
         public static string hash;                                  //user's pvt hash code @from XML
-        public static string primaryFolder = @"C:\Users\" + Environment.UserName + @"\Documents\lStore";
-        /* 
+        public static string primaryFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +@"\lStore";
+        
+        /** 
          *  function to get
          *  all the data which cannot be retrieved from environment variables
          *  must be called before the values are used

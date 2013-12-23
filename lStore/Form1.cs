@@ -16,6 +16,9 @@ using System.Threading;
 using System.Collections;
 using System.Web;
 using System.Collections.Specialized;
+using System.Windows;
+using System.Data.SqlClient;
+
 //=========================================namespaces till here==============
 namespace lStore
 {
@@ -23,7 +26,7 @@ namespace lStore
     {
         //=====variables here===================
         public string userName = userInfo.username, localName = userInfo.networkname;
-        public string primaryFolder = @"C:\Users\" + userInfo.username + @"\Documents\lStore";
+        public string primaryFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\lStore";
         public string ip = userInfo.ipaddress;
         public string randomFileName;   //a random file name for a file which stores temporary dat about the xml
         public ArrayList onlineUserS = new ArrayList();      //for stroring name of online user's name to be populated from db
@@ -36,9 +39,19 @@ namespace lStore
         public string selectedCategory = "";    //category for search
         public int selectedSortByVal = -1;      //int val for selected option in sort by select box @ default = 0
         public bool needRefresh = false;
+
+        /**
+         * for viewing folders
+         */
+        public string currentSelection = string.Empty;
+        private ArrayList currentSelectionfolders = new ArrayList();
+
+        /** 
+         * this stack will store the data for back button in listView 
+         */
         public Stack<string> back = new Stack<string>();
-        /** this stack will store the data for back button in listView */
-        private string presentState = "";
+        
+
         //==for copying a file
         StringCollection paths = new StringCollection();
         public lStore()
@@ -70,7 +83,15 @@ namespace lStore
             saveUsage();    //
             bottombar_label2.Text = "";
             pingLabel.Visible = false;
-            backbutton.Visible = false;
+            //backbutton.Visible = false;
+            //presentLocation.Visible = false;           
+
+            /*
+            TitleBarButtons titleBar = new TitleBarButtons();
+            titleBar.location = new Point(this.Location.X,this.Location.Y);
+            titleBar.Show();
+            titleBar.Owner = this;
+             */ 
 
             /**
              * code to show baloon notification
@@ -121,11 +142,12 @@ namespace lStore
          */
         private void onlineUserRetriever_DoWork(object sender, DoWorkEventArgs e)
         {
+            bool done = false;
+
             /**
              * initialisation of variables
              */ 
             string file = primaryFolder + @"\tmp\alluserlist.data";
-            ;
             string fileLocation = primaryFolder + @"\tmp\searchedUsers.log";
 
             /**
@@ -143,25 +165,53 @@ namespace lStore
                 System.Threading.Thread.Sleep(1000);
                 onlineUserRetriever.ReportProgress(10 +i*9);
             }
-                
-            File.WriteAllText(primaryFolder + @"\tmp\online.data","");
-            string data = File.ReadAllText(file);
-            File.WriteAllText(primaryFolder + @"\tmp\online.data",data);
+            
             /**
-            string[] users = File.ReadAllLines(file);
-            int i = 0;
-            foreach (string user in users)
+             * to avoid exception of different process using same file
+             * we attempt to a task till it is doen
+             * by using a var @bool done
+             */
+            while (!done)
             {
-                ArrayList folders = crawler.get_folders(user);
-                if (folders.Count != 0)
+                try
                 {
-                    File.AppendAllText(tmpFile, user + Environment.NewLine);
+                    File.WriteAllText(primaryFolder + @"\tmp\online.data", "");
+                    done = true;
                 }
-                onlineUserRetriever.ReportProgress((i * 90) / (users.Length - 1));
-                i++;
+                catch (Exception ex)
+                {
+                    System.Threading.Thread.Sleep(100);    
+                }
             }
-            */
 
+            string data = string.Empty;
+            done = false;
+            while (!done)
+            {
+                try
+                {
+                    data = File.ReadAllText(file);
+                    done = true;
+                }
+                catch (Exception ex)
+                {
+                    System.Threading.Thread.Sleep(100);
+                }
+            }
+
+            done = false;
+            while (!done)
+            {
+                try
+                {
+                    File.WriteAllText(primaryFolder + @"\tmp\online.data", data);
+                    done = true;
+                }
+                catch (Exception ex)
+                {
+                    System.Threading.Thread.Sleep(100);
+                }
+            }
         }
         private void onlineUserRetriever_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
@@ -172,26 +222,38 @@ namespace lStore
             if ((e.Cancelled == true))
             {
                 bottombar_label1.Text = "Refreshing Canceled!";
+                refreshbutton1.Visible = true;
             }
 
             else if (!(e.Error == null))
             {
                 bottombar_label1.Text = "Could not refresh!";
+                refreshbutton1.Visible = true;
             }
             else
             {
                 bottombar_label1.Text = "User list refreshed!";
             }
+
+            /**
+             * this means if this is the first time form load 
+             * then app should show temporary user list who replies to ping
+             */
             ArrayList u = users.getUsers();
             if (u.Count != 0) populateUserList(u);
             else populateUserList();
             progressBar1.Visible = false;
             progressBar1.Value = 0;
+
+            /**
             if (needRefresh)
             {
                 needRefresh = false;
                 onlineUserRetriever.RunWorkerAsync();
             }
+             * */
+            bottombar_label1.Text = "Filtering listed users";
+            progressBar1.Visible = true;
             filterOnline.RunWorkerAsync();
         }
 
@@ -200,10 +262,6 @@ namespace lStore
          */
         private void filterOnline_DoWork(object sender, DoWorkEventArgs e)
         {
-            /**
-             * make progressbar visible and show refreshing text
-             */
-            filterOnline.ReportProgress(0);
             
             /**
              * file base mechanisms
@@ -220,7 +278,11 @@ namespace lStore
                 if (folders.Count != 0)
                 {
                     File.AppendAllText(tmpFile, n + Environment.NewLine);
-                    filterOnline.ReportProgress((i * 100)/(name.Length - 1));
+                    try
+                    {
+                        filterOnline.ReportProgress((i * 100) / (name.Length));
+                    }
+                    catch(Exception ex){}
                 }
                 i++;
             }
@@ -228,11 +290,6 @@ namespace lStore
 
         private void filterOnline_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            if (e.ProgressPercentage == 0)
-            {
-                bottombar_label1.Text = "Filtering listed users";
-                progressBar1.Visible = true;
-            }
             progressBar1.Value = e.ProgressPercentage;
         }
 
@@ -245,6 +302,7 @@ namespace lStore
             string tmpFile = primaryFolder + @"\tmp\tmp.data";
             File.WriteAllText(file,File.ReadAllText(tmpFile));
             populateUserList(users.getUsers());
+            refreshbutton1.Visible = true;
         }
             
         /** 
@@ -364,11 +422,11 @@ namespace lStore
          */
         public void repairFolders()
         {
-            string mainFolder = @"C:\Users\" + userName + @"\Documents\lStore";
-            if (!Directory.Exists(mainFolder)) { Directory.CreateDirectory(mainFolder); }
-            string tmpFolder = mainFolder + @"\tmp";
+            if (!Directory.Exists(primaryFolder)) { Directory.CreateDirectory(primaryFolder); }
+            string tmpFolder = primaryFolder + @"\tmp";
             if (!Directory.Exists(tmpFolder)) { Directory.CreateDirectory(tmpFolder); }
         }
+
         /**
          a function to check if al required files exist and create necessory one when needed
          * params: no
@@ -397,7 +455,6 @@ namespace lStore
             /**
              * check for the saved file if it does not exists this is first time
              */
-            primaryFolder = @"C:\Users\" +userName +@"\Documents\lStore";
             if (Directory.Exists(primaryFolder))
             {
                 if (File.Exists(primaryFolder + @"\savedfile.xml"))
@@ -431,7 +488,7 @@ namespace lStore
                if (source != "-1")
                {
                    profilepic.Image.Dispose();
-                   string destFile = @"C:\Users\" + userName + @"\Documents\lStore\user." + imageObj.getExtension(fileToOpen);
+                   string destFile = primaryFolder +@"\user." + imageObj.getExtension(fileToOpen);
                    imageObj.GenerateThumbNail(source,destFile );
                    profilepic.Image = System.Drawing.Image.FromFile(destFile);
                }
@@ -485,7 +542,6 @@ namespace lStore
        {
            try
            {
-               primaryFolder = @"C:\Users\" + userName + @"\Documents\lStore";
                DateTime now = DateTime.Now;
                File.AppendAllText(primaryFolder + @"\search.log", log + "||" + now + Environment.NewLine);
            }
@@ -510,7 +566,6 @@ namespace lStore
        {
            try
            {
-               primaryFolder = @"C:\Users\" + userName + @"\Documents\lStore";
                DateTime now = DateTime.Now;
                File.AppendAllText(primaryFolder + @"\usage.log", now + Environment.NewLine);
            }
@@ -525,6 +580,7 @@ namespace lStore
                throwNonRecoverableError(ex.Message);
            }
        }
+
        /**
         * a function to save exception to a log file!!
         * params: string ex: the exception message
@@ -535,7 +591,6 @@ namespace lStore
        {
            try
            {
-               primaryFolder = @"C:\Users\" + userName + @"\Documents\lStore";
                DateTime now = DateTime.Now;
                File.AppendAllText(primaryFolder + @"\exceptions.log", ex + "||" + now + Environment.NewLine);
            }
@@ -550,6 +605,7 @@ namespace lStore
                MessageBox.Show("Some error occured: " + exep.Message);
            }
        }
+
         /**
          * a function to handle non defined exceptions to be added later into account
          * save the exception into log and display the messageBox
@@ -584,6 +640,7 @@ namespace lStore
                {
                    onlineUsers.Items.Add(name);
                }
+               return;
            }
            
            foreach(string name in onlineUserS)
@@ -653,37 +710,48 @@ namespace lStore
        {
            st.Clear();
        }
+
        private void onlineUsers_SelectedIndexChanged(object sender, EventArgs e)
        {
-           string user;
            try
            {
-               user = onlineUsers.SelectedItem.ToString();
-               crawler.root = @"\\" + user + @"\";
+               currentSelection = onlineUsers.SelectedItem.ToString();
            }
-           catch(Exception ex)
+           catch (Exception ex)
            {
                saveException(ex.Message);
                return;
            }
-           //clearStack(back);
-           //back.Push(@"\\" +user);
-           ArrayList folders = crawler.get_folders(user);
-           if (folders.Count == 0 || folders[0].ToString() == "-1" )
+           loader.Visible = true;
+           showUserFolders(currentSelection);
+       }
+       
+        /**
+         * function to populate the listview with the shared folders of any user
+         */ 
+       public void showUserFolders(string nname)
+       {
+           back.Push(nname);
+           currentSelectionfolders.Clear();
+           crawler.root = @"\\" + nname + @"\";
+           currentSelectionfolders = crawler.get_folders(nname);
+           presentLocation.Text = crawler.root;
+
+           if (currentSelectionfolders.Count == 0 || currentSelectionfolders[0].ToString() == "-1")
            {
-               onlineUserS.Remove(user);
-               populateUserList();  //calling for refreshing the user UI
+               onlineUserS.Remove(nname);
+               populateUserList();
                bottombar_label2.Text = "User is not available or not accessible. User removed from list";
-               return;
+               presentLocation.Text = string.Empty;
            }
            workspace.Items.Clear();
-           for (int i = 0; i < folders.Count; i++)
+           for (int i = 0; i < currentSelectionfolders.Count; i++)
            {
-               ListViewItem foo = new ListViewItem(new string[] { folders[i].ToString(), crawler.getOwner(folders[i].ToString()), "", crawler.getCategory(folders[i].ToString()), "" });
+               ListViewItem foo = new ListViewItem(new string[] { currentSelectionfolders[i].ToString(), crawler.getOwner(currentSelectionfolders[i].ToString()), "", crawler.getCategory(currentSelectionfolders[i].ToString()), "" });
                workspace.Items.Add(foo);
-               
            }
-
+           loader.Visible = false;
+       
        }
 
         /**
@@ -697,23 +765,7 @@ namespace lStore
                sel = workspace.SelectedItems[0].Text;
            }
            catch (Exception ex) { return; }
-           if (sel != "..")
-           {
-               if (presentState.Length != 0) back.Push(presentState);
-               presentState = sel;
-               refreshListView(sel);
-           }
-           else
-           {
-               try
-               {
-                   refreshListView(back.Pop());
-               }
-               catch (Exception ex) 
-               {
-                   saveException(ex.Message);
-               }
-           }
+           refreshListView(sel); 
        }
 
        /**
@@ -735,25 +787,7 @@ namespace lStore
                    MessageBox.Show(ex.Message);
                    return;
                }
-               if (sel != "..")
-               {
-                   if (presentState.Length != 0) back.Push(presentState);
-                   presentState = sel;
-                   refreshListView(sel);
-               }
-               else
-               {
-                   try
-                   {
-                       refreshListView(back.Pop());
-                   }
-                   catch (Exception ex)
-                   {
-                       //
-                       MessageBox.Show(ex.Message);
-                       saveException(ex.Message);
-                   }
-               }
+               refreshListView(sel);
            }
        }
 
@@ -766,9 +800,7 @@ namespace lStore
        private void refreshListView(string sel)
        {
            
-           workspace.Items.Clear();
-           ListViewItem foo = new ListViewItem(new string[] { "..", "", "", "UP", "" });
-           workspace.Items.Add(foo);
+           
            try
            {
                string[] folders;
@@ -781,19 +813,13 @@ namespace lStore
                    MessageBox.Show(@"Oops! you do not seem to have access to this folder. Our bad :/");
                    return;
                }
+               back.Push(sel);
+               presentLocation.Text = sel;
+               workspace.Items.Clear();
                int len = folders.Length;
                for (int i = 0; i < len; i++)
                {
-                   try
-                   {
-                       workspace.Items.Add(new ListViewItem(new string[] { folders[i], crawler.getOwner(folders[i]), "", "folder", "--NA--" }));
-                        
-                   }
-                   catch (Exception ex) 
-                   {
-                       MessageBox.Show(ex.Message); 
-                       continue;
-                   }
+                   workspace.Items.Add(new ListViewItem(new string[] { folders[i], crawler.getOwner(folders[i]), "", "folder", "--NA--" }));
                }
                string[] files = Directory.GetFiles(sel);
                len = files.Length;
@@ -816,7 +842,6 @@ namespace lStore
                    }
                    catch (Exception ex) 
                    { 
-                       //
                        MessageBox.Show(ex.Message); 
                        continue;
                    }
@@ -841,11 +866,13 @@ namespace lStore
                {
                    openDirec(sel);
                }
-               catch (Exception e)
-               { 
-               
+               catch (Exception obj)
+               {
+                   /**
+                    * report this to server
+                    */ 
+                   MessageBox.Show("Unable to open file! Our bad :/");
                }
-               refreshListView(back.Pop());
            }
        }
 
@@ -987,10 +1014,86 @@ namespace lStore
            obj.Show();
        }
 
-       
+       /**
+       * when user manually clicks on refresh button
+       */ 
+       private void refreshbutton1_Click(object sender, EventArgs e)
+       {
+           bottombar_label1.Text = "Refreshing user list!";
+           if (onlineUserRetriever.IsBusy)
+           {
+               bottombar_label1.Text = "Already refreshing!";
+           }
+           else
+           {
+               progressBar1.Visible = true;
+               refreshbutton1.Visible = false;
+               onlineUserRetriever.RunWorkerAsync();
+           }
+           
+           
+       }
+        
+       /**
+        * action when someone clicks on present location textbox
+        * action: is to select all text
+        */ 
+       private void presentLocation_MouseClick(object sender, MouseEventArgs e)
+       {
+           presentLocation.SelectAll();
+       }
 
-      
-       
+        /**
+         * to make back button work
+         */ 
+        private void backbutton_Click(object sender, EventArgs e)
+        {
 
+            try
+            {
+                string temp = back.Pop();
+                string backFolder = back.Pop();
+                if (backFolder.IndexOf(@"\") == -1)
+                {
+                    showUserFolders(backFolder);
+                }
+                else
+                {
+                    refreshListView(backFolder);
+                }
+            }
+            catch (InvalidOperationException ex)
+            {
+                /**
+                 * cant go any back
+                 * this is time to lower opacity of back button or change it
+                 */
+            }
+       }
+
+
+        /**
+         * called when user clicks on copy option in context menu of the 
+         * list view
+         */ 
+        private void cOPYToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            paths.Clear();
+            try
+            {
+                paths.Add(workspace.SelectedItems[0].Text);
+                Clipboard.SetFileDropList(paths);
+            }
+            catch (Exception ex)
+            {
+                saveException(ex.Message);
+                return;
+            }
+        }
+
+
+
+
+       
    }
 }

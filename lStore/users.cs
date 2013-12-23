@@ -19,7 +19,7 @@ namespace lStore
         private ArrayList onlineUserIp = new ArrayList();
         public int onlineUsercount;
         public string primaryFolder;
-        public static string static_primaryFolder = @"C:\Users\" + Environment.UserName + @"\Documents\lStore";
+        public static string static_primaryFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +@"\lStore";
         public string baseaddr;
         /*
          * this function reads the online user from file

@@ -42,8 +42,8 @@
             this.localSyncLabel = new System.Windows.Forms.Label();
             this.proxyLabel = new System.Windows.Forms.Label();
             this.infoSender = new System.ComponentModel.BackgroundWorker();
-            this.userListRetriever = new System.ComponentModel.BackgroundWorker();
             this.finishbutton = new System.Windows.Forms.Button();
+            this.buttonExit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -172,14 +172,8 @@
             this.infoSender.WorkerReportsProgress = true;
             this.infoSender.WorkerSupportsCancellation = true;
             this.infoSender.DoWork += new System.ComponentModel.DoWorkEventHandler(this.infoSender_DoWork);
+            this.infoSender.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.infoSender_ProgressChanged);
             this.infoSender.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.infoSender_RunWorkerCompleted);
-            // 
-            // userListRetriever
-            // 
-            this.userListRetriever.WorkerReportsProgress = true;
-            this.userListRetriever.WorkerSupportsCancellation = true;
-            this.userListRetriever.DoWork += new System.ComponentModel.DoWorkEventHandler(this.userListRetriever_DoWork);
-            this.userListRetriever.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.userListRetriever_RunWorkerCompleted);
             // 
             // finishbutton
             // 
@@ -196,12 +190,28 @@
             this.finishbutton.Visible = false;
             this.finishbutton.Click += new System.EventHandler(this.finishbutton_Click);
             // 
+            // buttonExit
+            // 
+            this.buttonExit.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.buttonExit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonExit.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.buttonExit.Location = new System.Drawing.Point(773, 372);
+            this.buttonExit.Name = "buttonExit";
+            this.buttonExit.Size = new System.Drawing.Size(145, 33);
+            this.buttonExit.TabIndex = 10;
+            this.buttonExit.Text = "Click to Exit";
+            this.buttonExit.UseVisualStyleBackColor = false;
+            this.buttonExit.Visible = false;
+            this.buttonExit.Click += new System.EventHandler(this.buttonExit_Click);
+            // 
             // firstTime
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(947, 439);
+            this.Controls.Add(this.buttonExit);
             this.Controls.Add(this.finishbutton);
             this.Controls.Add(this.proxyLabel);
             this.Controls.Add(this.localSyncLabel);
@@ -241,7 +251,7 @@
         private System.Windows.Forms.Label localSyncLabel;
         private System.Windows.Forms.Label proxyLabel;
         private System.ComponentModel.BackgroundWorker infoSender;
-        private System.ComponentModel.BackgroundWorker userListRetriever;
         private System.Windows.Forms.Button finishbutton;
+        private System.Windows.Forms.Button buttonExit;
     }
 }
