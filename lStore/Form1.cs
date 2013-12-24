@@ -99,6 +99,7 @@ namespace lStore
             notifICO.BalloonTipText = "lStore active: monitering LAN activities";
             notifICO.BalloonTipTitle = "LStore: LAN sharing simplified";
             notifICO.ShowBalloonTip(1000);
+
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -162,7 +163,7 @@ namespace lStore
             onlineUserRetriever.ReportProgress(10);
             for (int i = 1; i <= 10; i++)
             {
-                System.Threading.Thread.Sleep(1000);
+                System.Threading.Thread.Sleep(2000);
                 onlineUserRetriever.ReportProgress(10 +i*9);
             }
             

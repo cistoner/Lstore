@@ -21,7 +21,8 @@ namespace lStore
         /**
          * basic URL for pinging all data
          */ 
-        public string url = "http://VAIO/cistoner/q4sp9x/lstore/";
+        //public string url = "http://VAIO/cistoner/q4sp9x/lstore/";
+        public string url = "http://localhost/lstore/";
         public bool isFirst = false,isProxyEnabled = false;
         public string primaryFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +@"\lStore";
         private bool isDataSyncOver = false, isLocalSyncOver = false;   //these two variables are flag for two imp processes
@@ -163,9 +164,12 @@ namespace lStore
 
                 Application.Exit();
             }
+            /**
+             * need to send the id of last file that was updated
+             */ 
             while (step <= firstTime.netStepCount)
             {
-                string tmp = SendPost(url +"getdata", "hash=" +hash +"&step=" + step.ToString());
+                string tmp = SendPost(url +"getdata.php", "hash=" +hash +"&step=" + step.ToString());
                 try
                 {
                     if (timeouts > firstTime.maxTimeouts)
@@ -264,7 +268,7 @@ namespace lStore
                 SqlConnection mycon = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\q4sp9x.mdf;Integrated Security=True;Connect Timeout=30");
                 var command = mycon.CreateCommand();    
                 mycon.Open();
-                for (int i = 0; i < filesRows.Length; i++)
+                for (int i = 0; i < filesRows.Length; )
                 {
                     string[] arr = filesRows[i].Split('*');
                     try
@@ -276,7 +280,8 @@ namespace lStore
                         command.Parameters.AddWithValue("param4", float.Parse(arr[3]));
                         MessageBox.Show(command.CommandType.ToString());
                         command.ExecuteNonQuery();
-                        mycon.Close();                        
+
+                        i++;
                     }
                     catch (Exception ex)
                     {
@@ -286,8 +291,10 @@ namespace lStore
                         * make sure things work!
                         */
                         File.AppendAllText(primaryFolder +@"\sync.log",ex.Message +Environment.NewLine);
+                        //if(mycon.)
                     } 
                 }
+                mycon.Close(); 
                 localsync.ReportProgress(5);
                 count++;
             }
@@ -412,6 +419,44 @@ namespace lStore
                 
             }
             File.WriteAllText(primaryFolder +@"\savedfile.xml",data);
+            addDataTODB();
+        }
+
+        /**
+         * function to add these details to database as well
+         */
+        private void addDataTODB()
+        {
+            using (SqlConnection mycon = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\q4sp9x.mdf;Integrated Security=True;Connect Timeout=300"))
+            {
+                try
+                {
+                    string sqlSelect = "INSERT INTO dbo.userInfo(uname,nname,dg,ma) VALUES (@param1,@param2,@param3,@param4)";
+                    SqlCommand sqlC = new SqlCommand(sqlSelect, mycon);
+                    sqlC.Parameters.Add(new SqlParameter("param1", userInfo.username.ToString()));
+                    sqlC.Parameters.Add(new SqlParameter("param2", userInfo.networkname.ToString()));
+                    sqlC.Parameters.Add(new SqlParameter("param3", userInfo.defaultGateway.ToString()));
+                    sqlC.Parameters.Add(new SqlParameter("param4", userInfo.macAddress.ToString()));
+                    //sqlC.Parameters.Add(new SqlParameter("param5", float.Parse(userInfo.rating)));
+                    //sqlC.Parameters.Add(new SqlParameter("param6", userInfo.location.ToString()));
+                    //sqlC.Parameters.Add(new SqlParameter("param7", int.Parse(userInfo.files_shared)));
+                    mycon.Open();
+                    int count = sqlC.ExecuteNonQuery();
+                    if (count == 0)
+                    {
+                        /**
+                         * this means information was not feeded to local db
+                         * and we need to correct it so for now logging should be done
+                         */ 
+                    }
+                    mycon.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("SQL ERROR: " +ex.Message);
+                }
+                
+            }
         }
 
         private void infoSender_ProgressChanged(object sender, ProgressChangedEventArgs e)
