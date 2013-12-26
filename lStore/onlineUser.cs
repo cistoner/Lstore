@@ -48,9 +48,13 @@ namespace lStore
             MatchCollection result = ip.Matches(strData);
             foreach (Match r in result)
             {
-                Ping p = new Ping();
-                p.PingCompleted += new PingCompletedEventHandler(p_PingCompleted);
-                p.SendAsync(r.ToString(), 100, r.ToString());
+                try
+                {
+                    Ping p = new Ping();
+                    p.PingCompleted += new PingCompletedEventHandler(p_PingCompleted);
+                    p.SendAsync(r.ToString(), 100, r.ToString());
+                }
+                catch (Exception ex) { }
             }
         }
 

@@ -150,7 +150,7 @@
             this.localSyncLabel.BackColor = System.Drawing.Color.Transparent;
             this.localSyncLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.localSyncLabel.ForeColor = System.Drawing.Color.DarkCyan;
-            this.localSyncLabel.Location = new System.Drawing.Point(760, 415);
+            this.localSyncLabel.Location = new System.Drawing.Point(696, 415);
             this.localSyncLabel.Name = "localSyncLabel";
             this.localSyncLabel.Size = new System.Drawing.Size(182, 20);
             this.localSyncLabel.TabIndex = 7;

@@ -15,3 +15,4 @@ C:\Users\hector09\Documents\Visual Studio 2012\Projects\lStore\lStore\obj\Debug\
 C:\Users\hector09\Documents\Visual Studio 2012\Projects\lStore\lStore\obj\Debug\lStore.application
 C:\Users\hector09\Documents\Visual Studio 2012\Projects\lStore\lStore\obj\Debug\lStore.exe
 C:\Users\hector09\Documents\Visual Studio 2012\Projects\lStore\lStore\obj\Debug\lStore.pdb
+C:\Users\hector09\Documents\Visual Studio 2012\Projects\lStore\lStore\obj\Debug\lStore.csprojResolveAssemblyReference.cache

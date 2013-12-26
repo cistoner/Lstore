@@ -99,7 +99,6 @@ namespace lStore
             notifICO.BalloonTipText = "lStore active: monitering LAN activities";
             notifICO.BalloonTipTitle = "LStore: LAN sharing simplified";
             notifICO.ShowBalloonTip(1000);
-
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -497,42 +496,147 @@ namespace lStore
            }
        }
         
-        /** this function is responsible to initiate search */
-       private void submitSearch_Click(object sender, EventArgs e)
-       {
-           performSearch();
-       }
+        /**
+         * array list to hold result of a database based search
+         */
+        private ArrayList searchresult = new ArrayList();
+        private ArrayList searchresultRating = new ArrayList();
+        private ArrayList searchresultDisplayed = new ArrayList();
+
+        /**
+         * variable to hold the search result
+         */ 
+        private string searchkey = string.Empty;
+        private int searchLimit = 100;
+        private int searchPage = 1;
+
+        /** 
+         * this function is responsible to initiate search 
+         */
+        private void submitSearch_Click(object sender, EventArgs e)
+        {
+            performSearch();
+        }
+
         /** 
          * function to perform actual search operation
          */ 
        private void performSearch()
        {
+           searchprogressbar.Value = 0;
+           searchprogressbar.Visible = true;
+           loader.Visible = true;
            string key = search.Text;
            if (key == "  Search here..." || key.Length == 0)
            {
                tmpLog.Text = "Enter Something first!";
                search.Focus();
+               return;
            }
            else
            {
                /**
                 case when something logical has been attempted
                 */
+               presentLocation.Text = @"\SEARCH:" +key;
                tmpLog.Text = "Searching for \" " + key + " \"";
-               if (selectedCategory != "" && selectedCategory != "All")
-               {
-                   tmpLog.Text += " Under category \" " + selectedCategory + " \" ";
-               }
-               if(selectedSortByVal!=-1)
-               {
-                   tmpLog.Text += " Sorted by \" " + sortbySelectBox.SelectedItem.ToString() + " \" "; 
-               }
-               tmpLog.Text += " ....";
+               searchkey = key;
+               
+               //if (selectedCategory != "" && selectedCategory != "All")
+               //{
+               //    tmpLog.Text += " Under category \" " + selectedCategory + " \" ";
+               //}
+               //if(selectedSortByVal!=-1)
+               //{
+               //    tmpLog.Text += " Sorted by \" " + sortbySelectBox.SelectedItem.ToString() + " \" "; 
+               //}
+               //tmpLog.Text += " ....";
                //save this search to log
                writeToSearchLogs(key);
-
+               searchbgw.RunWorkerAsync();
            }
        }
+
+        /**
+         * background worker to do searching operation
+         */
+       private void searchbgw_DoWork(object sender, DoWorkEventArgs e)
+       {
+           if (searchkey.Length != 0)
+           { 
+                /**
+                 * this means we gotta perform search
+                 * giving 20% to sql connection and search 
+                 */
+               searchbgw.ReportProgress(10);
+               searchresult.Clear();
+               searchresultDisplayed.Clear();
+               searchresultRating.Clear();
+
+               //db operation from now
+               searchbgw.ReportProgress(20);
+               SqlConnection mycon = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\q4sp9x.mdf;Integrated Security=True;Connect Timeout=30");
+               var command = mycon.CreateCommand();
+               string sqlc = "SELECT filename,rating FROM dbo.files WHERE keywords LIKE @param";
+               SqlCommand comm = new SqlCommand(sqlc, mycon);
+               comm.Parameters.Add(new SqlParameter("param", "%" +searchkey +"%"));
+               mycon.Open();
+               SqlDataReader r = comm.ExecuteReader();
+               searchbgw.ReportProgress(50);
+               if (r.HasRows)
+               {
+                   while (r.Read())
+                   {
+                       searchresult.Add(r["filename"].ToString());
+                       searchresultRating.Add(r["rating"].ToString());
+                       searchresultDisplayed.Add("f");
+                   }
+                   searchbgw.ReportProgress(100);
+               }
+               else
+               {
+                   /**
+                    * search complete no data found
+                    */ 
+                   searchbgw.ReportProgress(100);
+               } 
+               mycon.Close();
+           
+           }
+       }
+
+       private void searchbgw_ProgressChanged(object sender, ProgressChangedEventArgs e)
+       {
+           searchprogressbar.Value = e.ProgressPercentage;
+       }
+
+       private void searchbgw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+       {
+           workspace.Items.Clear();
+           foreach (string result in searchresult)
+           {
+               string tmp = result.Replace("/",@"\");
+               if (Directory.Exists(tmp))
+               {
+                   int id = searchresult.IndexOf(result);
+                   workspace.Items.Add(new ListViewItem(new string[] { tmp, crawler.getOwner(tmp), "", "Available", searchresultRating[id].ToString() }));
+                   searchresultDisplayed[id] = "t";
+               }
+           }
+           foreach (string result in searchresult)
+           {
+               string tmp = result.Replace("/", @"\");
+               int id = searchresult.IndexOf(result);
+               if (searchresultDisplayed[id].ToString() == "f")
+               {
+                   workspace.Items.Add(new ListViewItem(new string[] { tmp, crawler.getOwner(tmp), "", "Not Available", searchresultRating[id].ToString() }));
+               }
+           }
+           searchprogressbar.Visible = false;
+           tmpLog.Text = searchresult.Count.ToString() + " results found!";
+           loader.Visible = false;
+       }
+
        /**
         * this function saves each search to a search log with date and time
         * filename: search.log
@@ -606,6 +710,8 @@ namespace lStore
                MessageBox.Show("Some error occured: " + exep.Message);
            }
        }
+
+        
 
         /**
          * a function to handle non defined exceptions to be added later into account
@@ -1092,9 +1198,6 @@ namespace lStore
             }
         }
 
-
-
-
-       
+  
    }
 }

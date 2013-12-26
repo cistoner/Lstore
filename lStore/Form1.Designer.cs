@@ -74,6 +74,8 @@
             this.filterOnline = new System.ComponentModel.BackgroundWorker();
             this.refreshbutton1 = new System.Windows.Forms.Button();
             this.loader = new System.Windows.Forms.PictureBox();
+            this.searchprogressbar = new System.Windows.Forms.ProgressBar();
+            this.searchbgw = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.profilepic)).BeginInit();
             this.lv_menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.loader)).BeginInit();
@@ -281,7 +283,7 @@
             "Games",
             "Softwares",
             "Codes"});
-            this.selectCategories.Location = new System.Drawing.Point(864, 94);
+            this.selectCategories.Location = new System.Drawing.Point(861, 94);
             this.selectCategories.Name = "selectCategories";
             this.selectCategories.Size = new System.Drawing.Size(121, 21);
             this.selectCategories.TabIndex = 24;
@@ -349,7 +351,7 @@
             "User Rating",
             "Online Rating",
             "Date modified"});
-            this.sortbySelectBox.Location = new System.Drawing.Point(1077, 94);
+            this.sortbySelectBox.Location = new System.Drawing.Point(1068, 94);
             this.sortbySelectBox.Name = "sortbySelectBox";
             this.sortbySelectBox.Size = new System.Drawing.Size(121, 21);
             this.sortbySelectBox.TabIndex = 27;
@@ -360,7 +362,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label2.Location = new System.Drawing.Point(759, 96);
+            this.label2.Location = new System.Drawing.Point(754, 96);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(99, 19);
             this.label2.TabIndex = 28;
@@ -371,7 +373,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label3.Location = new System.Drawing.Point(1000, 96);
+            this.label3.Location = new System.Drawing.Point(991, 96);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(72, 19);
             this.label3.TabIndex = 29;
@@ -460,7 +462,7 @@
             this.tmpLog.AutoSize = true;
             this.tmpLog.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.tmpLog.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.tmpLog.Location = new System.Drawing.Point(757, 82);
+            this.tmpLog.Location = new System.Drawing.Point(760, 78);
             this.tmpLog.Name = "tmpLog";
             this.tmpLog.Size = new System.Drawing.Size(0, 13);
             this.tmpLog.TabIndex = 32;
@@ -523,6 +525,22 @@
             this.loader.TabStop = false;
             this.loader.Visible = false;
             // 
+            // searchprogressbar
+            // 
+            this.searchprogressbar.Location = new System.Drawing.Point(1196, 94);
+            this.searchprogressbar.Name = "searchprogressbar";
+            this.searchprogressbar.Size = new System.Drawing.Size(102, 21);
+            this.searchprogressbar.TabIndex = 38;
+            this.searchprogressbar.Visible = false;
+            // 
+            // searchbgw
+            // 
+            this.searchbgw.WorkerReportsProgress = true;
+            this.searchbgw.WorkerSupportsCancellation = true;
+            this.searchbgw.DoWork += new System.ComponentModel.DoWorkEventHandler(this.searchbgw_DoWork);
+            this.searchbgw.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.searchbgw_ProgressChanged);
+            this.searchbgw.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.searchbgw_RunWorkerCompleted);
+            // 
             // lStore
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -530,6 +548,7 @@
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(1350, 681);
+            this.Controls.Add(this.searchprogressbar);
             this.Controls.Add(this.onlineUsers);
             this.Controls.Add(this.loader);
             this.Controls.Add(this.presentLocation);
@@ -559,7 +578,7 @@
             this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.MinimumSize = new System.Drawing.Size(700, 395);
             this.Name = "lStore";
-            this.Text = "lStore: LAN Sharing simplified !";
+            this.Text = " ";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.lStore_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.lStore_FormClosed);
@@ -618,6 +637,8 @@
         private System.ComponentModel.BackgroundWorker filterOnline;
         private System.Windows.Forms.Button refreshbutton1;
         private System.Windows.Forms.PictureBox loader;
+        private System.Windows.Forms.ProgressBar searchprogressbar;
+        private System.ComponentModel.BackgroundWorker searchbgw;
     }
 }
 

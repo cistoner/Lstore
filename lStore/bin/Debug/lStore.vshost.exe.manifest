@@ -48,14 +48,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="lStore.exe" size="926208">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="lStore.exe" size="929280">
       <assemblyIdentity name="lStore" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>MjFF9k9OrzVWWbPcQh2JP89oHTm4BtNXe3z92dpXvL8=</dsig:DigestValue>
+        <dsig:DigestValue>r6ZQ7HOKckPzuMkyFLmVQtwe5ZdkIUK5jw+zrYoQaAs=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -83,7 +83,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>ShR4duh6GyVG8XT61qFHNOtiHUv12oV7+Hel3z+PyaA=</dsig:DigestValue>
+      <dsig:DigestValue>9yBP03p9VWPHOQw1YcKPAlhmo/P3yN/QQrq5xy2Pu5w=</dsig:DigestValue>
     </hash>
   </file>
   <file name="q4sp9x_log.ldf" size="851968" writeableType="applicationData">
@@ -92,7 +92,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>fY8EvqjAkMt5sxlk9m9ty0iNM7N1WyueFhQnhxqvyp0=</dsig:DigestValue>
+      <dsig:DigestValue>hnCmyH7OOREuwgb+Lt7hGWTpzlb4Q+LcsYj4bGtCwso=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>
