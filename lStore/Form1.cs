@@ -41,6 +41,16 @@ namespace lStore
         public bool needRefresh = false;
 
         /**
+         * for preferences
+         */
+        preferences prefObj = new preferences();
+
+        /**
+         * for tootip
+         */
+        public ToolTip tT { get; set; }
+
+        /**
          * for viewing folders
          */
         public string currentSelection = string.Empty;
@@ -57,6 +67,7 @@ namespace lStore
         public lStore()
         {
             InitializeComponent();
+            tT = new ToolTip();
 
             /**
              * so that usrInfo call get all the data from system
@@ -851,11 +862,13 @@ namespace lStore
                bottombar_label2.Text = "User is not available or not accessible. User removed from list";
                presentLocation.Text = string.Empty;
            }
+           lv_menu_download.Enabled = false;    //disable DOWNLOAD in contextmenu
            workspace.Items.Clear();
            for (int i = 0; i < currentSelectionfolders.Count; i++)
            {
                ListViewItem foo = new ListViewItem(new string[] { currentSelectionfolders[i].ToString(), crawler.getOwner(currentSelectionfolders[i].ToString()), "", crawler.getCategory(currentSelectionfolders[i].ToString()), "" });
                workspace.Items.Add(foo);
+               workspace.Items[i].ImageIndex = 0;
            }
            loader.Visible = false;
        
@@ -906,8 +919,12 @@ namespace lStore
         */ 
        private void refreshListView(string sel)
        {
+<<<<<<< HEAD
+           int folderCount = 0,i;
+=======
            
            
+>>>>>>> parent of 430cbf7... major changes implemented
            try
            {
                string[] folders;
@@ -920,17 +937,20 @@ namespace lStore
                    MessageBox.Show(@"Oops! you do not seem to have access to this folder. Our bad :/");
                    return;
                }
+               lv_menu_download.Enabled = true; //enable DOWNLOAD in context menu
                back.Push(sel);
                presentLocation.Text = sel;
                workspace.Items.Clear();
                int len = folders.Length;
-               for (int i = 0; i < len; i++)
+               for ( i = 0; i < len; i++)
                {
                    workspace.Items.Add(new ListViewItem(new string[] { folders[i], crawler.getOwner(folders[i]), "", "folder", "--NA--" }));
+                   workspace.Items[i].ImageIndex = 0;
                }
+               folderCount = i;
                string[] files = Directory.GetFiles(sel);
                len = files.Length;
-               for (int i = 0; i < len; i++)
+               for (i = 0; i < len; i++)
                {
                    FileInfo f = new FileInfo(files[i]);
                    long s = f.Length;
@@ -946,6 +966,11 @@ namespace lStore
                    try
                    {
                        workspace.Items.Add(new ListViewItem(new string[] { files[i], crawler.getOwner(files[i]), size, crawler.getCategory(files[i]), "--NA--" }));
+                       if (crawler.getCategory(files[i]) == "movie/video") workspace.Items[folderCount + i].ImageIndex = 2;
+                       if (crawler.getCategory(files[i]) == "image") workspace.Items[folderCount + i].ImageIndex = 4;
+                       if (crawler.getCategory(files[i]) == "music") workspace.Items[folderCount + i].ImageIndex = 3;
+                       if (crawler.getCategory(files[i]) == "file") workspace.Items[folderCount + i].ImageIndex = 5;
+                       if (crawler.getCategory(files[i]) == "app") workspace.Items[folderCount + i].ImageIndex = 1;
                    }
                    catch (Exception ex) 
                    { 
@@ -960,10 +985,12 @@ namespace lStore
                clearStack(back);
                back.Push(sel);
                ArrayList folders = crawler.get_folders(sel);
+               lv_menu_download.Enabled = false;    //disable DOWNLOAD in context menu
                workspace.Items.Clear();
-               for (int i = 0; i < folders.Count; i++)
+               for (i = 0; i < folders.Count; i++)
                {
                    workspace.Items.Add(new ListViewItem(new string[] { folders[i].ToString(), crawler.getOwner(folders[i].ToString()), "--NA--", "--NA--", "--NA--" }));
+                   workspace.Items[0].ImageIndex = 0;
                }
            }
            catch (IOException ex)
@@ -999,12 +1026,17 @@ namespace lStore
          * this function select complete text of the
          * input box search
          * when clicked
+         * also sort of placeholder added
          */ 
        private void search_Click(object sender, EventArgs e)
        {
-           search.SelectAll();
+           if (search.Text == " search here..." ) search.Text = "";
+           else search.SelectAll();
        }
-
+       private void search_lostfocus(object sender, EventArgs e)
+       {
+           if (search.Text == "") search.Text = " search here...";
+       }
         /**
          * listner to check enter key was pressed while typing in 
          * search nput
@@ -1059,8 +1091,11 @@ namespace lStore
          */ 
        private void lStore_FormClosed(object sender, FormClosedEventArgs e)
        {
+           this.Hide();
+           notifICO.BalloonTipTitle = "Minimised to system tray";
            notifICO.BalloonTipText = "You can access lStore from Notification panel anytime. Stay connected!";
            notifICO.ShowBalloonTip(1000);
+           System.Threading.Thread.Sleep(3000);
        }
        private void lStore_FormClosing(object sender, FormClosingEventArgs e)
        {
@@ -1090,8 +1125,15 @@ namespace lStore
        }
        private void lv_menu_open_Click(object sender, EventArgs e)
        {
-           string sel = workspace.SelectedItems[0].Text;
-           openDirec(sel);
+           try
+           {
+               string sel = workspace.SelectedItems[0].Text;
+               openDirec(sel);
+           }
+           catch (ArgumentOutOfRangeException ex)
+           {
+               MessageBox.Show("We cannot open something that is Nothing :p");
+           }
        }
         /** 
          * function to copy a file to clipboard when user clicks on that option
@@ -1198,6 +1240,201 @@ namespace lStore
             }
         }
 
+<<<<<<< HEAD
+        /**
+         * function to change the ratebutton image on hover and viceversa
+         */ 
+        private void icon_rate_MouseHover(object sender, EventArgs e)
+        {
+            icon_rate.BackgroundImage = System.Drawing.Image.FromFile(primaryFolder +@"\img\ratehover.png");
+        }
+        private void icon_rate_MouseLeave(object sender, EventArgs e)
+        {
+            icon_rate.BackgroundImage = System.Drawing.Image.FromFile(primaryFolder + @"\img\ratenormal.png");
+        }
+
+
+        /**
+         * function to perform directory open task like in case of windows explorer
+         * #region1 begins here ======================================================
+         */ 
+        private void icon_go_Click(object sender, EventArgs e)
+        {
+            gotoDirectory();
+        }
+
+        private void presentLocation_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Return)
+            {
+                gotoDirectory();
+            }
+        }
+        private void presentLocation_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Return)
+            {
+                return;
+            }
+            else if (presentLocation.Text == @"lStore/" || presentLocation.Text.Length == 0)
+            {
+                icon_go.Visible = false;
+            }
+            else
+            {
+                icon_go.Visible = true;
+            }
+        }
+
+        /**
+         * function to load directory as enered in presentlocation textbox
+         * also: * if the added user is not on list then need to add him to that as well
+         */
+        private void gotoDirectory()
+        {
+            if (presentLocation.Text == @"lStore/" || presentLocation.Text.Length == 0) return;
+            if (Directory.Exists(@presentLocation.Text))
+            {
+                refreshListView(@presentLocation.Text);
+                string[] tmparr = presentLocation.Text.Split('\\');
+                currentSelection = tmparr[2];
+                viewSelection();             
+            }
+            else 
+            {
+                try
+                {
+                    showUserFolders(@presentLocation.Text.Replace(@"\",""));
+                    string[] tmparr = presentLocation.Text.Split('\\');
+                    currentSelection = tmparr[2];
+                    viewSelection();
+                    if (!onlineUserS.Contains(currentSelection))
+                    {
+                        onlineUserS.Add(currentSelection);
+                        populateUserList();
+                    }
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("This location does not exist or is not available now!");
+                    presentLocation.SelectAll();
+                    hideSelection();
+                }
+            }
+        }
+
+        /**
+         * funcion to open
+         * preferences form on click
+         */ 
+        private void icon_preferences_Click(object sender, EventArgs e)
+        {
+            prefObj.Show();
+        }
+
+        /**
+         * #region1 ends here =============================================================
+         */
+
+        /**
+         * function to go to root directory of user when he clicks on this icon
+         * #region3 starts here ==============================================
+         */
+        private void icon_user_Click(object sender, EventArgs e)
+        {
+            presentLocation.Text = user_label.Text;
+            gotoDirectory();
+        }
+
+        private void user_label_Click(object sender, EventArgs e)
+        {
+            presentLocation.Text = user_label.Text;
+            gotoDirectory();
+        }
+
+        private void icon_preferences_MouseHover(object sender, EventArgs e)
+        {
+            //tooltip_preferences.Show("Click here to change lStore Settings",this);
+            //tooltip_preferences.Show("Click here to change lStore Settings", this, int.Parse(eve.X.ToString()),int.Parse(eve.Y.ToString()),1000);
+            ////tT.Show("Why So Many Times?", this);
+        }
+        /**
+         * #region3 sends here ==============================================
+         */
+
+        private void exitToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            notifICO.BalloonTipText = "You can access lStore from Notification panel anytime. Stay connected!";
+            notifICO.ShowBalloonTip(1000);
+            Application.Exit();
+        }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            preferences obj = new preferences();
+            obj.Show();
+        }
+
+
+        /**
+         * function to switch the listview style
+         */
+        private int listviewView = 0;
+        private void icon_switchlistview_Click(object sender, EventArgs e)
+        {
+            if (listviewView == 0)
+            {
+                listviewView++;
+                workspace.View = System.Windows.Forms.View.List;
+                icon_switchlistview.BackgroundImage = System.Drawing.Image.FromFile(primaryFolder + @"\img\detail.png");
+            }
+            else 
+            {
+                listviewView = 0;
+                workspace.View = System.Windows.Forms.View.Details;
+                icon_switchlistview.BackgroundImage = System.Drawing.Image.FromFile(primaryFolder + @"\img\list.png");
+            }
+        }
+
+        /**
+         * code to donwload a certain thing to download directory
+         */ 
+        private void lv_menu_download_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!Directory.Exists(prefObj.downloadDirectory))
+                {
+                    Directory.CreateDirectory(prefObj.downloadDirectory);
+                }
+
+                /**
+                 * copy to clipboard
+                 */
+                paths.Clear();
+                try
+                {
+                    paths.Add(workspace.SelectedItems[0].Text);
+                    Clipboard.SetFileDropList(paths);
+                }
+                catch (Exception ex)
+                {
+                    saveException(ex.Message);
+                    return;
+                }
+
+                /**
+                 * paste to directory
+                 */
+            }
+            catch (ArgumentNullException ex) {
+                MessageBox.Show("Cannot download NULL content");
+            }
+
+        }
+
+=======
+>>>>>>> parent of 430cbf7... major changes implemented
   
    }
 }

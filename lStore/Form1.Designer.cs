@@ -36,6 +36,14 @@
             this.search = new System.Windows.Forms.TextBox();
             this.submitSearch = new System.Windows.Forms.Button();
             this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
+            this.icon_switchlistview = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
+            this.icon_go = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
+            this.icon_user = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
+            this.icon_message = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
+            this.icon_track = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
+            this.icon_rate = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
+            this.icon_preferences = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
+            this.rectangleShape4 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
             this.backbutton = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
             this.internetstateImg = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
             this.rectangleShape3 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
@@ -51,6 +59,10 @@
             this.selectCategories = new System.Windows.Forms.ComboBox();
             this.bottombar_label2 = new System.Windows.Forms.Label();
             this.notifICO = new System.Windows.Forms.NotifyIcon(this.components);
+            this.notifIconMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.disableTrackingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lv_menu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.lv_menu_open = new System.Windows.Forms.ToolStripMenuItem();
             this.lv_menu_download = new System.Windows.Forms.ToolStripMenuItem();
@@ -64,7 +76,7 @@
             this.lv_username = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lv_filesize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lv_category = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.lv_rating = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.lv_labels = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.onlineUserRetriever = new System.ComponentModel.BackgroundWorker();
             this.pingLabel = new System.Windows.Forms.Label();
             this.imageListLV = new System.Windows.Forms.ImageList(this.components);
@@ -76,7 +88,14 @@
             this.loader = new System.Windows.Forms.PictureBox();
             this.searchprogressbar = new System.Windows.Forms.ProgressBar();
             this.searchbgw = new System.ComponentModel.BackgroundWorker();
+<<<<<<< HEAD
+            this.user_label = new System.Windows.Forms.Label();
+            this.tooltip_preferences = new System.Windows.Forms.ToolTip(this.components);
+            this.openContainingFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+=======
+>>>>>>> parent of 430cbf7... major changes implemented
             ((System.ComponentModel.ISupportInitialize)(this.profilepic)).BeginInit();
+            this.notifIconMenu.SuspendLayout();
             this.lv_menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.loader)).BeginInit();
             this.SuspendLayout();
@@ -117,6 +136,7 @@
             // 
             // search
             // 
+            this.search.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
             this.search.Font = new System.Drawing.Font("Lucida Sans Typewriter", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.search.ForeColor = System.Drawing.SystemColors.Highlight;
             this.search.Location = new System.Drawing.Point(755, 46);
@@ -124,10 +144,11 @@
             this.search.Name = "search";
             this.search.Size = new System.Drawing.Size(435, 26);
             this.search.TabIndex = 12;
-            this.search.Text = " Search here...";
+            this.search.Text = " search here...";
             this.search.Click += new System.EventHandler(this.search_Click);
             this.search.TextChanged += new System.EventHandler(this.search_TextChanged);
             this.search.KeyDown += new System.Windows.Forms.KeyEventHandler(this.search_KeyDown);
+            this.search.LostFocus += new System.EventHandler(this.search_lostfocus);
             // 
             // submitSearch
             // 
@@ -145,6 +166,17 @@
             this.shapeContainer1.Margin = new System.Windows.Forms.Padding(0);
             this.shapeContainer1.Name = "shapeContainer1";
             this.shapeContainer1.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
+<<<<<<< HEAD
+            this.icon_switchlistview,
+            this.icon_go,
+            this.icon_user,
+            this.icon_message,
+            this.icon_track,
+            this.icon_rate,
+            this.icon_preferences,
+            this.rectangleShape4,
+=======
+>>>>>>> parent of 430cbf7... major changes implemented
             this.backbutton,
             this.internetstateImg,
             this.rectangleShape3,
@@ -153,6 +185,105 @@
             this.shapeContainer1.Size = new System.Drawing.Size(1350, 681);
             this.shapeContainer1.TabIndex = 14;
             this.shapeContainer1.TabStop = false;
+            // 
+            // icon_switchlistview
+            // 
+            this.icon_switchlistview.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("icon_switchlistview.BackgroundImage")));
+            this.icon_switchlistview.BorderColor = System.Drawing.Color.Transparent;
+            this.icon_switchlistview.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom;
+            this.icon_switchlistview.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.icon_switchlistview.Location = new System.Drawing.Point(1199, 183);
+            this.icon_switchlistview.Name = "icon_switchlistview";
+            this.icon_switchlistview.SelectionColor = System.Drawing.Color.Transparent;
+            this.icon_switchlistview.Size = new System.Drawing.Size(40, 40);
+            this.icon_switchlistview.Click += new System.EventHandler(this.icon_switchlistview_Click);
+            this.icon_switchlistview.MouseHover += new System.EventHandler(this.icon_rate_MouseHover);
+            this.icon_switchlistview.MouseLeave += new System.EventHandler(this.icon_rate_MouseLeave);
+            // 
+            // icon_go
+            // 
+            this.icon_go.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("icon_go.BackgroundImage")));
+            this.icon_go.BorderColor = System.Drawing.Color.Transparent;
+            this.icon_go.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom;
+            this.icon_go.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.icon_go.Location = new System.Drawing.Point(783, 185);
+            this.icon_go.Name = "icon_go";
+            this.icon_go.SelectionColor = System.Drawing.Color.Transparent;
+            this.icon_go.Size = new System.Drawing.Size(40, 40);
+            this.icon_go.Click += new System.EventHandler(this.icon_go_Click);
+            // 
+            // icon_user
+            // 
+            this.icon_user.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("icon_user.BackgroundImage")));
+            this.icon_user.BorderColor = System.Drawing.Color.Transparent;
+            this.icon_user.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom;
+            this.icon_user.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.icon_user.Location = new System.Drawing.Point(840, 186);
+            this.icon_user.Name = "icon_user";
+            this.icon_user.SelectionColor = System.Drawing.Color.Transparent;
+            this.icon_user.Size = new System.Drawing.Size(40, 40);
+            this.icon_user.Visible = false;
+            this.icon_user.Click += new System.EventHandler(this.icon_user_Click);
+            // 
+            // icon_message
+            // 
+            this.icon_message.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("icon_message.BackgroundImage")));
+            this.icon_message.BorderColor = System.Drawing.Color.Transparent;
+            this.icon_message.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom;
+            this.icon_message.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.icon_message.Location = new System.Drawing.Point(1049, 183);
+            this.icon_message.Name = "icon_message";
+            this.icon_message.SelectionColor = System.Drawing.Color.Transparent;
+            this.icon_message.Size = new System.Drawing.Size(40, 40);
+            this.icon_message.Visible = false;
+            // 
+            // icon_track
+            // 
+            this.icon_track.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("icon_track.BackgroundImage")));
+            this.icon_track.BorderColor = System.Drawing.Color.Transparent;
+            this.icon_track.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom;
+            this.icon_track.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.icon_track.Location = new System.Drawing.Point(1099, 183);
+            this.icon_track.Name = "icon_track";
+            this.icon_track.SelectionColor = System.Drawing.Color.Transparent;
+            this.icon_track.Size = new System.Drawing.Size(40, 40);
+            this.icon_track.Visible = false;
+            // 
+            // icon_rate
+            // 
+            this.icon_rate.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("icon_rate.BackgroundImage")));
+            this.icon_rate.BorderColor = System.Drawing.Color.Transparent;
+            this.icon_rate.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom;
+            this.icon_rate.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.icon_rate.Location = new System.Drawing.Point(1149, 183);
+            this.icon_rate.Name = "icon_rate";
+            this.icon_rate.SelectionColor = System.Drawing.Color.Transparent;
+            this.icon_rate.Size = new System.Drawing.Size(40, 40);
+            this.icon_rate.Visible = false;
+            this.icon_rate.MouseHover += new System.EventHandler(this.icon_rate_MouseHover);
+            this.icon_rate.MouseLeave += new System.EventHandler(this.icon_rate_MouseLeave);
+            // 
+            // icon_preferences
+            // 
+            this.icon_preferences.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("icon_preferences.BackgroundImage")));
+            this.icon_preferences.BorderColor = System.Drawing.Color.Transparent;
+            this.icon_preferences.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom;
+            this.icon_preferences.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.icon_preferences.Location = new System.Drawing.Point(1249, 183);
+            this.icon_preferences.Name = "icon_preferences";
+            this.icon_preferences.SelectionColor = System.Drawing.Color.Transparent;
+            this.icon_preferences.Size = new System.Drawing.Size(40, 40);
+            this.icon_preferences.Click += new System.EventHandler(this.icon_preferences_Click);
+            this.icon_preferences.MouseHover += new System.EventHandler(this.icon_preferences_MouseHover);
+            // 
+            // rectangleShape4
+            // 
+            this.rectangleShape4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("rectangleShape4.BackgroundImage")));
+            this.rectangleShape4.BorderColor = System.Drawing.Color.Transparent;
+            this.rectangleShape4.Location = new System.Drawing.Point(655, 320);
+            this.rectangleShape4.Name = "rectangleShape4";
+            this.rectangleShape4.SelectionColor = System.Drawing.Color.Transparent;
+            this.rectangleShape4.Size = new System.Drawing.Size(40, 40);
             // 
             // backbutton
             // 
@@ -301,37 +432,70 @@
             // 
             // notifICO
             // 
-            this.notifICO.ContextMenuStrip = this.lv_menu;
+            this.notifICO.ContextMenuStrip = this.notifIconMenu;
             this.notifICO.Icon = ((System.Drawing.Icon)(resources.GetObject("notifICO.Icon")));
             this.notifICO.Text = "lStore: LAN Sharing simplified";
             this.notifICO.Visible = true;
+            // 
+            // notifIconMenu
+            // 
+            this.notifIconMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.settingsToolStripMenuItem,
+            this.disableTrackingToolStripMenuItem,
+            this.exitToolStripMenuItem});
+            this.notifIconMenu.Name = "notifIconMenu";
+            this.notifIconMenu.Size = new System.Drawing.Size(159, 70);
+            // 
+            // settingsToolStripMenuItem
+            // 
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.settingsToolStripMenuItem.Text = "Settings";
+            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
+            // 
+            // disableTrackingToolStripMenuItem
+            // 
+            this.disableTrackingToolStripMenuItem.Name = "disableTrackingToolStripMenuItem";
+            this.disableTrackingToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.disableTrackingToolStripMenuItem.Text = "DisableTracking";
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click_1);
             // 
             // lv_menu
             // 
             this.lv_menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lv_menu_open,
+            this.openContainingFolderToolStripMenuItem,
             this.lv_menu_download,
             this.cOPYToolStripMenuItem1,
             this.rATEToolStripMenuItem});
             this.lv_menu.Name = "lv_menu";
-            this.lv_menu.Size = new System.Drawing.Size(162, 92);
+            this.lv_menu.Size = new System.Drawing.Size(202, 114);
             // 
             // lv_menu_open
             // 
+            this.lv_menu_open.Image = ((System.Drawing.Image)(resources.GetObject("lv_menu_open.Image")));
             this.lv_menu_open.Name = "lv_menu_open";
-            this.lv_menu_open.Size = new System.Drawing.Size(161, 22);
-            this.lv_menu_open.Text = "Open in explorer";
+            this.lv_menu_open.Size = new System.Drawing.Size(201, 22);
+            this.lv_menu_open.Text = "Open";
             this.lv_menu_open.Click += new System.EventHandler(this.lv_menu_open_Click);
             // 
             // lv_menu_download
             // 
-            this.lv_menu_download.Enabled = false;
+            this.lv_menu_download.Image = ((System.Drawing.Image)(resources.GetObject("lv_menu_download.Image")));
             this.lv_menu_download.Name = "lv_menu_download";
             this.lv_menu_download.Size = new System.Drawing.Size(161, 22);
             this.lv_menu_download.Text = "DOWNLOAD";
+            this.lv_menu_download.Click += new System.EventHandler(this.lv_menu_download_Click);
             // 
             // cOPYToolStripMenuItem1
             // 
+            this.cOPYToolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("cOPYToolStripMenuItem1.Image")));
             this.cOPYToolStripMenuItem1.Name = "cOPYToolStripMenuItem1";
             this.cOPYToolStripMenuItem1.Size = new System.Drawing.Size(161, 22);
             this.cOPYToolStripMenuItem1.Text = "COPY";
@@ -339,6 +503,7 @@
             // 
             // rATEToolStripMenuItem
             // 
+            this.rATEToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("rATEToolStripMenuItem.Image")));
             this.rATEToolStripMenuItem.Name = "rATEToolStripMenuItem";
             this.rATEToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.rATEToolStripMenuItem.Text = "RATE";
@@ -387,17 +552,18 @@
             this.lv_username,
             this.lv_filesize,
             this.lv_category,
-            this.lv_rating});
+            this.lv_labels});
             this.workspace.ContextMenuStrip = this.lv_menu;
             this.workspace.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.workspace.Font = new System.Drawing.Font("Constantia", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.workspace.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.workspace.ForeColor = System.Drawing.Color.Gray;
             this.workspace.FullRowSelect = true;
             this.workspace.GridLines = true;
             this.workspace.Location = new System.Drawing.Point(195, 229);
             this.workspace.MultiSelect = false;
             this.workspace.Name = "workspace";
-            this.workspace.Size = new System.Drawing.Size(1143, 364);
+            this.workspace.Size = new System.Drawing.Size(1143, 440);
+            this.workspace.SmallImageList = this.imageListLV;
             this.workspace.TabIndex = 30;
             this.workspace.TileSize = new System.Drawing.Size(710, 50);
             this.workspace.UseCompatibleStateImageBehavior = false;
@@ -408,7 +574,7 @@
             // lv_filename
             // 
             this.lv_filename.Text = "Filename";
-            this.lv_filename.Width = 645;
+            this.lv_filename.Width = 400;
             // 
             // lv_username
             // 
@@ -428,10 +594,10 @@
             this.lv_category.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.lv_category.Width = 122;
             // 
-            // lv_rating
+            // lv_labels
             // 
-            this.lv_rating.Text = "rating";
-            this.lv_rating.Width = 100;
+            this.lv_labels.Text = "Labels";
+            this.lv_labels.Width = 370;
             // 
             // onlineUserRetriever
             // 
@@ -453,9 +619,14 @@
             // 
             // imageListLV
             // 
-            this.imageListLV.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.imageListLV.ImageSize = new System.Drawing.Size(16, 16);
+            this.imageListLV.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListLV.ImageStream")));
             this.imageListLV.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageListLV.Images.SetKeyName(0, "20x20folder.png");
+            this.imageListLV.Images.SetKeyName(1, "20x20games.png");
+            this.imageListLV.Images.SetKeyName(2, "20x20movie.png");
+            this.imageListLV.Images.SetKeyName(3, "20x20music.png");
+            this.imageListLV.Images.SetKeyName(4, "20x20image.png");
+            this.imageListLV.Images.SetKeyName(5, "20x20file.png");
             // 
             // tmpLog
             // 
@@ -481,6 +652,7 @@
             // 
             // presentLocation
             // 
+            this.presentLocation.AccessibleDescription = "";
             this.presentLocation.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.presentLocation.Location = new System.Drawing.Point(249, 189);
             this.presentLocation.Name = "presentLocation";
@@ -541,6 +713,40 @@
             this.searchbgw.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.searchbgw_ProgressChanged);
             this.searchbgw.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.searchbgw_RunWorkerCompleted);
             // 
+<<<<<<< HEAD
+            // user_label
+            // 
+            this.user_label.AutoSize = true;
+            this.user_label.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.user_label.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.user_label.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.user_label.Location = new System.Drawing.Point(880, 191);
+            this.user_label.Name = "user_label";
+            this.user_label.Size = new System.Drawing.Size(71, 29);
+            this.user_label.TabIndex = 39;
+            this.user_label.Text = "mikky";
+            this.user_label.Visible = false;
+            this.user_label.Click += new System.EventHandler(this.user_label_Click);
+            // 
+            // tooltip_preferences
+            // 
+            this.tooltip_preferences.AutoPopDelay = 2000;
+            this.tooltip_preferences.InitialDelay = 10;
+            this.tooltip_preferences.IsBalloon = true;
+            this.tooltip_preferences.OwnerDraw = true;
+            this.tooltip_preferences.ReshowDelay = 100;
+            this.tooltip_preferences.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.tooltip_preferences.ToolTipTitle = "Preferences";
+            // 
+            // openContainingFolderToolStripMenuItem
+            // 
+            this.openContainingFolderToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("openContainingFolderToolStripMenuItem.Image")));
+            this.openContainingFolderToolStripMenuItem.Name = "openContainingFolderToolStripMenuItem";
+            this.openContainingFolderToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.openContainingFolderToolStripMenuItem.Text = "Open Containing Folder";
+            // 
+=======
+>>>>>>> parent of 430cbf7... major changes implemented
             // lStore
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -584,6 +790,7 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.lStore_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.profilepic)).EndInit();
+            this.notifIconMenu.ResumeLayout(false);
             this.lv_menu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.loader)).EndInit();
             this.ResumeLayout(false);
@@ -619,7 +826,7 @@
         private System.Windows.Forms.ColumnHeader lv_filename;
         private System.Windows.Forms.ColumnHeader lv_username;
         private System.Windows.Forms.ColumnHeader lv_filesize;
-        private System.Windows.Forms.ColumnHeader lv_rating;
+        private System.Windows.Forms.ColumnHeader lv_labels;
         private System.ComponentModel.BackgroundWorker onlineUserRetriever;
         private System.Windows.Forms.Label pingLabel;
         private System.Windows.Forms.ImageList imageListLV;
@@ -639,6 +846,24 @@
         private System.Windows.Forms.PictureBox loader;
         private System.Windows.Forms.ProgressBar searchprogressbar;
         private System.ComponentModel.BackgroundWorker searchbgw;
+<<<<<<< HEAD
+        private Microsoft.VisualBasic.PowerPacks.RectangleShape icon_preferences;
+        private Microsoft.VisualBasic.PowerPacks.RectangleShape rectangleShape4;
+        private Microsoft.VisualBasic.PowerPacks.RectangleShape icon_message;
+        private Microsoft.VisualBasic.PowerPacks.RectangleShape icon_track;
+        private Microsoft.VisualBasic.PowerPacks.RectangleShape icon_rate;
+        private Microsoft.VisualBasic.PowerPacks.RectangleShape icon_user;
+        private System.Windows.Forms.Label user_label;
+        private Microsoft.VisualBasic.PowerPacks.RectangleShape icon_go;
+        public System.Windows.Forms.ToolTip tooltip_preferences;
+        private System.Windows.Forms.ContextMenuStrip notifIconMenu;
+        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem disableTrackingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private Microsoft.VisualBasic.PowerPacks.RectangleShape icon_switchlistview;
+        private System.Windows.Forms.ToolStripMenuItem openContainingFolderToolStripMenuItem;
+=======
+>>>>>>> parent of 430cbf7... major changes implemented
     }
 }
 

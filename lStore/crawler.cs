@@ -56,7 +56,15 @@ namespace lStore
             if (x.IndexOf('.') == -1) return "folder";
             arr = x.Split('.');
             string ext = arr[arr.Length - 1];
-            return ext;// for now
+            if (ext.ToLower() == "mkv" || ext.ToLower() == "flv" || ext.ToLower() == "avi" || ext.ToLower() == "mp4" || ext.ToLower() == "3gp" || ext.ToLower() == "rmvb" || ext.ToLower() == "wmv" || ext.ToLower() == "mov")
+                return "movie/video";
+            if (ext.ToLower() == "jpg" || ext.ToLower() == "png" || ext.ToLower() == "bmp" || ext.ToLower() == "jpeg" || ext.ToLower() == "gif")
+                return "image";
+            if (ext.ToLower() == "mp3" || ext.ToLower() == "amr" || ext.ToLower() == "aac" || ext.ToLower() == "wmv")
+                return "music";
+            if (ext.ToLower() == "exe" || ext.ToLower() == "msi" || ext.ToLower() == "bat" || ext.ToLower() == "apk")
+                return "app";
+            return "file";// for now
         }
         /*
          * static function to get list of folders on 
