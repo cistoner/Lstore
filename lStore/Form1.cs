@@ -24,7 +24,9 @@ namespace lStore
 {
     public partial class lStore : Form
     {
-        //=====variables here===================
+        /**
+         * all variables here
+         */ 
         public string userName = userInfo.username, localName = userInfo.networkname;
         public string primaryFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\lStore";
         public string ip = userInfo.ipaddress;
@@ -61,9 +63,25 @@ namespace lStore
          */
         public Stack<string> back = new Stack<string>();
         
-
-        //==for copying a file
+        /**
+         * for copying a file, that is for clipboard
+         */ 
         StringCollection paths = new StringCollection();
+
+        /**
+         * array list to hold result of a database based search
+         */
+        private ArrayList searchresult = new ArrayList();
+        private ArrayList searchresultRating = new ArrayList();
+        private ArrayList searchresultDisplayed = new ArrayList();
+
+        /**
+         * variable to hold the search result
+         */
+        private string searchkey = string.Empty;
+        private int searchLimit = 100;
+        private int searchPage = 1;
+
         public lStore()
         {
             InitializeComponent();
@@ -77,14 +95,14 @@ namespace lStore
             /**
              * to check if internet is connected in one of the background worker
              */ 
-            isInternetConnected();   
+            isInternetConnected();
 
             /** 
              * code to set the default profile image if it exists 
              */
-            if (File.Exists(@"C:\Users\" + userName + @"\Documents\lStore\user.jpg"))
+            if (File.Exists(primaryFolder + @"\img\user.jpg"))
             {
-                profilepic.Image = System.Drawing.Image.FromFile(@"C:\Users\" + userName + @"\Documents\lStore\user.jpg");
+                profilepic.Image = System.Drawing.Image.FromFile(primaryFolder + @"\img\user.jpg");
             }
 
             /**
@@ -298,7 +316,6 @@ namespace lStore
                 i++;
             }
         }
-
         private void filterOnline_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             progressBar1.Value = e.ProgressPercentage;
@@ -507,19 +524,7 @@ namespace lStore
            }
        }
         
-        /**
-         * array list to hold result of a database based search
-         */
-        private ArrayList searchresult = new ArrayList();
-        private ArrayList searchresultRating = new ArrayList();
-        private ArrayList searchresultDisplayed = new ArrayList();
-
-        /**
-         * variable to hold the search result
-         */ 
-        private string searchkey = string.Empty;
-        private int searchLimit = 100;
-        private int searchPage = 1;
+        
 
         /** 
          * this function is responsible to initiate search 
@@ -534,6 +539,7 @@ namespace lStore
          */ 
        private void performSearch()
        {
+           hideSelection();
            searchprogressbar.Value = 0;
            searchprogressbar.Visible = true;
            loader.Visible = true;
@@ -550,20 +556,30 @@ namespace lStore
                 case when something logical has been attempted
                 */
                presentLocation.Text = @"\SEARCH:" +key;
-               tmpLog.Text = "Searching for \" " + key + " \"";
+               string searchstring = key;
                searchkey = key;
-               
-               //if (selectedCategory != "" && selectedCategory != "All")
-               //{
-               //    tmpLog.Text += " Under category \" " + selectedCategory + " \" ";
-               //}
-               //if(selectedSortByVal!=-1)
-               //{
-               //    tmpLog.Text += " Sorted by \" " + sortbySelectBox.SelectedItem.ToString() + " \" "; 
-               //}
-               //tmpLog.Text += " ....";
-               //save this search to log
+               if (selectedCategory != "" && selectedCategory != "All")
+               {
+                   searchstring += "  Catrgory: [ " + selectedCategory + " ] ";
+               }
+               if (selectedSortByVal != -1)
+               {
+                   searchstring += " Sort by: [ " + sortbySelectBox.SelectedItem.ToString() + " ] ";
+               }
+
+               /**
+                * view search label
+                */
+                togglesearchLabel(searchstring,true);
+
+               /**
+                * save this search to log
+                */ 
                writeToSearchLogs(key);
+
+               /**
+                * perform search
+                */ 
                searchbgw.RunWorkerAsync();
            }
        }
@@ -573,6 +589,7 @@ namespace lStore
          */
        private void searchbgw_DoWork(object sender, DoWorkEventArgs e)
        {
+           saveException("search:" +searchkey);
            if (searchkey.Length != 0)
            { 
                 /**
@@ -589,29 +606,57 @@ namespace lStore
                SqlConnection mycon = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\q4sp9x.mdf;Integrated Security=True;Connect Timeout=30");
                var command = mycon.CreateCommand();
                string sqlc = "SELECT filename,rating FROM dbo.files WHERE keywords LIKE @param";
+               
+               /**
+                * category implementation
+                */ 
+               if (selectedCategory.Length != 0)
+               {
+                   sqlc += " AND keywords LIKE @paramcategory";
+               }
+               saveException(sqlc);
                SqlCommand comm = new SqlCommand(sqlc, mycon);
                comm.Parameters.Add(new SqlParameter("param", "%" +searchkey +"%"));
-               mycon.Open();
-               SqlDataReader r = comm.ExecuteReader();
-               searchbgw.ReportProgress(50);
-               if (r.HasRows)
+
+               /**
+                * category implementation
+                */
+               if (selectedCategory.Length != 0)
                {
-                   while (r.Read())
-                   {
-                       searchresult.Add(r["filename"].ToString());
-                       searchresultRating.Add(r["rating"].ToString());
-                       searchresultDisplayed.Add("f");
-                   }
-                   searchbgw.ReportProgress(100);
+                   comm.Parameters.Add(new SqlParameter("paramcategory", "%" + selectedCategory + "%"));
                }
-               else
+               try
                {
-                   /**
-                    * search complete no data found
-                    */ 
-                   searchbgw.ReportProgress(100);
-               } 
-               mycon.Close();
+                   mycon.Open();
+                   SqlDataReader r = comm.ExecuteReader();
+                   searchbgw.ReportProgress(50);
+                   if (r.HasRows)
+                   {
+                       while (r.Read())
+                       {
+                           searchresult.Add(r["filename"].ToString());
+                           searchresultRating.Add(r["rating"].ToString());
+                           searchresultDisplayed.Add("f");
+                       }
+                       searchbgw.ReportProgress(100);
+                   }
+                   else
+                   {
+                       /**
+                        * search complete no data found
+                        */
+                       searchbgw.ReportProgress(100);
+                   }
+                   mycon.Close();
+               }
+               catch (SqlException ex)
+               {
+                   saveException(ex.Message);
+               }
+               catch (Exception ex)
+               {
+                   saveException(ex.Message);
+               }
            
            }
        }
@@ -627,10 +672,14 @@ namespace lStore
            foreach (string result in searchresult)
            {
                string tmp = result.Replace("/",@"\");
-               if (Directory.Exists(tmp))
+
+               /**
+                * checks if the current user is online
+                */ 
+               if (onlineUserS.Contains(crawler.getOwner(tmp)) || true)
                {
                    int id = searchresult.IndexOf(result);
-                   workspace.Items.Add(new ListViewItem(new string[] { tmp, crawler.getOwner(tmp), "", "Available", searchresultRating[id].ToString() }));
+                   workspace.Items.Add(new ListViewItem(new string[] { tmp,tmp, crawler.getOwner(tmp), "", "Available", searchresultRating[id].ToString() }));
                    searchresultDisplayed[id] = "t";
                }
            }
@@ -638,13 +687,15 @@ namespace lStore
            {
                string tmp = result.Replace("/", @"\");
                int id = searchresult.IndexOf(result);
-               if (searchresultDisplayed[id].ToString() == "f")
+               if (searchresultDisplayed[id] == "f")
                {
-                   workspace.Items.Add(new ListViewItem(new string[] { tmp, crawler.getOwner(tmp), "", "Not Available", searchresultRating[id].ToString() }));
+                   workspace.Items.Add(new ListViewItem(new string[] { tmp,tmp, crawler.getOwner(tmp), "", "Not Available", searchresultRating[id].ToString() }));
                }
            }
            searchprogressbar.Visible = false;
-           tmpLog.Text = searchresult.Count.ToString() + " results found!";
+           resultcount.Text = searchresult.Count.ToString() + " results found!";
+           resultcount.Visible = true;
+           togglesearchLabel("",false);
            loader.Visible = false;
        }
 
@@ -776,7 +827,7 @@ namespace lStore
        {
            //internetState.Text = "Checking Internet";
            //internetState.ForeColor = System.Drawing.Color.Blue;
-           string processing = primaryFolder + @"\offline.png";
+           string processing = primaryFolder + @"\img\offline.png";
            internetstateImg.BackgroundImage = System.Drawing.Image.FromFile(processing);
            bgw_internetstate.RunWorkerAsync();
        }
@@ -801,8 +852,8 @@ namespace lStore
          */ 
        private void bgw_internetstate_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
        {
-           string online = primaryFolder +@"\online.png";
-           string offline = primaryFolder + @"\offline.png";
+           string online = primaryFolder + @"\img\online.png";
+           string offline = primaryFolder + @"\img\offline.png";
            if (isInternet)
            { 
                internetstateImg.BackgroundImage = System.Drawing.Image.FromFile(online);
@@ -818,7 +869,28 @@ namespace lStore
            }
            notifICO.ShowBalloonTip(1000);
        }
-
+        /**
+         * function to make icons visible [or vice versa] on certain type of selection 
+         */
+       private void viewSelection()
+       {
+           user_label.Text = currentSelection;
+           icon_rate.Visible = true;
+           icon_track.Visible = true;
+           icon_message.Visible = true;
+           user_label.Visible = true;
+           icon_user.Visible = true;
+       }
+       private void hideSelection()
+       {
+           user_label.Text = "";
+           icon_rate.Visible = false;
+           icon_track.Visible = false;
+           icon_message.Visible = false;
+           user_label.Visible = false;
+           icon_user.Visible = false;
+       }
+        
         /**
          * this event runs when someone clicks on online user list
          * need to add code to get file size and rating and
@@ -831,6 +903,7 @@ namespace lStore
 
        private void onlineUsers_SelectedIndexChanged(object sender, EventArgs e)
        {
+           
            try
            {
                currentSelection = onlineUsers.SelectedItem.ToString();
@@ -842,6 +915,12 @@ namespace lStore
            }
            loader.Visible = true;
            showUserFolders(currentSelection);
+           
+           /**
+            * function call to show icons
+            */ 
+            viewSelection();
+
        }
        
         /**
@@ -866,7 +945,7 @@ namespace lStore
            workspace.Items.Clear();
            for (int i = 0; i < currentSelectionfolders.Count; i++)
            {
-               ListViewItem foo = new ListViewItem(new string[] { currentSelectionfolders[i].ToString(), crawler.getOwner(currentSelectionfolders[i].ToString()), "", crawler.getCategory(currentSelectionfolders[i].ToString()), "" });
+               ListViewItem foo = new ListViewItem(new string[] { currentSelectionfolders[i].ToString(), crawler.getFilename(currentSelectionfolders[i].ToString()), crawler.getOwner(currentSelectionfolders[i].ToString()), "", crawler.getCategory(currentSelectionfolders[i].ToString()), "" });
                workspace.Items.Add(foo);
                workspace.Items[i].ImageIndex = 0;
            }
@@ -884,7 +963,11 @@ namespace lStore
            {
                sel = workspace.SelectedItems[0].Text;
            }
-           catch (Exception ex) { return; }
+           catch (Exception ex) 
+           {
+               MessageBox.Show(ex.Message); 
+               return;
+           }
            refreshListView(sel); 
        }
 
@@ -919,12 +1002,7 @@ namespace lStore
         */ 
        private void refreshListView(string sel)
        {
-<<<<<<< HEAD
            int folderCount = 0,i;
-=======
-           
-           
->>>>>>> parent of 430cbf7... major changes implemented
            try
            {
                string[] folders;
@@ -944,7 +1022,7 @@ namespace lStore
                int len = folders.Length;
                for ( i = 0; i < len; i++)
                {
-                   workspace.Items.Add(new ListViewItem(new string[] { folders[i], crawler.getOwner(folders[i]), "", "folder", "--NA--" }));
+                   workspace.Items.Add(new ListViewItem(new string[] { folders[i], crawler.getFilename(folders[i]), crawler.getOwner(folders[i]), "", "folder", "--NA--" }));
                    workspace.Items[i].ImageIndex = 0;
                }
                folderCount = i;
@@ -965,7 +1043,7 @@ namespace lStore
                    else size = (s/(1024*1024)).ToString() +"mb";
                    try
                    {
-                       workspace.Items.Add(new ListViewItem(new string[] { files[i], crawler.getOwner(files[i]), size, crawler.getCategory(files[i]), "--NA--" }));
+                       workspace.Items.Add(new ListViewItem(new string[] { files[i], crawler.getFilename(files[i]), crawler.getOwner(files[i]), size, crawler.getCategory(files[i]), "--NA--" }));
                        if (crawler.getCategory(files[i]) == "movie/video") workspace.Items[folderCount + i].ImageIndex = 2;
                        if (crawler.getCategory(files[i]) == "image") workspace.Items[folderCount + i].ImageIndex = 4;
                        if (crawler.getCategory(files[i]) == "music") workspace.Items[folderCount + i].ImageIndex = 3;
@@ -989,7 +1067,7 @@ namespace lStore
                workspace.Items.Clear();
                for (i = 0; i < folders.Count; i++)
                {
-                   workspace.Items.Add(new ListViewItem(new string[] { folders[i].ToString(), crawler.getOwner(folders[i].ToString()), "--NA--", "--NA--", "--NA--" }));
+                   workspace.Items.Add(new ListViewItem(new string[] {folders[i].ToString(), crawler.getFilename(folders[i].ToString()), crawler.getOwner(folders[i].ToString()), "--NA--", "--NA--", "--NA--" }));
                    workspace.Items[0].ImageIndex = 0;
                }
            }
@@ -1135,23 +1213,6 @@ namespace lStore
                MessageBox.Show("We cannot open something that is Nothing :p");
            }
        }
-        /** 
-         * function to copy a file to clipboard when user clicks on that option
-         */ 
-       private void toMemoryToolStripMenuItem_Click(object sender, EventArgs e)
-       {
-           paths.Clear();
-           try
-           {
-               paths.Add(workspace.SelectedItems[0].Text);
-               Clipboard.SetFileDropList(paths);
-           }
-           catch (Exception ex)
-           {
-               saveException(ex.Message);
-               return;
-           }
-       }
 
        /**
         * function called when user click on About Me link
@@ -1240,7 +1301,6 @@ namespace lStore
             }
         }
 
-<<<<<<< HEAD
         /**
          * function to change the ratebutton image on hover and viceversa
          */ 
@@ -1329,7 +1389,15 @@ namespace lStore
          */ 
         private void icon_preferences_Click(object sender, EventArgs e)
         {
-            prefObj.Show();
+            try
+            {
+                prefObj.Show();
+            }
+            catch (Exception ex)
+            {
+                prefObj = new preferences();
+                prefObj.Show();
+            }
         }
 
         /**
@@ -1433,8 +1501,67 @@ namespace lStore
 
         }
 
-=======
->>>>>>> parent of 430cbf7... major changes implemented
+        private void icon_about_Click(object sender, EventArgs e)
+        {
+            aboutUs obj = new aboutUs();
+            obj.Show();
+        }
+
+        /**
+         * function to enable disable the open containing folder option
+         */ 
+        private void workspace_MouseClick(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                string sel = workspace.SelectedItems[0].Text;
+                if (e.Button.ToString() == "Right")
+                {
+                    if (crawler.getCategory(sel) != "folder")
+                    {
+                        openContainingFolderToolStripMenuItem.Enabled = true;
+                    }
+                    else 
+                    {
+                        openContainingFolderToolStripMenuItem.Enabled = false;
+                    }
+                }
+            }
+            catch (Exception ex) { }
+        }
+
+        /**
+         * function to open parent directory of file
+         */ 
+        private void openContainingFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string sel = presentLocation.Text;
+                openDirec(sel);
+            }
+            catch(Exception ex){}
+
+        }
+
+        /**
+         * function to show hide search label
+         * @param: string content to show in search string
+         * @param: bool:true -> show bool:false -> hide
+         */
+        private void togglesearchLabel(string text, bool toggle = true)
+        {
+            searchlabel.Text = text;
+            if (toggle == true)
+            {
+                searchlabel.Visible = true;
+                tmpLog.Visible = true;
+                return;
+            }
+            searchlabel.Visible = false;
+            tmpLog.Visible = false;
+        }
+
   
    }
 }

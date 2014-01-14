@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(preferences));
             this.tabs = new System.Windows.Forms.TabControl();
             this.statistics = new System.Windows.Forms.TabPage();
             this.stats_internetusage = new System.Windows.Forms.CheckBox();
@@ -54,6 +55,7 @@
             this.input_downloaddirec = new System.Windows.Forms.TextBox();
             this.browsebutton = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.tabs.SuspendLayout();
             this.statistics.SuspendLayout();
             this.frequency.SuspendLayout();
@@ -68,7 +70,7 @@
             this.tabs.Controls.Add(this.statistics);
             this.tabs.Controls.Add(this.frequency);
             this.tabs.Controls.Add(this.addons);
-            this.tabs.Location = new System.Drawing.Point(1, 1);
+            this.tabs.Location = new System.Drawing.Point(5, 32);
             this.tabs.Name = "tabs";
             this.tabs.SelectedIndex = 0;
             this.tabs.Size = new System.Drawing.Size(508, 271);
@@ -289,7 +291,7 @@
             this.button_save.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button_save.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_save.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.button_save.Location = new System.Drawing.Point(410, 479);
+            this.button_save.Location = new System.Drawing.Point(410, 486);
             this.button_save.Name = "button_save";
             this.button_save.Size = new System.Drawing.Size(88, 33);
             this.button_save.TabIndex = 11;
@@ -303,7 +305,7 @@
             this.button_apply.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button_apply.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_apply.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.button_apply.Location = new System.Drawing.Point(316, 479);
+            this.button_apply.Location = new System.Drawing.Point(316, 486);
             this.button_apply.Name = "button_apply";
             this.button_apply.Size = new System.Drawing.Size(88, 33);
             this.button_apply.TabIndex = 12;
@@ -317,7 +319,7 @@
             this.button_cancel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button_cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_cancel.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.button_cancel.Location = new System.Drawing.Point(223, 479);
+            this.button_cancel.Location = new System.Drawing.Point(223, 486);
             this.button_cancel.Name = "button_cancel";
             this.button_cancel.Size = new System.Drawing.Size(88, 33);
             this.button_cancel.TabIndex = 13;
@@ -329,7 +331,7 @@
             // 
             this.check_internet.AutoSize = true;
             this.check_internet.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.check_internet.Location = new System.Drawing.Point(12, 278);
+            this.check_internet.Location = new System.Drawing.Point(13, 307);
             this.check_internet.Name = "check_internet";
             this.check_internet.Size = new System.Drawing.Size(264, 23);
             this.check_internet.TabIndex = 4;
@@ -343,7 +345,7 @@
             this.donelabel.BackColor = System.Drawing.Color.LightCoral;
             this.donelabel.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.donelabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.donelabel.Location = new System.Drawing.Point(8, 483);
+            this.donelabel.Location = new System.Drawing.Point(8, 490);
             this.donelabel.Name = "donelabel";
             this.donelabel.Size = new System.Drawing.Size(56, 23);
             this.donelabel.TabIndex = 6;
@@ -354,7 +356,7 @@
             // 
             this.input_downloaddirec.Enabled = false;
             this.input_downloaddirec.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.input_downloaddirec.Location = new System.Drawing.Point(12, 306);
+            this.input_downloaddirec.Location = new System.Drawing.Point(13, 335);
             this.input_downloaddirec.Name = "input_downloaddirec";
             this.input_downloaddirec.Size = new System.Drawing.Size(208, 23);
             this.input_downloaddirec.TabIndex = 14;
@@ -365,7 +367,7 @@
             this.browsebutton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.browsebutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.browsebutton.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.browsebutton.Location = new System.Drawing.Point(223, 306);
+            this.browsebutton.Location = new System.Drawing.Point(224, 335);
             this.browsebutton.Name = "browsebutton";
             this.browsebutton.Size = new System.Drawing.Size(65, 25);
             this.browsebutton.TabIndex = 15;
@@ -377,11 +379,22 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(293, 306);
+            this.label4.Location = new System.Drawing.Point(294, 335);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(139, 23);
             this.label4.TabIndex = 6;
             this.label4.Text = "Download folder";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label5.Location = new System.Drawing.Point(181, 6);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(102, 23);
+            this.label5.TabIndex = 17;
+            this.label5.Text = "Preferences";
             // 
             // preferences
             // 
@@ -389,6 +402,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(510, 524);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.browsebutton);
             this.Controls.Add(this.input_downloaddirec);
@@ -400,7 +414,8 @@
             this.Controls.Add(this.tabs);
             this.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(526, 563);
             this.MinimizeBox = false;
@@ -450,5 +465,6 @@
         private System.Windows.Forms.TextBox input_downloaddirec;
         private System.Windows.Forms.Button browsebutton;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
     }
 }

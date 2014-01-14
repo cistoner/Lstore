@@ -18,11 +18,12 @@ namespace lStore
         public aboutUser()
         {
             InitializeComponent();
-            rating.Text = "[STARS] " + userInfo.rating + "";
-            codeLocation.Text = "[LOC] " + userInfo.location;
-            countFilesShared.Text = "[FILES] " + userInfo.files_shared + "";
+            this.Text = "About me: " + localName;
+            rating.Text = userInfo.rating;
+            codeLocation.Text = userInfo.location;
+            countFilesShared.Text = userInfo.files_shared;
             uname.Text = "" + userName;
-            nname.Text = @"\\" + localName;
+            nname.Text = @"" + localName;
             if (File.Exists(primaryFolder +@"\user.jpg"))
             {
                 profilepic.Image = System.Drawing.Image.FromFile(primaryFolder + @"\user.jpg");
@@ -32,6 +33,11 @@ namespace lStore
         private void aboutUser_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

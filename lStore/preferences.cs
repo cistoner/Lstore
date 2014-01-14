@@ -37,7 +37,7 @@ namespace lStore
         {
             InitializeComponent();
             xmlfile = primaryFolder + @"\settings.ini";
-            if (!File.Exists(xmlfile)) { repariPreferences(); }
+            if (!File.Exists(xmlfile)) { repairPreferences(); }
             xmldata = File.ReadAllText(xmlfile);
             
         }
@@ -131,7 +131,7 @@ namespace lStore
         /**
          * function to recreate the preferences file if its damages or not found
          */ 
-        private void repariPreferences()
+        private void repairPreferences()
         {
             string xml = "<?xml version='1.0' encoding='UTF-8'?>" + Environment.NewLine + "<settings>";
             xml += "<imdb>1</imdb>" + Environment.NewLine;

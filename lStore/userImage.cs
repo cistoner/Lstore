@@ -58,7 +58,21 @@ namespace lStore
          */ 
         public void GenerateThumbNail(string sourcefile, string destinationfile)
         {
-            File.Delete(destinationfile);
+            bool done = true;
+
+            while (!done)
+            {
+                try
+                {
+                    File.Delete(destinationfile);
+                    done = true;
+                }
+                catch (Exception ex)
+                {
+                    continue;
+                }
+            }
+            
             System.Drawing.Image image = System.Drawing.Image.FromFile(sourcefile);
             int srcWidth = image.Width;
             int srcHeight = image.Height;
@@ -73,7 +87,17 @@ namespace lStore
             System.Drawing.Rectangle rectDestination =
                    new System.Drawing.Rectangle(0, 0, thumbWidth, thumbHeight);
             gr.DrawImage(image, rectDestination, 0, 0, srcWidth, srcHeight, GraphicsUnit.Pixel);
-            bmp.Save(destinationfile);
+
+            done = false;
+            while (!done)
+            {
+                try
+                {
+                    bmp.Save(destinationfile);
+                    done = true;
+                }
+                catch (Exception ex) { }
+            }
             bmp.Dispose();
             image.Dispose();
             File.Delete(sourcefile);

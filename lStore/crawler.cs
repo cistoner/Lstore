@@ -45,7 +45,8 @@ namespace lStore
             }
             return output;
         }
-        /*
+
+        /**
          * a function to return category from filename
          */
         public static string getCategory(string filename)
@@ -66,7 +67,26 @@ namespace lStore
                 return "app";
             return "file";// for now
         }
-        /*
+
+        /**
+         * a function to return category from filename
+         */
+        public static string getFilename(string filename)
+        {
+            string[] arr = filename.Split('\\');
+            return arr[arr.Length - 1];
+        }
+
+        /**
+         * a function to return category from filename
+         */
+        public static string getParentFolder(string filename)
+        {
+            string[] arr = filename.Split('\\');
+            return filename.Replace(@"\" + arr[arr.Length - 1],"");
+        }
+
+        /**
          * static function to get list of folders on 
          * the network name so provided
          */ 

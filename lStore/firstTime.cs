@@ -22,14 +22,14 @@ namespace lStore
         /**
          * basic URL for pinging all data
          */
-        public string url = "http://VAIO/cistoner/q4sp9x/lstore/";
-        //public string url = "http://localhost/lstore/";
+        //public string url = "http://VAIO/cistoner/q4sp9x/lstore/";
+        public string url = "http://localhost/lstore/";
         public bool isFirst = false,isProxyEnabled = false;
         public string primaryFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +@"\lStore";
         private bool isDataSyncOver = false, isLocalSyncOver = false;   //these two variables are flag for two imp processes
         private bool isInternetActivated = false;
         public string lastError = string.Empty;
-
+        private bool isdgidRetrieved = false;
         /**
          * this variable let us decide total no timeouts for connection
          */ 
@@ -150,7 +150,7 @@ namespace lStore
             label3.Visible = false;
         }
 
-        /* 
+        /** 
          * function to check if program can connect
          * to required server
          * might need to modifiy this
@@ -162,7 +162,7 @@ namespace lStore
             return false;
         }
 
-        /* 
+        /** 
          * main working fnction of
          * backgroundworker that downloads data from server
          */
@@ -192,7 +192,7 @@ namespace lStore
              */ 
             while (step <= firstTime.netStepCount)
             {
-                string tmp = SendPost(url +"getdata.php", "id=" +lastId +"&hash=" +userInfo.hash +"&step=" + (step-1).ToString());
+                string tmp = SendPost(url +"getdata.php", "hash=" +userInfo.hash +"&step=" + (step-1).ToString());
                 try
                 {
                     if (timeouts > firstTime.maxTimeouts)
@@ -216,6 +216,7 @@ namespace lStore
                      * in case the form cannot download the data correctly 
                      * this has to be downloaded again
                      */
+                    File.AppendAllText(primaryFolder +@"\d.txt",ex.Message +Environment.NewLine);
                     timeouts++;
                     continue;
                 }                    
@@ -241,7 +242,11 @@ namespace lStore
             }
             else
             {
-                progress.Value += e.ProgressPercentage;
+                try
+                {
+                    progress.Value += e.ProgressPercentage;
+                }
+                catch (Exception ex) { progress.Value = 100; }
                 if (!isFirst)
                 {
                     isFirst = true;
@@ -269,6 +274,7 @@ namespace lStore
             int count = 1;
             while (count <= 10)
             {
+                localsync.ReportProgress(count);
                 while (!File.Exists(primaryFolder + @"\tmp\data_step_" + count.ToString() + ".data")) 
                 {
                     /**
@@ -289,7 +295,6 @@ namespace lStore
                 
                 //this makes code wait till data has been completely saved
                 string[] filesRows = File.ReadAllLines(primaryFolder + @"\tmp\data_step_" + count.ToString() + ".data");
-
                 /**
                  * assuming the rows be of format 
                  * id - filename - keyword - rating NEWLINE
@@ -301,9 +306,11 @@ namespace lStore
 
                 /**
                  * code to retrieve the default gateway ID shall be implemented outside the loop
+                 * #regions2 starts here ==================================
                  */
-                if (count == 1)
+                if (!isdgidRetrieved)
                 {
+                    isdgidRetrieved = true;
                     string tempstring = filesRows[0].Replace("-_-", @"\");
                     string[] tmparr = tempstring.Split('\\');
                     string defaultGateway = tmparr[1];
@@ -365,51 +372,64 @@ namespace lStore
                     }
                 }
                 /**
+                 * #region2 ends here =================================
                  * code to retrieve the default gateway ID ends
                  */
+
+
                 try
                 {
                     mycon.Open();
                 }
                 catch (Exception ex) { }
+
                 for (int i = 0; i < filesRows.Length;i++ )
                 {
                     filesRows[i] = filesRows[i].Replace("-_-",@"\");
-                    string[] arr = filesRows[i].Split('\\'); 
+                    string[] arr = filesRows[i].Split('\\');
                     try
                     {
                         /**
                          * note here: presently different @param scalars were created but
                          * resarch about using only one @param scalar for each insertion
-                         */ 
+                         */
                         command.CommandText = "INSERT INTO files (Id,filename,keywords,dg_id) VALUES (@param" + i.ToString() + "1,@param" + i.ToString() + "2,@param" + i.ToString() + "3,@param" + i.ToString() + "4)";
-                        command.Parameters.AddWithValue("param" + i.ToString() + "1", int.Parse(arr[0]));       //file id
+                        command.Parameters.AddWithValue("param" + i.ToString() + "1", int.Parse(arr[0]));        //file id
                         command.Parameters.AddWithValue("param" + i.ToString() + "2", arr[2]);                   //filename
-                        command.Parameters.AddWithValue("param" + i.ToString() + "3", arr[3].ToString());                  //keywords
+                        command.Parameters.AddWithValue("param" + i.ToString() + "3", arr[3].ToString());        //keywords
                         command.Parameters.AddWithValue("param" + i.ToString() + "4", default_gatewayID);
                         int countrow = command.ExecuteNonQuery();
                         if (countrow != 1)
                         {
                             File.AppendAllText(primaryFolder + @"\steps.txt", "INSERTION FAILED FOR ELEMENT_" + i.ToString() + Environment.NewLine);
                         }
-                        
+
+                    }
+                    catch (SqlException ex)
+                    { 
+                        /**
+                         * considering this to be due to unique id
+                         * this can be ignored
+                         */ 
                     }
                     catch (Exception ex)
                     {
-                       /**
-                        * these exception better be logged than shown directly
-                        * you might need to parse these exception in some sort and
-                        * make sure things work!
-                        */
+                        /**
+                         * these exception better be logged than shown directly
+                         * you might need to parse these exception in some sort and
+                         * make sure things work!
+                         */
                         File.AppendAllText(primaryFolder + @"\tmp\notinserted.data", filesRows[i] + Environment.NewLine);
                         if (ex.Message.IndexOf("UQ__files_") == -1)
                         {
                             File.AppendAllText(primaryFolder + @"\tmp\sync.log", ex.Message + Environment.NewLine);
                         }
-                    } 
+                    }
+                    int report = (int)((i / filesRows.Length) * 50) + 20;
+                    localsync.ReportProgress(report);
                 }
                 mycon.Close(); 
-                localsync.ReportProgress(5);
+                localsync.ReportProgress(70 + count);
                 count++;
             }
 
@@ -426,7 +446,36 @@ namespace lStore
             {
                 MessageBox.Show(lastError);
             }
-            progress.Value += e.ProgressPercentage;
+            if (e.ProgressPercentage > 0 && e.ProgressPercentage <= 10)
+            {
+                lslabel.Visible = true;
+                lslabel.Text = "[ " +e.ProgressPercentage +" / 10 ]";
+                localsyncprogressbar.Value = 0;
+                localsyncprogressbar.Visible = true;
+            }
+            if (e.ProgressPercentage >= 20 && e.ProgressPercentage <= 70)
+            { 
+                /**
+                 * reserved section for localsyncprogressbar
+                 */
+                try
+                {
+                    localsyncprogressbar.Value = (e.ProgressPercentage - 20) * 2;
+                }
+                catch (Exception ex) { localsyncprogressbar.Value = 100;  }
+            }
+            if (e.ProgressPercentage > 70)
+            { 
+                /**
+                 * for normal progress
+                 */
+                try
+                {
+                    progress.Value += e.ProgressPercentage;
+                }
+                catch (Exception ex) { progress.Value = 100; }
+            }
+            
         }
         private void localsync_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -435,11 +484,107 @@ namespace lStore
              * by this time configuration files should 
              * have been made
              */
+            localsyncprogressbar.Visible = false;
+            lslabel.Visible = false;
+            localSyncLabel.Text = "Finishing..";
+            localSyncLabel.Visible = true;
+            progress.Value = 0;
+            progress.Visible = true;
+            finisher.RunWorkerAsync();
+        }
+        private void log(string str)
+        { File.AppendAllText(primaryFolder +@"\s.txt",str +Environment.NewLine); }
+        /**
+         * background worker to refeed data to local system that could not be feeded at that time
+         * at first time
+         * #region1 begins================================
+         */
+        private void finisher_DoWork(object sender, DoWorkEventArgs e)
+        {
+            string file = primaryFolder + @"\tmp\notinserted.data";
+            if (File.Exists(file))
+            {
+                string[] entries = File.ReadAllLines(file);
+                int done = 0;
+                SqlConnection mycon = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\q4sp9x.mdf;Integrated Security=True;Connect Timeout=30");
+                var command = mycon.CreateCommand();
+                mycon.Open();
+                foreach (string entry in entries)
+                {
+                    string[] arr = entry.Split('\\');
+                    try
+                    {
+                        /**
+                         * note here: presently different @param scalars were created but
+                         * resarch about using only one @param scalar for each insertion
+                         */
+                        command.CommandText = "INSERT INTO files (Id,filename,keywords,dg_id) VALUES (@param" + done.ToString() + "1,@param" + done.ToString() + "2,@param" + done.ToString() + "3,@param" + done.ToString() + "4)";
+                        command.Parameters.AddWithValue("param" + done.ToString() + "1", int.Parse(arr[0]));       //file id
+                        command.Parameters.AddWithValue("param" + done.ToString() + "2", arr[2]);                   //filename
+                        command.Parameters.AddWithValue("param" + done.ToString() + "3", arr[3].ToString());                  //keywords
+                        command.Parameters.AddWithValue("param" + done.ToString() + "4", default_gatewayID);
+                        int countrow = command.ExecuteNonQuery();
+                        if (countrow != 1)
+                        {
+                            File.AppendAllText(primaryFolder + @"\steps.txt", "INSERTION FAILED FOR ELEMENT_ STEP2_ " + done.ToString() + Environment.NewLine);
+                        }
+                        finisher.ReportProgress((int)((done * 100) / entries.Length));
+
+                    }
+                    catch (Exception ex)
+                    {
+                        /**
+                         * these exception better be logged than shown directly
+                         * you might need to parse these exception in some sort and
+                         * make sure things work!
+                         */
+                        log("for id: " +arr[0] +" ex = " +ex.Message);
+                        File.AppendAllText(primaryFolder + @"\tmp\notinserted_.data", entry + Environment.NewLine);
+                        if (ex.Message.IndexOf("UQ__files_") == -1)
+                        {
+                            File.AppendAllText(primaryFolder + @"\tmp\sync.log", ex.Message + Environment.NewLine);
+                        }
+                    }
+                    done++;
+                }
+                mycon.Close();
+            }
+
+            /**
+             * code to delete temporary files
+             * for local sync
+             */ 
+            for (int i = 1; i <= 10; i++) 
+            {
+                File.Delete(primaryFolder + @"\tmp\data_step_" +i +".data");
+            }
+
+            /**
+             * need to uncomment these later
+             */ 
+            //File.Delete(primaryFolder + @"\tmp\notinserted.data");
+            //File.Delete(primaryFolder + @"\tmp\sync.log");
+        }
+
+        private void finisher_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            progress.Value = e.ProgressPercentage; 
+        }
+
+        private void finisher_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            progress.Value = 100;
+            proxyLabel.Visible = true;
+            proxyLabel.Text = "Woohoo! lStore has synced data with server! Click on finish to continue the process ";
+            closebutton.Visible = false;
             finishbutton.Visible = true;
             localSyncLabel.Visible = false;
         }
+        /**
+         * #region1 ends here ================================
+         */ 
 
-        /*
+        /**
          * function to send post request to any page and retrieve the content
          */ 
         public string SendPost(string url, string postData)
@@ -590,14 +735,6 @@ namespace lStore
              */
             localSyncLabel.Text = "Synchronysing...";
             onlinesync.RunWorkerAsync();
-
-            /*
-            isDataSyncOver = true;
-            if (isUserListRetrieved) 
-            {
-                finishbutton.Visible = true;
-            }
-            */
         }
 
         
@@ -607,8 +744,18 @@ namespace lStore
          */ 
         private void finishbutton_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Woohoo! lStore has synced data with server! Application shall restart now");
             Application.Restart();
+        }
+
+
+        private void buttonExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void closebutton_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
 
         private void firstTime_Load(object sender, EventArgs e)
@@ -616,24 +763,8 @@ namespace lStore
 
         }
 
-        private void buttonExit_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
 
-        
 
-        
-
-        
-
-        
-
-        
-
-        
-
-        
 
         
     }

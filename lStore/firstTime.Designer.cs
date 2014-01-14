@@ -44,15 +44,19 @@
             this.infoSender = new System.ComponentModel.BackgroundWorker();
             this.finishbutton = new System.Windows.Forms.Button();
             this.buttonExit = new System.Windows.Forms.Button();
+            this.closebutton = new System.Windows.Forms.Button();
+            this.localsyncprogressbar = new System.Windows.Forms.ProgressBar();
+            this.lslabel = new System.Windows.Forms.Label();
+            this.finisher = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(-2, -1);
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(951, 194);
+            this.pictureBox1.Size = new System.Drawing.Size(963, 201);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
@@ -61,7 +65,7 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.label1.Font = new System.Drawing.Font("Century Schoolbook", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(70, 262);
+            this.label1.Location = new System.Drawing.Point(72, 293);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(76, 34);
             this.label1.TabIndex = 1;
@@ -72,7 +76,7 @@
             this.stepCount.AutoSize = true;
             this.stepCount.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.stepCount.Font = new System.Drawing.Font("Lucida Sans Unicode", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.stepCount.Location = new System.Drawing.Point(12, 307);
+            this.stepCount.Location = new System.Drawing.Point(14, 338);
             this.stepCount.Name = "stepCount";
             this.stepCount.Size = new System.Drawing.Size(192, 59);
             this.stepCount.TabIndex = 2;
@@ -81,7 +85,7 @@
             // progress
             // 
             this.progress.ForeColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.progress.Location = new System.Drawing.Point(331, 344);
+            this.progress.Location = new System.Drawing.Point(333, 375);
             this.progress.Name = "progress";
             this.progress.Size = new System.Drawing.Size(478, 22);
             this.progress.TabIndex = 3;
@@ -90,7 +94,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(325, 309);
+            this.label2.Location = new System.Drawing.Point(327, 340);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(603, 19);
             this.label2.TabIndex = 4;
@@ -103,7 +107,7 @@
             this.shapeContainer1.Name = "shapeContainer1";
             this.shapeContainer1.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
             this.rectangleShape1});
-            this.shapeContainer1.Size = new System.Drawing.Size(947, 439);
+            this.shapeContainer1.Size = new System.Drawing.Size(963, 478);
             this.shapeContainer1.TabIndex = 5;
             this.shapeContainer1.TabStop = false;
             // 
@@ -112,9 +116,9 @@
             this.rectangleShape1.BackColor = System.Drawing.Color.PeachPuff;
             this.rectangleShape1.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque;
             this.rectangleShape1.BorderColor = System.Drawing.Color.Transparent;
-            this.rectangleShape1.Location = new System.Drawing.Point(0, 412);
+            this.rectangleShape1.Location = new System.Drawing.Point(0, 449);
             this.rectangleShape1.Name = "rectangleShape1";
-            this.rectangleShape1.Size = new System.Drawing.Size(947, 27);
+            this.rectangleShape1.Size = new System.Drawing.Size(963, 27);
             // 
             // label3
             // 
@@ -122,7 +126,7 @@
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.DarkRed;
-            this.label3.Location = new System.Drawing.Point(5, 417);
+            this.label3.Location = new System.Drawing.Point(5, 454);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(548, 16);
             this.label3.TabIndex = 6;
@@ -150,7 +154,7 @@
             this.localSyncLabel.BackColor = System.Drawing.Color.Transparent;
             this.localSyncLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.localSyncLabel.ForeColor = System.Drawing.Color.DarkCyan;
-            this.localSyncLabel.Location = new System.Drawing.Point(696, 415);
+            this.localSyncLabel.Location = new System.Drawing.Point(696, 452);
             this.localSyncLabel.Name = "localSyncLabel";
             this.localSyncLabel.Size = new System.Drawing.Size(182, 20);
             this.localSyncLabel.TabIndex = 7;
@@ -161,7 +165,7 @@
             this.proxyLabel.AutoSize = true;
             this.proxyLabel.BackColor = System.Drawing.Color.LavenderBlush;
             this.proxyLabel.Font = new System.Drawing.Font("Lucida Sans Unicode", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.proxyLabel.Location = new System.Drawing.Point(18, 205);
+            this.proxyLabel.Location = new System.Drawing.Point(22, 214);
             this.proxyLabel.Name = "proxyLabel";
             this.proxyLabel.Size = new System.Drawing.Size(137, 20);
             this.proxyLabel.TabIndex = 8;
@@ -181,10 +185,10 @@
             this.finishbutton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.finishbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.finishbutton.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.finishbutton.Location = new System.Drawing.Point(734, 372);
+            this.finishbutton.Location = new System.Drawing.Point(736, 403);
             this.finishbutton.Name = "finishbutton";
             this.finishbutton.Size = new System.Drawing.Size(75, 33);
-            this.finishbutton.TabIndex = 9;
+            this.finishbutton.TabIndex = 1;
             this.finishbutton.Text = "finish";
             this.finishbutton.UseVisualStyleBackColor = false;
             this.finishbutton.Visible = false;
@@ -196,7 +200,7 @@
             this.buttonExit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.buttonExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonExit.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonExit.Location = new System.Drawing.Point(773, 372);
+            this.buttonExit.Location = new System.Drawing.Point(775, 403);
             this.buttonExit.Name = "buttonExit";
             this.buttonExit.Size = new System.Drawing.Size(145, 33);
             this.buttonExit.TabIndex = 10;
@@ -205,12 +209,53 @@
             this.buttonExit.Visible = false;
             this.buttonExit.Click += new System.EventHandler(this.buttonExit_Click);
             // 
+            // closebutton
+            // 
+            this.closebutton.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.closebutton.ForeColor = System.Drawing.Color.Red;
+            this.closebutton.Location = new System.Drawing.Point(936, 4);
+            this.closebutton.Name = "closebutton";
+            this.closebutton.Size = new System.Drawing.Size(21, 23);
+            this.closebutton.TabIndex = 11;
+            this.closebutton.Text = "X";
+            this.closebutton.UseVisualStyleBackColor = false;
+            this.closebutton.Click += new System.EventHandler(this.closebutton_Click);
+            // 
+            // localsyncprogressbar
+            // 
+            this.localsyncprogressbar.Location = new System.Drawing.Point(14, 404);
+            this.localsyncprogressbar.Name = "localsyncprogressbar";
+            this.localsyncprogressbar.Size = new System.Drawing.Size(135, 10);
+            this.localsyncprogressbar.TabIndex = 12;
+            this.localsyncprogressbar.Visible = false;
+            // 
+            // lslabel
+            // 
+            this.lslabel.AutoSize = true;
+            this.lslabel.Location = new System.Drawing.Point(155, 401);
+            this.lslabel.Name = "lslabel";
+            this.lslabel.Size = new System.Drawing.Size(48, 13);
+            this.lslabel.TabIndex = 13;
+            this.lslabel.Text = "[ 1 / 10 ]";
+            this.lslabel.Visible = false;
+            // 
+            // finisher
+            // 
+            this.finisher.WorkerReportsProgress = true;
+            this.finisher.WorkerSupportsCancellation = true;
+            this.finisher.DoWork += new System.ComponentModel.DoWorkEventHandler(this.finisher_DoWork);
+            this.finisher.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.finisher_ProgressChanged);
+            this.finisher.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.finisher_RunWorkerCompleted);
+            // 
             // firstTime
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(947, 439);
+            this.ClientSize = new System.Drawing.Size(963, 478);
+            this.Controls.Add(this.lslabel);
+            this.Controls.Add(this.localsyncprogressbar);
+            this.Controls.Add(this.closebutton);
             this.Controls.Add(this.buttonExit);
             this.Controls.Add(this.finishbutton);
             this.Controls.Add(this.proxyLabel);
@@ -223,6 +268,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.shapeContainer1);
             this.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(963, 478);
@@ -253,5 +299,9 @@
         private System.ComponentModel.BackgroundWorker infoSender;
         private System.Windows.Forms.Button finishbutton;
         private System.Windows.Forms.Button buttonExit;
+        private System.Windows.Forms.Button closebutton;
+        private System.Windows.Forms.ProgressBar localsyncprogressbar;
+        private System.Windows.Forms.Label lslabel;
+        private System.ComponentModel.BackgroundWorker finisher;
     }
 }
