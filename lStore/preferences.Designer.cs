@@ -56,6 +56,7 @@
             this.browsebutton = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.closeonexitcb = new System.Windows.Forms.CheckBox();
             this.tabs.SuspendLayout();
             this.statistics.SuspendLayout();
             this.frequency.SuspendLayout();
@@ -356,7 +357,7 @@
             // 
             this.input_downloaddirec.Enabled = false;
             this.input_downloaddirec.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.input_downloaddirec.Location = new System.Drawing.Point(13, 335);
+            this.input_downloaddirec.Location = new System.Drawing.Point(13, 367);
             this.input_downloaddirec.Name = "input_downloaddirec";
             this.input_downloaddirec.Size = new System.Drawing.Size(208, 23);
             this.input_downloaddirec.TabIndex = 14;
@@ -367,7 +368,7 @@
             this.browsebutton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.browsebutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.browsebutton.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.browsebutton.Location = new System.Drawing.Point(224, 335);
+            this.browsebutton.Location = new System.Drawing.Point(224, 367);
             this.browsebutton.Name = "browsebutton";
             this.browsebutton.Size = new System.Drawing.Size(65, 25);
             this.browsebutton.TabIndex = 15;
@@ -379,7 +380,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(294, 335);
+            this.label4.Location = new System.Drawing.Point(294, 367);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(139, 23);
             this.label4.TabIndex = 6;
@@ -396,12 +397,25 @@
             this.label5.TabIndex = 17;
             this.label5.Text = "Preferences";
             // 
+            // closeonexitcb
+            // 
+            this.closeonexitcb.AutoSize = true;
+            this.closeonexitcb.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.closeonexitcb.Location = new System.Drawing.Point(13, 331);
+            this.closeonexitcb.Name = "closeonexitcb";
+            this.closeonexitcb.Size = new System.Drawing.Size(405, 23);
+            this.closeonexitcb.TabIndex = 18;
+            this.closeonexitcb.Text = "Close on exit [will be minimised to system tray by default]";
+            this.closeonexitcb.UseVisualStyleBackColor = true;
+            this.closeonexitcb.CheckedChanged += new System.EventHandler(this.closeonexitcb_CheckedChanged);
+            // 
             // preferences
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(510, 524);
+            this.Controls.Add(this.closeonexitcb);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.browsebutton);
@@ -466,5 +480,6 @@
         private System.Windows.Forms.Button browsebutton;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.CheckBox closeonexitcb;
     }
 }

@@ -25,7 +25,7 @@ namespace lStore
         public int imdb, searchsuggestion;
         public int crawlFreq, syncFreq, statsFreq;
         public int searchStats, bugsStats, internetusageStats, usageStats;
-        public int useOtherInternet;
+        public int useOtherInternet,closeOnexit;
         public string downloadDirectory;
         /**
          * #region1 ends here ========================
@@ -53,6 +53,7 @@ namespace lStore
             usageStats = int.Parse(getDataFromXML("usage"));
             useOtherInternet = int.Parse(getDataFromXML("useotherinternet"));
             downloadDirectory = getDataFromXML("download");
+            closeOnexit = int.Parse(getDataFromXML("closeonexit"));
         }
 
         private void preferences_Load(object sender, EventArgs e)
@@ -101,6 +102,10 @@ namespace lStore
             {
                 check_internet.Checked = true;
             }
+            if (closeOnexit == 1)
+            {
+                closeonexitcb.Checked = true;
+            }
             input_downloaddirec.Text = downloadDirectory;
 
 
@@ -145,6 +150,7 @@ namespace lStore
             xml += "<internetusage>1</internetusage>" + Environment.NewLine;
             xml += "<useotherinternet>0</useotherinternet>" + Environment.NewLine;
             xml += "<download>" + defaultDownloaddirec + "</download>" + Environment.NewLine;
+            xml += "<closeonexit>0</closeonexit>";
             xml += "</settings>" + Environment.NewLine;
             File.WriteAllText(xmlfile, xml);
             if (!Directory.Exists(defaultDownloaddirec))
@@ -223,6 +229,10 @@ namespace lStore
             useOtherInternet = (check_internet.Checked) ? 1 : 0;
         }
 
+        private void closeonexitcb_CheckedChanged(object sender, EventArgs e)
+        {
+            closeOnexit = (closeonexitcb.Checked) ? 1 : 0;
+        }
         
 
         /**
@@ -272,6 +282,7 @@ namespace lStore
             xml += "<internetusage>" + internetusageStats + "</internetusage>" + Environment.NewLine;
             xml += "<useotherinternet>" + useOtherInternet + "</useotherinternet>" + Environment.NewLine;
             xml += "<download>" + downloadDirectory + "</download>" + Environment.NewLine;
+            xml += "<closeonexit>" +closeOnexit +"</closeonexit>";
             xml += "</settings>" + Environment.NewLine;
             File.WriteAllText(xmlfile,xml);
         }
@@ -286,5 +297,7 @@ namespace lStore
             downloadDirectory = fbd.SelectedPath.ToString();
             input_downloaddirec.Text = downloadDirectory;
         }
+
+        
     }
 }

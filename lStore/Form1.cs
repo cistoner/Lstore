@@ -1192,17 +1192,27 @@ namespace lStore
        }
        private void lStore_FormClosing(object sender, FormClosingEventArgs e)
        {
-           /** 
-            * a dialog box for confirmation if you want to exit
-            */
-           if (e.CloseReason == CloseReason.UserClosing)
+           try
            {
-               notifICO.BalloonTipTitle = "Minimised to system tray";
-               notifICO.BalloonTipText = "You can access lStore from Notification panel anytime. Stay connected!";
-               notifICO.ShowBalloonTip(1000);
-               notifICO.Visible = true;
-               this.Hide();
-               e.Cancel = true;
+               if (prefObj.closeOnexit == 0)
+               {
+                   /** 
+                    * a dialog box for confirmation if you want to exit
+                    */
+                   if (e.CloseReason == CloseReason.UserClosing)
+                   {
+                       notifICO.BalloonTipTitle = "Minimised to system tray";
+                       notifICO.BalloonTipText = "You can access lStore from Notification panel anytime. Stay connected!";
+                       notifICO.ShowBalloonTip(1000);
+                       notifICO.Visible = true;
+                       this.Hide();
+                       e.Cancel = true;
+                   }
+               }
+           }
+           catch (Exception ex)
+           {
+               prefObj = new preferences();
            }
        }
        private void filterUser_MouseClick(object sender, MouseEventArgs e)
