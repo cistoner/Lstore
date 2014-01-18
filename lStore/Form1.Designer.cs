@@ -94,6 +94,7 @@
             this.tooltip_preferences = new System.Windows.Forms.ToolTip(this.components);
             this.searchlabel = new System.Windows.Forms.Label();
             this.resultcount = new System.Windows.Forms.Label();
+            this.downloader = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.profilepic)).BeginInit();
             this.notifIconMenu.SuspendLayout();
             this.lv_menu.SuspendLayout();
@@ -200,7 +201,7 @@
             this.icon_switchlistview.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("icon_switchlistview.BackgroundImage")));
             this.icon_switchlistview.BorderColor = System.Drawing.Color.Transparent;
             this.icon_switchlistview.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom;
-            this.icon_switchlistview.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.icon_switchlistview.Cursor = System.Windows.Forms.Cursors.Default;
             this.icon_switchlistview.Location = new System.Drawing.Point(1199, 183);
             this.icon_switchlistview.Name = "icon_switchlistview";
             this.icon_switchlistview.SelectionColor = System.Drawing.Color.Transparent;
@@ -239,7 +240,7 @@
             this.icon_message.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("icon_message.BackgroundImage")));
             this.icon_message.BorderColor = System.Drawing.Color.Transparent;
             this.icon_message.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom;
-            this.icon_message.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.icon_message.Cursor = System.Windows.Forms.Cursors.Default;
             this.icon_message.Location = new System.Drawing.Point(1049, 183);
             this.icon_message.Name = "icon_message";
             this.icon_message.SelectionColor = System.Drawing.Color.Transparent;
@@ -251,7 +252,7 @@
             this.icon_track.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("icon_track.BackgroundImage")));
             this.icon_track.BorderColor = System.Drawing.Color.Transparent;
             this.icon_track.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom;
-            this.icon_track.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.icon_track.Cursor = System.Windows.Forms.Cursors.Default;
             this.icon_track.Location = new System.Drawing.Point(1099, 183);
             this.icon_track.Name = "icon_track";
             this.icon_track.SelectionColor = System.Drawing.Color.Transparent;
@@ -263,7 +264,7 @@
             this.icon_rate.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("icon_rate.BackgroundImage")));
             this.icon_rate.BorderColor = System.Drawing.Color.Transparent;
             this.icon_rate.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom;
-            this.icon_rate.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.icon_rate.Cursor = System.Windows.Forms.Cursors.Default;
             this.icon_rate.Location = new System.Drawing.Point(1149, 183);
             this.icon_rate.Name = "icon_rate";
             this.icon_rate.SelectionColor = System.Drawing.Color.Transparent;
@@ -277,7 +278,7 @@
             this.icon_preferences.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("icon_preferences.BackgroundImage")));
             this.icon_preferences.BorderColor = System.Drawing.Color.Transparent;
             this.icon_preferences.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom;
-            this.icon_preferences.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.icon_preferences.Cursor = System.Windows.Forms.Cursors.Default;
             this.icon_preferences.Location = new System.Drawing.Point(1249, 183);
             this.icon_preferences.Name = "icon_preferences";
             this.icon_preferences.SelectionColor = System.Drawing.Color.Transparent;
@@ -437,6 +438,7 @@
             this.notifICO.Icon = ((System.Drawing.Icon)(resources.GetObject("notifICO.Icon")));
             this.notifICO.Text = "lStore: LAN Sharing simplified";
             this.notifICO.Visible = true;
+            this.notifICO.DoubleClick += new System.EventHandler(this.notifICO_DoubleClick);
             // 
             // notifIconMenu
             // 
@@ -784,6 +786,11 @@
             this.resultcount.Text = "no result found";
             this.resultcount.Visible = false;
             // 
+            // downloader
+            // 
+            this.downloader.WorkerReportsProgress = true;
+            this.downloader.WorkerSupportsCancellation = true;
+            // 
             // lStore
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -904,6 +911,7 @@
         private Microsoft.VisualBasic.PowerPacks.RectangleShape icon_about;
         private System.Windows.Forms.Label searchlabel;
         private System.Windows.Forms.Label resultcount;
+        private System.ComponentModel.BackgroundWorker downloader;
     }
 }
 

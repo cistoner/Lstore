@@ -39,14 +39,9 @@ namespace lStore
             xmlfile = primaryFolder + @"\settings.ini";
             if (!File.Exists(xmlfile)) { repairPreferences(); }
             xmldata = File.ReadAllText(xmlfile);
-            
-        }
-
-        private void preferences_Load(object sender, EventArgs e)
-        {
-           /**
-            * code to load preferences from xml
-            */
+            /**
+             * code to load preferences from xml
+             */
             searchsuggestion = int.Parse(getDataFromXML("searchsuggestion"));
             imdb = int.Parse(getDataFromXML("imdb"));
             crawlFreq = int.Parse(getDataFromXML("crawl"));
@@ -58,6 +53,11 @@ namespace lStore
             usageStats = int.Parse(getDataFromXML("usage"));
             useOtherInternet = int.Parse(getDataFromXML("useotherinternet"));
             downloadDirectory = getDataFromXML("download");
+        }
+
+        private void preferences_Load(object sender, EventArgs e)
+        {
+           
             /**
              * checking the form checkboxes depending upon values in xml
              */ 

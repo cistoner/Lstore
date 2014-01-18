@@ -18,6 +18,7 @@ using System.Web;
 using System.Collections.Specialized;
 using System.Windows;
 using System.Data.SqlClient;
+using Microsoft.VisualBasic.FileIO;
 
 //=========================================namespaces till here==============
 namespace lStore
@@ -41,7 +42,7 @@ namespace lStore
         public string selectedCategory = "";    //category for search
         public int selectedSortByVal = -1;      //int val for selected option in sort by select box @ default = 0
         public bool needRefresh = false;
-
+        private string lasterror = string.Empty;
         /**
          * for preferences
          */
@@ -111,9 +112,7 @@ namespace lStore
              */
             saveUsage();    //
             bottombar_label2.Text = "";
-            pingLabel.Visible = false;
-            //backbutton.Visible = false;
-            //presentLocation.Visible = false;           
+            pingLabel.Visible = false;         
 
             /*
             TitleBarButtons titleBar = new TitleBarButtons();
@@ -351,8 +350,8 @@ namespace lStore
                 foreach(string a in user)
                 {
                     onlineUsercount++;
-                    onlineUserS.Add(a);
-                    onlineUsers.Items.Add(a);
+                    onlineUserS.Add(a.ToLower());
+                    onlineUsers.Items.Add(a.ToLower());
                 }
             }
             countOnline.Text = "( " + onlineUsercount + " )";
@@ -377,8 +376,8 @@ namespace lStore
                 foreach (string a in user)
                 {
                     onlineUsercount++;
-                    onlineUserS.Add(a);
-                    onlineUsers.Items.Add(a);
+                    onlineUserS.Add(a.ToLower());
+                    onlineUsers.Items.Add(a.ToLower());
                 }
             }
             countOnline.Text = "( " + onlineUsercount + " )";
@@ -395,7 +394,7 @@ namespace lStore
             foreach (string a in onlineUserS)
             {
                 onlineUsercount++;
-                onlineUsers.Items.Add(a);
+                onlineUsers.Items.Add(a.ToLower());
             }
             countOnline.Text = "( " + onlineUsercount + " )";
 
@@ -544,9 +543,12 @@ namespace lStore
            searchprogressbar.Visible = true;
            loader.Visible = true;
            string key = search.Text;
-           if (key == "  Search here..." || key.Length == 0)
+           if (key == "search here..." || key.Length == 0)
            {
-               tmpLog.Text = "Enter Something first!";
+               searchlabel.Text = "Enter Something first!";
+               searchlabel.Visible = true;
+               searchprogressbar.Visible = false;
+               loader.Visible = false;
                search.Focus();
                return;
            }
@@ -567,6 +569,8 @@ namespace lStore
                    searchstring += " Sort by: [ " + sortbySelectBox.SelectedItem.ToString() + " ] ";
                }
 
+               searchprogressbar.Value = 5;
+
                /**
                 * view search label
                 */
@@ -579,8 +583,21 @@ namespace lStore
 
                /**
                 * perform search
-                */ 
-               searchbgw.RunWorkerAsync();
+                */
+               bool done = false;
+               while (!done)
+               {
+                   try
+                   {
+                       searchbgw.RunWorkerAsync();
+                       done = true;
+                   }
+                   catch (InvalidOperationException ex)
+                   {
+                       searchbgw.CancelAsync();
+                       System.Threading.Thread.Sleep(50);
+                   }
+               }
            }
        }
 
@@ -676,7 +693,7 @@ namespace lStore
                /**
                 * checks if the current user is online
                 */ 
-               if (onlineUserS.Contains(crawler.getOwner(tmp)) || true)
+               if (onlineUserS.Contains(crawler.getOwner(tmp)))
                {
                    int id = searchresult.IndexOf(result);
                    workspace.Items.Add(new ListViewItem(new string[] { tmp,tmp, crawler.getOwner(tmp), "", "Available", searchresultRating[id].ToString() }));
@@ -1097,7 +1114,6 @@ namespace lStore
            /**
             * can add code to re-search on category change
             */
-           performSearch();
        }
 
         /** 
@@ -1169,9 +1185,8 @@ namespace lStore
          */ 
        private void lStore_FormClosed(object sender, FormClosedEventArgs e)
        {
-           this.Hide();
-           notifICO.BalloonTipTitle = "Minimised to system tray";
-           notifICO.BalloonTipText = "You can access lStore from Notification panel anytime. Stay connected!";
+           notifICO.BalloonTipTitle = "lStore says \"bye bye\"";
+           notifICO.BalloonTipText = "lStore will be waiting for you. Stay connected!";
            notifICO.ShowBalloonTip(1000);
            System.Threading.Thread.Sleep(3000);
        }
@@ -1180,6 +1195,15 @@ namespace lStore
            /** 
             * a dialog box for confirmation if you want to exit
             */
+           if (e.CloseReason == CloseReason.UserClosing)
+           {
+               notifICO.BalloonTipTitle = "Minimised to system tray";
+               notifICO.BalloonTipText = "You can access lStore from Notification panel anytime. Stay connected!";
+               notifICO.ShowBalloonTip(1000);
+               notifICO.Visible = true;
+               this.Hide();
+               e.Cancel = true;
+           }
        }
        private void filterUser_MouseClick(object sender, MouseEventArgs e)
        {
@@ -1465,41 +1489,77 @@ namespace lStore
         }
 
         /**
+         * variable to hold download sourcepath
+         */
+        private string sourcePath = string.Empty; 
+
+        /**
          * code to donwload a certain thing to download directory
          */ 
         private void lv_menu_download_Click(object sender, EventArgs e)
         {
             try
             {
-                if (!Directory.Exists(prefObj.downloadDirectory))
-                {
-                    Directory.CreateDirectory(prefObj.downloadDirectory);
-                }
-
-                /**
-                 * copy to clipboard
-                 */
-                paths.Clear();
-                try
-                {
-                    paths.Add(workspace.SelectedItems[0].Text);
-                    Clipboard.SetFileDropList(paths);
-                }
-                catch (Exception ex)
-                {
-                    saveException(ex.Message);
-                    return;
-                }
-
-                /**
-                 * paste to directory
-                 */
+                sourcePath = workspace.SelectedItems[0].Text;
+                //downloader.RunWorkerAsync();
+                Thread thread = new Thread(downloadContent);
+                thread.Start();
             }
-            catch (ArgumentNullException ex) {
-                MessageBox.Show("Cannot download NULL content");
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show("Another copy operation running. You can download only one file at a time!");
             }
 
         }
+        private void downloadContent()
+        {
+            try
+            {
+                try
+                {
+                    if (!Directory.Exists(prefObj.downloadDirectory))
+                    {
+                        Directory.CreateDirectory(prefObj.downloadDirectory);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    prefObj = new preferences();
+                }
+
+                // Choose a destination for the copied files. 
+                string destinationPath = prefObj.downloadDirectory;
+                string filename = crawler.getFilename(sourcePath);
+
+                try
+                {
+                    FileSystem.CopyDirectory(sourcePath, destinationPath + @"\" + filename, UIOption.AllDialogs);
+                }
+                catch (Exception)
+                {
+                    try
+                    {
+                        FileSystem.CopyFile(sourcePath, destinationPath + @"\" + filename, UIOption.AllDialogs);
+                    }
+                    catch (Exception ex)
+                    {
+                        lasterror = "Unable to download [exception]: " + ex.Message;
+                        //report error here
+
+                    }
+                }
+            }
+            catch (ArgumentNullException ex)
+            {
+                lasterror = "Cannot download NULL content [exception]" + ex.Message;
+                //report error here
+            }
+        }
+
+
+
+        
+
 
         private void icon_about_Click(object sender, EventArgs e)
         {
@@ -1561,6 +1621,18 @@ namespace lStore
             searchlabel.Visible = false;
             tmpLog.Visible = false;
         }
+
+        /**
+         * function called when user double clicks on notif icon
+         */ 
+        private void notifICO_DoubleClick(object sender, EventArgs e)
+        {
+            this.Show();
+        }
+
+        
+
+        
 
   
    }
